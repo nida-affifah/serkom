@@ -1,7 +1,9 @@
 // src/services/api.js
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:5001/api';
+const API_BASE_URL = import.meta.env.VITE_API_URL
+    ? `${import.meta.env.VITE_API_URL}/api`
+    : 'http://localhost:5001/api';
 
 const api = axios.create({
     baseURL: API_BASE_URL,
@@ -20,6 +22,7 @@ api.interceptors.request.use(
     },
     (error) => Promise.reject(error)
 );
+
 // Interceptor response
 api.interceptors.response.use(
     response => response,
@@ -28,9 +31,6 @@ api.interceptors.response.use(
             const message = error.response.data?.pesan || 'Terjadi kesalahan';
             const token = localStorage.getItem('token');
 
-            // Hanya redirect ke login kalau sebelumnya sudah login (ada token)
-            // dan token-nya expired/invalid.
-            // Kalau belum login (tidak ada token), 401 cukup di-reject tanpa redirect.
             if (error.response.status === 401 && token) {
                 localStorage.removeItem('token');
                 localStorage.removeItem('user');
@@ -49,7 +49,6 @@ export const authAPI = {
     login: (data) => api.post('/auth/login', data),
     register: (data) => api.post('/auth/register', data),
     me: () => api.get('/auth/me'),
-    // Admin: kelola user
     tambahUser: (data) => api.post('/auth/tambah-user', data),
     getAllUsers: () => api.get('/auth/users'),
     updateUser: (id, data) => api.put(`/auth/users/${id}`, data),
@@ -160,7 +159,7 @@ export const voucherAPI = {
     update: (id, data) => api.put(`/voucher/${id}`, data),
     delete: (id) => api.delete(`/voucher/${id}`),
     cek: (data) => api.post('/voucher/cek', data),
-    getAktif: () => api.get('/voucher/aktif'),   // ← TAMBAHKAN INI
+    getAktif: () => api.get('/voucher/aktif'),
 };
 
 // ============================================
@@ -237,7 +236,6 @@ export const masterAPI = {
 // PEGAWAI API
 // ============================================
 export const pegawaiAPI = {
-    // Perajin
     perajin: {
         getAll: () => api.get('/pegawai/perajin'),
         getById: (id) => api.get(`/pegawai/perajin/${id}`),
@@ -245,7 +243,6 @@ export const pegawaiAPI = {
         update: (id, data) => api.put(`/pegawai/perajin/${id}`, data),
         delete: (id) => api.delete(`/pegawai/perajin/${id}`)
     },
-    // Kasir
     kasir: {
         getAll: () => api.get('/pegawai/kasir'),
         getById: (id) => api.get(`/pegawai/kasir/${id}`),
@@ -253,7 +250,6 @@ export const pegawaiAPI = {
         update: (id, data) => api.put(`/pegawai/kasir/${id}`, data),
         delete: (id) => api.delete(`/pegawai/kasir/${id}`)
     },
-    // Staff Gudang
     staff: {
         getAll: () => api.get('/pegawai/staff-gudang'),
         getById: (id) => api.get(`/pegawai/staff-gudang/${id}`),
