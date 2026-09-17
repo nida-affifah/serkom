@@ -37,7 +37,10 @@ app.use(cors({
     origin: [
         'http://localhost:5173',
         'http://localhost:3000',
-        /\.up\.railway\.app$/
+        /\.up\.railway\.app$/,
+        /\.rajutindah\.my\.id$/,
+        'https://toko.rajutindah.my.id',
+        'https://portfolio.rajutindah.my.id'
     ],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
