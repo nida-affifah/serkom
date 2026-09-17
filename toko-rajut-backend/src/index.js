@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 require('dotenv').config();
 
 require('./config/database');
@@ -31,17 +32,21 @@ const bahanRoutes = require('./routes/bahan');
 const app = express();
 const PORT = process.env.PORT || 5001;
 
-// CORS: izinkan semua origin di development
-// Nanti kalau production, ganti dengan domain frontend
+// CORS
 app.use(cors({
-    origin: '*',
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+    origin: [
+        'http://localhost:5173',
+        'http://localhost:3000',
+        /\.up\.railway\.app$/
+    ],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
 }));
 
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
-app.use('/uploads', express.static('uploads'));
+app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
 
 // Root endpoint
 app.get('/', (req, res) => {
@@ -85,6 +90,6 @@ app.use('/api/bahan', bahanRoutes);
 app.use(notFound);
 app.use(errorHandler);
 
-app.listen(PORT, () => {
-    console.log(`Server jalan di http://localhost:${PORT}`);
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Server jalan di port ${PORT}`);
 });
