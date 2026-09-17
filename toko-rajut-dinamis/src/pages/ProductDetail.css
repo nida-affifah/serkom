@@ -1,12 +1,20 @@
 /* src/pages/ProductDetail.css */
 
 /* ═══════════════════════════════════════
+   ROOT VARIABLE — TINGGI NAVBAR
+   ═══════════════════════════════════════ */
+:root {
+    --navbar-height: 124px;
+    --navbar-gap: 36px;
+}
+
+/* ═══════════════════════════════════════
    PAGE CONTAINER
    ═══════════════════════════════════════ */
 .product-detail-page {
     position: relative;
     min-height: 100vh;
-    padding: 100px 2rem 80px;
+    padding: calc(var(--navbar-height) + var(--navbar-gap)) 2rem 80px;
     background: #f5f3ff;
     overflow: hidden;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -16,7 +24,7 @@
 .product-detail-page::before {
     content: "";
     position: absolute;
-    top: 80px;
+    top: calc(var(--navbar-height) + 20px);
     right: -80px;
     width: 320px;
     height: 320px;
@@ -90,7 +98,7 @@
    ═══════════════════════════════════════ */
 .product-detail-error {
     max-width: 500px;
-    margin: 120px auto;
+    margin: calc(var(--navbar-height) + 40px) auto 120px;
     padding: 40px 32px;
     text-align: center;
     background: #fff;
@@ -558,11 +566,20 @@
 }
 
 /* ═══════════════════════════════════════
-   RESPONSIVE
+   RESPONSIVE — SESUAI NAVBAR
    ═══════════════════════════════════════ */
+
+/* Tablet (≤992px) — navbar mobile mode, logo sedikit mengecil */
 @media (max-width: 992px) {
+    :root {
+        --navbar-height: 114px;
+        --navbar-gap: 36px;
+    }
+
     .product-detail-page {
-        padding: 80px 1.5rem 60px;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+        padding-bottom: 60px;
     }
 
     .product-detail-grid {
@@ -576,9 +593,17 @@
     }
 }
 
+/* Mobile (≤640px) — logo & toggle 38px, baris atas lebih pendek */
 @media (max-width: 640px) {
+    :root {
+        --navbar-height: 106px;
+        --navbar-gap: 36px;
+    }
+
     .product-detail-page {
-        padding: 70px 1rem 50px;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        padding-bottom: 50px;
     }
 
     .btn-back-products {
@@ -666,7 +691,13 @@
     }
 }
 
-@media (max-width: 400px) {
+/* Mobile kecil (≤480px) — padding navbar paling minimal */
+@media (max-width: 480px) {
+    :root {
+        --navbar-height: 102px;
+        --navbar-gap: 34px;
+    }
+
     .product-name {
         font-size: 1.3rem;
     }

@@ -1,9 +1,17 @@
 /* src/pages/AdminProducts.css */
 
+/* ═══════════════════════════════════════
+   ROOT VARIABLE — TINGGI NAVBAR
+   ═══════════════════════════════════════ */
+:root {
+    --navbar-height: 124px;
+    --navbar-gap: 36px;
+}
+
 .admin-page {
     position: relative;
     min-height: 100vh;
-    padding: 160px 0 60px;
+    padding: calc(var(--navbar-height) + var(--navbar-gap)) 0 60px;
     background: #f5f3ff;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     color: #1a1a1a;
@@ -387,30 +395,6 @@
     box-shadow: 5px 5px 0 #1a1a1a;
 }
 
-/* RESPONSIVE */
-@media (max-width: 640px) {
-    .admin-container {
-        padding: 0 1rem;
-    }
-
-    .admin-form-row {
-        grid-template-columns: 1fr;
-    }
-
-    .admin-title {
-        font-size: 1.5rem;
-    }
-
-    .admin-table {
-        font-size: 0.8rem;
-    }
-
-    .admin-table th,
-    .admin-table td {
-        padding: 8px;
-    }
-}
-
 /* ═══════════════════════════════════════
    LABA & MARGIN
    ═══════════════════════════════════════ */
@@ -539,12 +523,6 @@
     margin-bottom: 12px;
 }
 
-@media (max-width: 600px) {
-    .item-field-row {
-        grid-template-columns: 1fr;
-    }
-}
-
 /* Status stok per bahan di form resep */
 .stok-status {
     display: flex;
@@ -604,4 +582,71 @@
     background: #fff8e1;
     color: #b26a00;
     border: 1px solid #ffe082;
+}
+
+/* ═══════════════════════════════════════
+   RESPONSIVE — SESUAI NAVBAR
+   ═══════════════════════════════════════ */
+
+/* Tablet (≤992px) — navbar mobile mode, logo sedikit mengecil */
+@media (max-width: 992px) {
+    :root {
+        --navbar-height: 114px;
+        --navbar-gap: 36px;
+    }
+}
+
+/* Mobile (≤640px) — logo & toggle 38px, baris atas lebih pendek */
+@media (max-width: 640px) {
+    :root {
+        --navbar-height: 106px;
+        --navbar-gap: 36px;
+    }
+
+    .admin-container {
+        padding: 0 1rem;
+    }
+
+    .admin-form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-title {
+        font-size: 1.5rem;
+    }
+
+    .admin-table {
+        font-size: 0.8rem;
+    }
+
+    .admin-table th,
+    .admin-table td {
+        padding: 8px;
+    }
+}
+
+/* Mobile kecil (≤480px) — padding navbar paling minimal */
+@media (max-width: 480px) {
+    :root {
+        --navbar-height: 102px;
+        --navbar-gap: 34px;
+    }
+}
+
+/* Mobile sangat kecil */
+@media (max-width: 600px) {
+    .item-field-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ═══════════════════════════════════════
+   REDUCED MOTION
+   ═══════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
 }
