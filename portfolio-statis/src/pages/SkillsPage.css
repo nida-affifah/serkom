@@ -1,0 +1,400 @@
+﻿/* src/pages/SkillsPage.css */
+.skills-page {
+    position: relative;
+    padding: 120px 20px 80px;
+    min-height: 100vh;
+    background: #f5f3ff;
+    overflow: hidden;
+}
+
+.skills-page::before {
+    content: "";
+    position: absolute;
+    top: 80px;
+    right: -80px;
+    width: 300px;
+    height: 300px;
+    background: #ec4899;
+    border: 3px solid #1a1a1a;
+    border-radius: 50%;
+    opacity: 0.12;
+    z-index: 0;
+}
+
+.skills-page::after {
+    content: "";
+    position: absolute;
+    bottom: 100px;
+    left: -100px;
+    width: 240px;
+    height: 240px;
+    background: #8b5cf6;
+    border: 3px solid #1a1a1a;
+    border-radius: 40px;
+    transform: rotate(18deg);
+    opacity: 0.12;
+    z-index: 0;
+}
+
+.skills-page .container {
+    position: relative;
+    z-index: 1;
+    max-width: 1140px;
+    margin: 0 auto;
+}
+
+/* ── HEADER ── */
+.page-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.page-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 20px;
+    background: #fff;
+    border: 2.5px solid #1a1a1a;
+    border-radius: 100px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    box-shadow: 4px 4px 0 #1a1a1a;
+    margin-bottom: 24px;
+}
+
+.badge-icon {
+    font-size: 1rem;
+}
+
+.page-title {
+    font-size: 3.2rem;
+    font-weight: 900;
+    color: #1a1a1a;
+    letter-spacing: -2px;
+    line-height: 1.05;
+    margin-bottom: 18px;
+}
+
+.page-title .highlight {
+    display: inline-block;
+    padding: 0 12px;
+    background: linear-gradient(120deg, #8b5cf6, #ec4899);
+    color: #fff;
+    border: 3px solid #1a1a1a;
+    border-radius: 14px;
+    box-shadow: 6px 6px 0 #1a1a1a;
+    transform: rotate(-2deg);
+}
+
+.page-subtitle {
+    font-size: 1.05rem;
+    color: #4b5563;
+    max-width: 560px;
+    margin: 20px auto 0;
+    line-height: 1.7;
+    font-weight: 500;
+}
+
+/* ── TABS ── */
+.skills-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+.tab-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 20px;
+    background: #fff;
+    color: #1a1a1a;
+    border: 2.5px solid #1a1a1a;
+    border-radius: 100px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    box-shadow: 4px 4px 0 #1a1a1a;
+    transition: all 0.2s ease;
+}
+
+.tab-btn:hover {
+    background: #faf5ff;
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 #1a1a1a;
+}
+
+.tab-btn.active {
+    background: linear-gradient(120deg, #8b5cf6, #ec4899);
+    color: #fff;
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 #1a1a1a;
+}
+
+/* ── PANEL ── */
+.skills-panel {
+    padding: 44px 40px;
+    background: rgba(255, 255, 255, 0.78);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 2.5px solid #1a1a1a;
+    border-radius: 28px;
+    box-shadow: 12px 12px 0 #1a1a1a;
+    margin-bottom: 60px;
+}
+
+.panel-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 32px;
+    padding-bottom: 22px;
+    border-bottom: 2px dashed #e9d5ff;
+}
+
+.panel-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 54px;
+    height: 54px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #8b5cf6, #ec4899);
+    color: #fff;
+    font-size: 1.4rem;
+    border: 2.5px solid #1a1a1a;
+    box-shadow: 4px 4px 0 #1a1a1a;
+}
+
+.panel-title {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: #1a1a1a;
+    letter-spacing: -0.5px;
+    margin: 0;
+}
+
+/* ── SKILLS GRID ── */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.skill-card {
+    padding: 22px 22px 20px;
+    background: #fff;
+    border: 2.5px solid #1a1a1a;
+    border-radius: 18px;
+    box-shadow: 5px 5px 0 #1a1a1a;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.skill-card:nth-child(3n+1) { background: #faf5ff; }
+.skill-card:nth-child(3n+2) { background: #fdf2f8; }
+
+.skill-card:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 8px 8px 0 #8b5cf6;
+}
+
+.skill-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.skill-card-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #8b5cf6, #ec4899);
+    color: #fff;
+    font-size: 1.15rem;
+    border: 2px solid #1a1a1a;
+    box-shadow: 3px 3px 0 #1a1a1a;
+    flex-shrink: 0;
+}
+
+.skill-card-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.skill-card-name {
+    font-size: 0.98rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    line-height: 1.3;
+    letter-spacing: -0.2px;
+    margin-bottom: 4px;
+}
+
+.skill-card-cat {
+    display: inline-block;
+    padding: 2px 10px;
+    background: #fff;
+    color: #8b5cf6;
+    border: 2px solid #1a1a1a;
+    border-radius: 100px;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    box-shadow: 2px 2px 0 #1a1a1a;
+}
+
+.skill-card-percent {
+    font-size: 0.95rem;
+    font-weight: 900;
+    color: #1a1a1a;
+    letter-spacing: -0.3px;
+    flex-shrink: 0;
+}
+
+.skill-progress {
+    height: 12px;
+    background: #f3eefe;
+    border: 2px solid #1a1a1a;
+    border-radius: 100px;
+    overflow: hidden;
+}
+
+.skill-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #8b5cf6, #ec4899);
+    border-radius: 100px;
+    transition: width 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ── STATS ── */
+.skills-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.stat-box {
+    padding: 28px 22px;
+    background: #fff;
+    border: 2.5px solid #1a1a1a;
+    border-radius: 20px;
+    box-shadow: 6px 6px 0 #1a1a1a;
+    text-align: center;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.stat-box:nth-child(1) { background: #faf5ff; }
+.stat-box:nth-child(2) { background: #fdf2f8; }
+.stat-box:nth-child(3) { background: #eff6ff; }
+
+.stat-box:hover {
+    transform: translate(-4px, -4px);
+    box-shadow: 10px 10px 0 #8b5cf6;
+}
+
+.stat-box-icon {
+    font-size: 1.6rem;
+    margin-bottom: 12px;
+}
+
+.stat-box-icon.purple { color: #8b5cf6; }
+.stat-box-icon.pink   { color: #ec4899; }
+.stat-box-icon.blue   { color: #3b82f6; }
+
+.stat-box h3 {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: #1a1a1a;
+    letter-spacing: -0.5px;
+    line-height: 1;
+    margin-bottom: 6px;
+}
+
+.stat-box p {
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: #6b7280;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 992px) {
+    .skills-page {
+        padding: 100px 16px 60px;
+    }
+
+    .page-title {
+        font-size: 2.4rem;
+    }
+
+    .skills-panel {
+        padding: 32px 24px;
+    }
+
+    .panel-title {
+        font-size: 1.3rem;
+    }
+
+    .panel-icon {
+        width: 48px;
+        height: 48px;
+        font-size: 1.2rem;
+    }
+
+    .skills-stats {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-title {
+        font-size: 1.9rem;
+        letter-spacing: -1px;
+    }
+
+    .tab-btn {
+        padding: 9px 16px;
+        font-size: 0.8rem;
+    }
+
+    .skills-panel {
+        padding: 24px 18px;
+        border-radius: 22px;
+        box-shadow: 8px 8px 0 #1a1a1a;
+    }
+
+    .panel-header {
+        gap: 12px;
+        padding-bottom: 16px;
+        margin-bottom: 24px;
+    }
+
+    .skill-card {
+        padding: 18px 16px;
+    }
+
+    .skill-card-name {
+        font-size: 0.92rem;
+    }
+
+    .stat-box h3 {
+        font-size: 1.5rem;
+    }
+}

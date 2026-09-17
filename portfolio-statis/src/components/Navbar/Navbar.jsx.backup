@@ -1,0 +1,451 @@
+// src/components/Navbar/Navbar.jsx
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import {
+    FiHome, FiUser, FiGrid, FiMail, FiShoppingCart,
+    FiBriefcase, FiBookOpen, FiFolder, FiArrowLeft,
+    FiTag, FiInfo, FiSearch, FiClock, FiLogOut, FiLogIn,
+    FiChevronDown, FiUsers, FiPackage, FiBarChart2,
+    FiPlus
+} from 'react-icons/fi';
+import { useMode } from '../../context/ModeContext';
+import { useAuth } from '../../context/AuthContext';
+import './Navbar.css';
+
+const Navbar = ({ onCartClick, onSearch }) => {
+    const [scrolled, setScrolled] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
+    const [menuOpen, setMenuOpen] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [searchMode, setSearchMode] = useState('name'); // 'name' | 'category'
+
+    const [userMenuOpen, setUserMenuOpen] = useState(false);
+    const { mode, setMode, cartCount, switchToProfile } = useMode();
+    const {
+        user,
+        logout,
+        isAuthenticated,
+        isAdmin,
+        isStaff,
+        isCustomer,
+    } = useAuth();
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    useEffect(() => {
+        const path = location.pathname;
+        let newMode = mode;
+
+        if (path === '/' || path === '/about' || path === '/skills' ||
+            path === '/education' || path === '/projects' || path === '/contact') {
+            newMode = 'profile';
+        } else if (path === '/toko' || path === '/products' || path === '/product/' ||
+            path.startsWith('/product/') || path === '/categories' ||
+            path === '/sales-history' || path === '/purchase-history' ||
+            path === '/about-toko' || path === '/contact-toko' ||
+            path.startsWith('/admin/')) {
+            newMode = 'toko';
+        }
+
+        if (newMode !== mode) {
+            setMode(newMode);
+            localStorage.setItem('mode', newMode);
+        }
+    }, [location.pathname]);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setScrolled(window.scrollY > 50);
+        };
+
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 992);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('resize', handleResize);
+        handleResize();
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
+    const handleNavigation = (path) => {
+        navigate(path);
+        setMenuOpen(false);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    const scrollToTop = () => {
+        switchToProfile();
+        navigate('/');
+        setMenuOpen(false);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    const handleGoBack = () => {
+        switchToProfile();
+        navigate('/');
+        setMenuOpen(false);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    const handleSearch = (e) => {
+        e.preventDefault();
+        if (!searchQuery.trim()) return;
+
+        const query = searchQuery.trim();
+        const param = searchMode === 'name' ? 'search' : 'category';
+
+        navigate(`/products?${param}=${encodeURIComponent(query)}`);
+        if (onSearch) onSearch(query);
+        setSearchQuery('');
+        setMenuOpen(false); // tutup drawer di mobile
+    };
+
+
+    const handleLogout = () => {
+        logout();
+        navigate('/');
+        setUserMenuOpen(false);
+    };
+
+    // ─── MENU PROFIL ───
+    const profileMenu = [
+        { path: '/', label: 'Home', icon: FiHome },
+        { path: '/about', label: 'Tentang Saya', icon: FiUser },
+        { path: '/skills', label: 'Keahlian', icon: FiBriefcase },
+        { path: '/education', label: 'Pendidikan', icon: FiBookOpen },
+        { path: '/projects', label: 'Project', icon: FiFolder },
+        { path: '/contact', label: 'Kontak', icon: FiMail },
+    ];
+
+    // ─── MENU TOKO ───
+    const tokoMenu = [
+        { path: '/toko', label: 'Beranda', icon: FiHome },
+        { path: '/products', label: 'Produk', icon: FiGrid },
+        { path: '/categories', label: 'Kategori', icon: FiTag },
+        { path: '/about-toko', label: 'Tentang Kami', icon: FiInfo },
+        { path: '/contact-toko', label: 'Kontak', icon: FiMail },
+    ];
+
+    // ─── MENU USER (Dropdown) ───
+    const getUserMenu = () => {
+        if (!isAuthenticated) {
+            return [
+                { label: 'Login', icon: FiLogIn, action: () => navigate('/login') },
+                { label: 'Register', icon: FiUser, action: () => navigate('/register') },
+            ];
+        }
+
+        const menus = [];
+
+        // ─── ADMIN NIDA: BISA SEMUA ───
+        if (isAdmin) {
+            menus.push({
+                label: 'Dashboard',
+                icon: FiBarChart2,
+                action: () => navigate('/admin/dashboard')
+            });
+            menus.push({
+                label: 'Kelola Produk',
+                icon: FiPackage,
+                action: () => navigate('/admin/products')
+            });
+            menus.push({
+                label: 'Kelola Kategori',
+                icon: FiTag,
+                action: () => navigate('/admin/categories')
+            });
+            menus.push({
+                label: 'Kelola User',
+                icon: FiUsers,
+                action: () => navigate('/admin/users')
+            });
+            menus.push({
+                label: 'Buat Staff',
+                icon: FiUser,
+                action: () => navigate('/admin/create-staff')
+            });
+            menus.push({
+                label: 'Semua Pesanan',
+                icon: FiClock,
+                action: () => navigate('/admin/orders')
+            });
+        }
+
+        // ─── STAFF: KELOLA PRODUK & LIHAT ORDER ───
+        if (isStaff) {
+            menus.push({
+                label: 'Dashboard',
+                icon: FiBarChart2,
+                action: () => navigate('/admin/dashboard')
+            });
+            menus.push({
+                label: 'Kelola Produk',
+                icon: FiPackage,
+                action: () => navigate('/admin/products')
+            });
+            menus.push({
+                label: 'Kelola Kategori',
+                icon: FiTag,
+                action: () => navigate('/admin/categories')
+            });
+            menus.push({
+                label: 'Semua Pesanan',
+                icon: FiClock,
+                action: () => navigate('/admin/orders')
+            });
+        }
+
+        // ─── CUSTOMER: HISTORI PEMBELIAN ───
+        if (isCustomer) {
+            menus.push({
+                label: 'Histori Pembelian',
+                icon: FiClock,
+                action: () => navigate('/purchase-history')
+            });
+        }
+
+        menus.push({
+            label: 'Logout',
+            icon: FiLogOut,
+            action: handleLogout
+        });
+
+        return menus;
+    };
+
+    const menuItems = mode === 'profile' ? profileMenu : tokoMenu;
+
+    const isActive = (path) => {
+        return location.pathname === path;
+    };
+
+    const renderSearchBar = () => {
+        if (mode !== 'toko') return null;
+
+        return (
+            <div className="search-container">
+                <form onSubmit={handleSearch} className="search-form">
+                    {/* Toggle Nama/Kategori */}
+                    <div className="search-toggle">
+                        <button
+                            type="button"
+                            className={`search-toggle-btn ${searchMode === 'name' ? 'active' : ''}`}
+                            onClick={() => setSearchMode('name')}
+                            title="Cari berdasarkan nama produk"
+                        >
+                            Produk
+                        </button>
+                        <button
+                            type="button"
+                            className={`search-toggle-btn ${searchMode === 'category' ? 'active' : ''}`}
+                            onClick={() => setSearchMode('category')}
+                            title="Cari berdasarkan kategori"
+                        >
+                            Kategori
+                        </button>
+                    </div>
+
+                    <FiSearch className="search-icon" />
+                    <input
+                        type="text"
+                        placeholder={searchMode === 'name' ? 'Cari produk...' : 'Cari kategori...'}
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className="search-input"
+                    />
+                    <button type="submit" className="search-btn">Cari</button>
+                </form>
+            </div>
+        );
+    };
+
+    // ─── RENDER USER AVATAR ───
+    const renderUserAvatar = () => {
+        if (!isAuthenticated) {
+            return <div className="user-avatar">?</div>;
+        }
+
+        if (user?.profile_image) {
+            return (
+                <img
+                    src={user.profile_image}
+                    alt={user.name}
+                    className="user-avatar-img"
+                />
+            );
+        }
+
+        return (
+            <div className="user-avatar">
+                {user?.name?.charAt(0) || 'U'}
+            </div>
+        );
+    };
+
+    // ─── RENDER USER MENU ───
+    const renderUserMenu = () => {
+        if (mode !== 'toko') return null;
+
+        return (
+            <li className="user-menu-item">
+                <button
+                    className={`user-menu-btn ${userMenuOpen ? 'active' : ''}`}
+                    onClick={() => setUserMenuOpen(!userMenuOpen)}
+                >
+                    {renderUserAvatar()}
+                    <span className="user-name">
+                        {isAuthenticated ? user?.name : 'Guest'}
+                    </span>
+                    <FiChevronDown className={`user-dropdown-icon ${userMenuOpen ? 'open' : ''}`} />
+                </button>
+
+                {userMenuOpen && (
+                    <div className="user-dropdown">
+                        {getUserMenu().map((item, index) => (
+                            <button
+                                key={index}
+                                className="user-dropdown-item"
+                                onClick={() => {
+                                    item.action();
+                                    setUserMenuOpen(false);
+                                }}
+                            >
+                                <item.icon className="dropdown-icon" />
+                                {item.label}
+                            </button>
+                        ))}
+                    </div>
+                )}
+            </li>
+        );
+    };
+
+    return (
+        <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
+            <div className="container">
+                {/* ─── LOGO DI KIRI ─── */}
+                <div className="logo" onClick={scrollToTop}>
+                    <div className="logo-icon-wrapper">
+                        <div className="logo-icon">
+                            <span className="logo-icon-text">
+                                {mode === 'profile' ? 'NA' : 'R'}
+                            </span>
+                        </div>
+                        <div className="logo-ring"></div>
+                        <div className="logo-ring"></div>
+                    </div>
+                    <div className="logo-text">
+                        <span className="name">
+                            {mode === 'profile' ? 'Nida Affifah' : 'RajutIndah'}
+                        </span>
+                        <span className="subtitle">
+                            {mode === 'profile' ? 'Portfolio' : 'Toko Online'}
+                        </span>
+                    </div>
+                </div>
+
+                {/* ─── SEARCH BAR ─── */}
+                {!isMobile && renderSearchBar()}
+
+                {/* ─── MOBILE TOGGLE ─── */}
+                {isMobile && (
+                    <button
+                        className={`menu-toggle ${menuOpen ? 'open' : ''}`}
+                        onClick={() => setMenuOpen(!menuOpen)}
+                        aria-label="Toggle menu"
+                    >
+                        <span className="menu-bar"></span>
+                        <span className="menu-bar"></span>
+                        <span className="menu-bar"></span>
+                    </button>
+                )}
+
+                {/* ─── NAV MENU ─── */}
+                <ul className={`nav-menu ${menuOpen ? 'open' : ''}`}>
+                    {/* ─── SEARCH MOBILE ─── */}
+                    {isMobile && mode === 'toko' && (
+                        <li className="mobile-search">
+                            {/* Toggle mobile */}
+                            <div className="search-toggle-mobile">
+                                <button
+                                    type="button"
+                                    className={`search-toggle-btn-mobile ${searchMode === 'name' ? 'active' : ''}`}
+                                    onClick={() => setSearchMode('name')}
+                                >
+                                    Produk
+                                </button>
+                                <button
+                                    type="button"
+                                    className={`search-toggle-btn-mobile ${searchMode === 'category' ? 'active' : ''}`}
+                                    onClick={() => setSearchMode('category')}
+                                >
+                                    Kategori
+                                </button>
+                            </div>
+
+                            <form onSubmit={handleSearch} className="search-form-mobile">
+                                <input
+                                    type="text"
+                                    placeholder={searchMode === 'name' ? 'Cari produk...' : 'Cari kategori...'}
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                    className="search-input-mobile"
+                                />
+                                <button type="submit" className="search-btn-mobile">
+                                    <FiSearch />
+                                </button>
+                            </form>
+                        </li>
+                    )}
+
+                    {/* ─── MENU ITEMS ─── */}
+                    {menuItems.map((item, index) => (
+                        <li key={index}>
+                            <button
+                                className={`nav-link ${isActive(item.path) ? 'active' : ''}`}
+                                onClick={() => handleNavigation(item.path)}
+                            >
+                                <item.icon className="nav-icon" />
+                                {item.label}
+                            </button>
+                        </li>
+                    ))}
+
+                    {/* ─── CART ICON ─── */}
+                    {mode === 'toko' && (
+                        <li>
+                            <button className="cart-icon" onClick={onCartClick}>
+                                <FiShoppingCart className="cart-icon-text" />
+                                {cartCount > 0 && (
+                                    <span className="cart-count">{cartCount}</span>
+                                )}
+                            </button>
+                        </li>
+                    )}
+
+                    {/* ─── USER MENU ─── */}
+                    {mode === 'toko' && renderUserMenu()}
+
+                    {/* ─── TOMBOL KEMBALI ─── */}
+                    {mode === 'toko' && (
+                        <li className="mode-switch-item">
+                            <button
+                                className="mode-switch-btn mode-switch-back"
+                                onClick={handleGoBack}
+                            >
+                                <FiArrowLeft className="back-icon" /> Kembali ke Profil
+                            </button>
+                        </li>
+                    )}
+                </ul>
+            </div>
+        </nav>
+    );
+};
+
+export default Navbar;

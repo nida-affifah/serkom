@@ -1,0 +1,415 @@
+/* src/pages/AlamatSaya.css */
+
+.alamat-page {
+    position: relative;
+    min-height: 100vh;
+    padding: 160px 0 60px;
+    background: #f5f3ff;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: #1a1a1a;
+    text-align: left;
+}
+
+.alamat-container {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    padding: 0 2rem;
+    margin: 0 auto;
+}
+
+.alamat-loading {
+    padding: 100px 20px;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 800;
+    color: #6b7280;
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* HEADER */
+.alamat-header {
+    margin-bottom: 32px;
+}
+
+.alamat-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 20px;
+    background: #fff;
+    border: 2.5px solid #1a1a1a;
+    border-radius: 100px;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    box-shadow: 4px 4px 0 #1a1a1a;
+    margin-bottom: 20px;
+}
+
+.alamat-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.alamat-title {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: #1a1a1a;
+    letter-spacing: -1.2px;
+    margin: 0 0 8px;
+}
+
+.alamat-subtitle {
+    font-size: 0.95rem;
+    color: #4b5563;
+    font-weight: 500;
+    margin: 0;
+}
+
+.alamat-refresh,
+.alamat-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border: 2.5px solid #1a1a1a;
+    border-radius: 100px;
+    font-family: inherit;
+    font-weight: 800;
+    font-size: 0.85rem;
+    cursor: pointer;
+    box-shadow: 3px 3px 0 #1a1a1a;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.alamat-refresh {
+    background: #fff;
+    color: #1a1a1a;
+}
+
+.alamat-btn-primary {
+    background: linear-gradient(120deg, #8b5cf6, #ec4899);
+    color: #fff;
+}
+
+.alamat-refresh:hover,
+.alamat-btn-primary:hover:not(:disabled) {
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0 #1a1a1a;
+}
+
+.alamat-btn-primary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* GRID ALAMAT */
+.alamat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+}
+
+.alamat-card {
+    position: relative;
+    background: #fff;
+    border: 2.5px solid #1a1a1a;
+    border-radius: 18px;
+    padding: 22px;
+    box-shadow: 6px 6px 0 #1a1a1a;
+    transition: transform 0.2s ease;
+}
+
+.alamat-card:hover {
+    transform: translate(-3px, -3px);
+}
+
+.alamat-card.default {
+    background: linear-gradient(135deg, #faf5ff, #fdf2f8);
+}
+
+.alamat-default-badge {
+    position: absolute;
+    top: -12px;
+    right: 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 12px;
+    background: #10b981;
+    color: #fff;
+    border: 2px solid #1a1a1a;
+    border-radius: 100px;
+    font-size: 0.7rem;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    box-shadow: 2px 2px 0 #1a1a1a;
+}
+
+.alamat-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.78rem;
+    font-weight: 900;
+    color: #8b5cf6;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 14px;
+}
+
+.alamat-info {
+    margin-bottom: 16px;
+}
+
+.alamat-info p {
+    margin: 0 0 4px;
+    color: #4b5563;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.alamat-nama {
+    color: #1a1a1a !important;
+    font-size: 1rem !important;
+}
+
+.alamat-hp {
+    color: #6b7280 !important;
+    font-size: 0.85rem !important;
+}
+
+.alamat-lengkap {
+    margin-top: 8px !important;
+}
+
+.alamat-wilayah {
+    color: #6b7280 !important;
+    font-size: 0.85rem !important;
+}
+
+.alamat-actions {
+    display: flex;
+    gap: 6px;
+    padding-top: 14px;
+    border-top: 2px dashed #e5e7eb;
+    flex-wrap: wrap;
+}
+
+.alamat-btn-default,
+.alamat-btn-edit,
+.alamat-btn-delete {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 12px;
+    border: 2px solid #1a1a1a;
+    border-radius: 100px;
+    background: #fff;
+    font-family: inherit;
+    font-weight: 800;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.alamat-btn-default { color: #10b981; }
+.alamat-btn-default:hover {
+    background: #10b981;
+    color: #fff;
+}
+
+.alamat-btn-edit { color: #3b82f6; }
+.alamat-btn-edit:hover {
+    background: #3b82f6;
+    color: #fff;
+}
+
+.alamat-btn-delete { color: #ef4444; }
+.alamat-btn-delete:hover {
+    background: #ef4444;
+    color: #fff;
+}
+
+/* EMPTY */
+.alamat-empty {
+    background: #fff;
+    border: 2.5px solid #1a1a1a;
+    border-radius: 18px;
+    padding: 60px 30px;
+    text-align: center;
+    box-shadow: 6px 6px 0 #1a1a1a;
+}
+
+.alamat-empty h2 {
+    margin: 20px 0 8px;
+    color: #1a1a1a;
+    font-size: 1.3rem;
+    font-weight: 900;
+}
+
+.alamat-empty p {
+    color: #4b5563;
+    margin-bottom: 24px;
+}
+
+/* MODAL */
+.alamat-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(26, 26, 26, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.alamat-modal {
+    background: #fff;
+    border: 2.5px solid #1a1a1a;
+    border-radius: 18px;
+    box-shadow: 8px 8px 0 #1a1a1a;
+    width: 100%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.alamat-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    border-bottom: 2.5px dashed #1a1a1a;
+}
+
+.alamat-modal-header h2 {
+    font-size: 1.15rem;
+    font-weight: 900;
+    margin: 0;
+}
+
+.alamat-modal-close {
+    background: none;
+    border: 2px solid #1a1a1a;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.alamat-modal-close:hover {
+    background: #ef4444;
+    color: #fff;
+}
+
+.alamat-modal-body {
+    padding: 24px;
+}
+
+.alamat-form-group {
+    margin-bottom: 16px;
+}
+
+.alamat-form-group label {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: #4b5563;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+}
+
+.alamat-form-group input[type="text"],
+.alamat-form-group select,
+.alamat-form-group textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border: 2px solid #1a1a1a;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: #1a1a1a;
+    background: #fff;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.alamat-form-group input:focus,
+.alamat-form-group select:focus,
+.alamat-form-group textarea:focus {
+    box-shadow: 3px 3px 0 #8b5cf6;
+}
+
+.alamat-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.alamat-checkbox-label {
+    display: flex !important;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+    font-weight: 600 !important;
+    cursor: pointer;
+}
+
+.alamat-checkbox-label input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #8b5cf6;
+    cursor: pointer;
+}
+
+.alamat-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 8px;
+    padding-top: 16px;
+    border-top: 2.5px dashed #e5e7eb;
+}
+
+.alamat-btn-cancel {
+    padding: 10px 24px;
+    background: #fff;
+    border: 2.5px solid #1a1a1a;
+    border-radius: 100px;
+    font-family: inherit;
+    font-weight: 800;
+    font-size: 0.85rem;
+    cursor: pointer;
+    box-shadow: 3px 3px 0 #1a1a1a;
+}
+
+.alamat-btn-cancel:hover {
+    background: #f3f4f6;
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0 #1a1a1a;
+}
+
+@media (max-width: 640px) {
+    .alamat-container { padding: 0 1rem; }
+    .alamat-title { font-size: 1.4rem; }
+    .alamat-form-row { grid-template-columns: 1fr; }
+    .alamat-grid { grid-template-columns: 1fr; }
+}

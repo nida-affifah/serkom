@@ -1,0 +1,508 @@
+/* src/pages/AdminDashboard.css */
+
+.admin-page {
+    position: relative;
+    min-height: 100vh;
+    padding: 160px 0 60px; 
+    background: #f5f3ff;
+    overflow: hidden;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: #1a1a1a;
+    text-align: left;
+}
+
+.admin-page::before {
+    content: "";
+    position: absolute;
+    top: 80px;
+    right: -80px;
+    width: 320px;
+    height: 320px;
+    background: #ec4899;
+    border: 3px solid #1a1a1a;
+    border-radius: 50%;
+    opacity: 0.12;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.admin-page::after {
+    content: "";
+    position: absolute;
+    bottom: 100px;
+    left: -100px;
+    width: 240px;
+    height: 240px;
+    background: #8b5cf6;
+    border: 3px solid #1a1a1a;
+    border-radius: 40px;
+    transform: rotate(18deg);
+    opacity: 0.12;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* CONTAINER: konten max 1400px, background full */
+.admin-container {
+    position: relative;
+    z-index: 1;
+    max-width: 1400px;
+    padding: 0 2.5rem;
+    margin: 0 auto;
+}
+
+.admin-loading {
+    padding: 100px 20px;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 800;
+    color: #6b7280;
+    min-height: 60vh;
+    background: #f5f3ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* HEADER */
+.admin-header {
+    margin-bottom: 36px;
+}
+
+.admin-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 20px;
+    background: #fff;
+    border: 2.5px solid #1a1a1a;
+    border-radius: 100px;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    box-shadow: 4px 4px 0 #1a1a1a;
+    margin-bottom: 20px;
+}
+
+.admin-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.admin-title {
+    font-size: 2rem;
+    font-weight: 900;
+    color: #1a1a1a;
+    letter-spacing: -1.2px;
+    margin: 0 0 8px;
+    line-height: 1.15;
+}
+
+.admin-subtitle {
+    font-size: 0.95rem;
+    color: #4b5563;
+    font-weight: 500;
+    margin: 0;
+}
+
+.admin-refresh {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: #fff;
+    border: 2.5px solid #1a1a1a;
+    border-radius: 100px;
+    font-family: inherit;
+    font-weight: 800;
+    font-size: 0.85rem;
+    cursor: pointer;
+    box-shadow: 3px 3px 0 #1a1a1a;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    flex-shrink: 0;
+}
+
+.admin-refresh:hover {
+    background: linear-gradient(120deg, #8b5cf6, #ec4899);
+    color: #fff;
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0 #1a1a1a;
+}
+
+/* 5 KARTU STATISTIK */
+.admin-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 18px;
+    margin-bottom: 28px;
+}
+
+.admin-stat-card {
+    padding: 24px 16px;
+    background: #fff;
+    border: 2.5px solid #1a1a1a;
+    border-radius: 18px;
+    text-align: center;
+    box-shadow: 6px 6px 0 #1a1a1a;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.admin-stat-card:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 9px 9px 0 #8b5cf6;
+}
+
+.admin-stat-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    color: #fff;
+    font-size: 1.3rem;
+    border: 2.5px solid #1a1a1a;
+    box-shadow: 3px 3px 0 #1a1a1a;
+    margin-bottom: 14px;
+}
+
+.admin-stat-icon.purple { background: linear-gradient(135deg, #8b5cf6, #a78bfa); }
+.admin-stat-icon.pink   { background: linear-gradient(135deg, #ec4899, #f472b6); }
+.admin-stat-icon.blue   { background: linear-gradient(135deg, #3b82f6, #60a5fa); }
+.admin-stat-icon.green  { background: linear-gradient(135deg, #10b981, #34d399); }
+.admin-stat-icon.orange { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
+
+.admin-stat-label {
+    font-size: 0.68rem;
+    font-weight: 800;
+    color: #6b7280;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    margin: 0 0 8px;
+    line-height: 1.3;
+}
+
+.admin-stat-value {
+    font-size: 1.35rem;
+    font-weight: 900;
+    color: #1a1a1a;
+    letter-spacing: -0.5px;
+    margin: 0;
+    line-height: 1.1;
+}
+
+/* CARD UMUM */
+.admin-card {
+    background: #fff;
+    border: 2.5px solid #1a1a1a;
+    border-radius: 18px;
+    padding: 24px;
+    box-shadow: 6px 6px 0 #1a1a1a;
+    margin-bottom: 24px;
+}
+
+.admin-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 2.5px dashed #1a1a1a;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.admin-card-header h2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.05rem;
+    font-weight: 900;
+    color: #1a1a1a;
+    margin: 0;
+    letter-spacing: -0.3px;
+}
+
+.admin-card-header h2 svg {
+    color: #8b5cf6;
+}
+
+.admin-link-btn {
+    background: none;
+    border: none;
+    color: #8b5cf6;
+    font-family: inherit;
+    font-weight: 800;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+.admin-link-btn:hover {
+    color: #ec4899;
+    text-decoration: underline;
+}
+
+.admin-empty {
+    text-align: center;
+    color: #9ca3af;
+    padding: 30px 20px;
+    font-style: italic;
+    margin: 0;
+}
+
+/* STATUS PESANAN */
+.admin-status-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+.status-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px 12px;
+    border-radius: 14px;
+    background: #f9fafb;
+    border: 2px solid #e5e7eb;
+}
+
+.status-label {
+    font-size: 0.7rem;
+    color: #6b7280;
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+}
+
+.status-value {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: #1a1a1a;
+}
+
+.status-pending  { color: #f59e0b; }
+.status-diproses { color: #3b82f6; }
+.status-dikirim  { color: #8b5cf6; }
+.status-selesai  { color: #10b981; }
+
+/* GRAFIK HARIAN */
+.admin-chart {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    gap: 12px;
+    padding: 20px 0 0;
+    min-height: 280px;
+    overflow-x: auto;
+}
+
+.chart-bar-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    min-width: 80px;
+    height: 260px;
+    gap: 6px;
+}
+
+.chart-bar-value {
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    white-space: nowrap;
+}
+
+.chart-bar-container {
+    width: 100%;
+    max-width: 50px;
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    background: #f3f4f6;
+    border: 2px solid #1a1a1a;
+    border-radius: 8px;
+    overflow: hidden;
+    min-height: 120px;
+}
+
+.chart-bar {
+    width: 100%;
+    background: linear-gradient(180deg, #8b5cf6, #ec4899);
+    transition: height 0.6s ease;
+    min-height: 4px;
+}
+
+.chart-bar-label {
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    white-space: nowrap;
+}
+
+.chart-bar-count {
+    font-size: 0.65rem;
+    color: #6b7280;
+    font-weight: 600;
+}
+
+/* 2 KOLOM */
+.admin-row-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+/* TABEL */
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.admin-table th {
+    text-align: left;
+    padding: 10px 12px;
+    font-size: 0.7rem;
+    color: #6b7280;
+    text-transform: uppercase;
+    font-weight: 900;
+    letter-spacing: 1px;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+.admin-table td {
+    padding: 12px;
+    font-size: 0.85rem;
+    color: #1a1a1a;
+    border-bottom: 1px dashed #e5e7eb;
+    font-weight: 600;
+}
+
+.admin-table tr:last-child td {
+    border-bottom: none;
+}
+
+.admin-table tr:hover td {
+    background: #faf5ff;
+}
+
+/* BADGE STATUS */
+.badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-size: 0.68rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: 2px solid #1a1a1a;
+}
+
+.badge-pending  { background: #fef3c7; color: #92400e; }
+.badge-diproses { background: #dbeafe; color: #1e40af; }
+.badge-dikirim  { background: #ede9fe; color: #5b21b6; }
+.badge-selesai  { background: #d1fae5; color: #065f46; }
+.badge-batal    { background: #fee2e2; color: #991b1b; }
+
+/* RESPONSIVE */
+@media (max-width: 1200px) {
+    .admin-stats-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 992px) {
+    .admin-page {
+        padding: 100px 0 50px;   /* mobile: navbar jadi 1 baris */
+    }
+
+    .admin-container {
+        padding: 0 1.5rem;
+    }
+
+    .admin-title {
+        font-size: 1.7rem;
+    }
+
+    .admin-row-2 {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-status-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .admin-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+    }
+}
+
+@media (max-width: 640px) {
+    .admin-page {
+        padding: 90px 0 40px;
+    }
+
+    .admin-container {
+        padding: 0 1rem;
+    }
+
+    .admin-title {
+        font-size: 1.45rem;
+    }
+
+    .admin-stat-card {
+        padding: 18px 12px;
+    }
+
+    .admin-stat-value {
+        font-size: 1.15rem;
+    }
+
+    .chart-bar-wrapper {
+        min-width: 60px;
+    }
+}
+
+@media (max-width: 480px) {
+    .admin-stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-status-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ═══════════════════════════════════════
+   FULL WIDTH BACKGROUND (khusus admin)
+   ═══════════════════════════════════════ */
+body:has(.admin-page) {
+    background: #f5f3ff;
+    margin: 0;
+}
+
+body:has(.admin-page) #root {
+    background: #f5f3ff;
+    min-height: 100vh;
+}
+
+body.admin-active {
+    background: #f5f3ff;
+}
+
+/* Paksa kiri untuk header */
+.admin-header-row,
+.admin-badge,
+.admin-title,
+.admin-subtitle {
+    text-align: left !important;
+}

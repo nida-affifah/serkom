@@ -1,0 +1,497 @@
+﻿/* src/pages/ProfilePage.css */
+.profile-page {
+    position: relative;
+    padding: 120px 20px 80px;
+    min-height: 100vh;
+    background: #f5f3ff;
+    overflow: hidden;
+}
+
+.profile-page::before {
+    content: "";
+    position: absolute;
+    top: 80px;
+    right: -80px;
+    width: 300px;
+    height: 300px;
+    background: #ec4899;
+    border: 3px solid #1a1a1a;
+    border-radius: 50%;
+    opacity: 0.12;
+    z-index: 0;
+}
+
+.profile-page::after {
+    content: "";
+    position: absolute;
+    bottom: 100px;
+    left: -100px;
+    width: 240px;
+    height: 240px;
+    background: #8b5cf6;
+    border: 3px solid #1a1a1a;
+    border-radius: 40px;
+    transform: rotate(18deg);
+    opacity: 0.12;
+    z-index: 0;
+}
+
+.profile-page .container {
+    position: relative;
+    z-index: 1;
+    max-width: 1140px;
+    margin: 0 auto;
+}
+
+/* ── HEADER ── */
+.page-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.page-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 20px;
+    background: #fff;
+    border: 2.5px solid #1a1a1a;
+    border-radius: 100px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    box-shadow: 4px 4px 0 #1a1a1a;
+    margin-bottom: 24px;
+}
+
+.badge-icon {
+    font-size: 1rem;
+}
+
+.page-title {
+    font-size: 3.2rem;
+    font-weight: 900;
+    color: #1a1a1a;
+    letter-spacing: -2px;
+    line-height: 1.05;
+    margin-bottom: 18px;
+}
+
+.page-title .highlight {
+    display: inline-block;
+    padding: 0 12px;
+    background: linear-gradient(120deg, #8b5cf6, #ec4899);
+    color: #fff;
+    border: 3px solid #1a1a1a;
+    border-radius: 14px;
+    box-shadow: 6px 6px 0 #1a1a1a;
+    transform: rotate(-2deg);
+}
+
+.page-subtitle {
+    font-size: 1.05rem;
+    color: #4b5563;
+    max-width: 560px;
+    margin: 20px auto 0;
+    line-height: 1.7;
+    font-weight: 500;
+}
+
+/* ── GRID INFO ── */
+.profile-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 60px;
+}
+
+.profile-card {
+    padding: 32px 24px;
+    background: #fff;
+    border: 2.5px solid #1a1a1a;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 6px 6px 0 #1a1a1a;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.profile-card:nth-child(1) { background: #faf5ff; }
+.profile-card:nth-child(2) { background: #fdf2f8; }
+.profile-card:nth-child(3) { background: #eff6ff; }
+
+.profile-card:hover {
+    transform: translate(-4px, -4px);
+    box-shadow: 10px 10px 0 #8b5cf6;
+}
+
+.card-icon-wrap {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    color: #fff;
+    font-size: 1.8rem;
+    border: 2.5px solid #1a1a1a;
+    box-shadow: 4px 4px 0 #1a1a1a;
+    margin-bottom: 20px;
+}
+
+.card-icon-wrap.purple { background: linear-gradient(135deg, #8b5cf6, #a78bfa); }
+.card-icon-wrap.pink   { background: linear-gradient(135deg, #ec4899, #f472b6); }
+.card-icon-wrap.blue   { background: linear-gradient(135deg, #3b82f6, #60a5fa); }
+
+.card-label {
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: #8b5cf6;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.card-value {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    line-height: 1.4;
+    letter-spacing: -0.2px;
+}
+
+/* ── FOCUS ── */
+.profile-focus {
+    margin-bottom: 60px;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 1.7rem;
+    font-weight: 900;
+    color: #1a1a1a;
+    letter-spacing: -0.5px;
+    margin-bottom: 28px;
+    display: inline-block;
+    padding: 8px 20px;
+    background: #fff;
+    border: 2.5px solid #1a1a1a;
+    border-radius: 14px;
+    box-shadow: 5px 5px 0 #1a1a1a;
+}
+
+.focus-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+}
+
+.focus-tag {
+    display: inline-block;
+    padding: 10px 22px;
+    background: #fff;
+    color: #1a1a1a;
+    border: 2.5px solid #1a1a1a;
+    border-radius: 100px;
+    font-size: 0.9rem;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+    box-shadow: 4px 4px 0 #1a1a1a;
+    transition: all 0.2s ease;
+    cursor: default;
+}
+
+.focus-tag:hover {
+    background: linear-gradient(120deg, #8b5cf6, #ec4899);
+    color: #fff;
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 #1a1a1a;
+}
+
+/* ── ABOUT CARD ── */
+.profile-about {
+    display: grid;
+    gap: 24px;
+}
+
+.about-card {
+    padding: 40px 36px;
+    background: rgba(255, 255, 255, 0.78);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 2.5px solid #1a1a1a;
+    border-radius: 24px;
+    box-shadow: 12px 12px 0 #1a1a1a;
+}
+
+.about-card:nth-child(even) {
+    background: #faf5ff;
+}
+
+.about-card h3 {
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: #1a1a1a;
+    letter-spacing: -0.3px;
+    margin-bottom: 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    background: #fdf2f8;
+    border: 2px solid #1a1a1a;
+    border-radius: 10px;
+    box-shadow: 3px 3px 0 #1a1a1a;
+}
+
+.about-card h3 svg {
+    font-size: 1rem;
+    color: #ec4899;
+    flex-shrink: 0;
+}
+
+.about-card p {
+    font-size: 1rem;
+    color: #4b5563;
+    line-height: 1.75;
+    margin: 0;
+}
+
+.about-card ul {
+    margin: 12px 0 0;
+    padding-left: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.about-card li {
+    position: relative;
+    padding: 8px 0 8px 28px;
+    font-size: 0.98rem;
+    color: #4b5563;
+    line-height: 1.65;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.about-card li:hover {
+    color: #1a1a1a;
+    transform: translateX(3px);
+}
+
+.about-card li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 16px;
+    width: 12px;
+    height: 12px;
+    border-radius: 4px;
+    background: linear-gradient(135deg, #8b5cf6, #ec4899);
+    border: 2px solid #1a1a1a;
+    box-shadow: 1.5px 1.5px 0 #1a1a1a;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.about-card li:hover::before {
+    background: #ec4899;
+    transform: scale(1.15) rotate(45deg);
+}
+
+/* ── CTA TOKO RAJUT ── */
+.profile-cta {
+    margin-top: 60px;
+    padding: 56px 40px;
+    background: linear-gradient(135deg, #8b5cf6, #ec4899);
+    border: 2.5px solid #1a1a1a;
+    border-radius: 28px;
+    box-shadow: 12px 12px 0 #1a1a1a;
+    text-align: center;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+}
+
+.profile-cta::before {
+    content: "";
+    position: absolute;
+    top: -80px;
+    right: -80px;
+    width: 240px;
+    height: 240px;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.profile-cta::after {
+    content: "";
+    position: absolute;
+    bottom: -60px;
+    left: -60px;
+    width: 180px;
+    height: 180px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.cta-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: #fff;
+    color: #1a1a1a;
+    font-size: 1.8rem;
+    border: 2.5px solid #1a1a1a;
+    box-shadow: 4px 4px 0 #1a1a1a;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.cta-title {
+    font-size: 1.8rem;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    color: #fff;
+    margin-bottom: 14px;
+    position: relative;
+    z-index: 1;
+}
+
+.cta-desc {
+    font-size: 1rem;
+    max-width: 560px;
+    margin: 0 auto 30px;
+    line-height: 1.75;
+    font-weight: 500;
+    opacity: 0.95;
+    position: relative;
+    z-index: 1;
+}
+
+.cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    background: #fff;
+    color: #1a1a1a;
+    border: 2.5px solid #1a1a1a;
+    border-radius: 14px;
+    font-size: 0.95rem;
+    font-weight: 800;
+    text-decoration: none;
+    box-shadow: 5px 5px 0 #1a1a1a;
+    transition: all 0.2s ease;
+    letter-spacing: 0.3px;
+    position: relative;
+    z-index: 1;
+}
+
+.cta-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 7px 7px 0 #1a1a1a;
+    background: #faf5ff;
+}
+
+.cta-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 #1a1a1a;
+}
+
+.cta-btn svg {
+    font-size: 1.1rem;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 992px) {
+    .profile-page {
+        padding: 100px 16px 60px;
+    }
+
+    .page-title {
+        font-size: 2.4rem;
+    }
+
+    .profile-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .about-card {
+        padding: 30px 24px;
+        border-radius: 20px;
+        box-shadow: 8px 8px 0 #1a1a1a;
+    }
+
+    .profile-cta {
+        padding: 44px 28px;
+    }
+
+    .cta-title {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-title {
+        font-size: 1.9rem;
+        letter-spacing: -1px;
+    }
+
+    .section-title {
+        font-size: 1.4rem;
+    }
+
+    .focus-tag {
+        padding: 8px 16px;
+        font-size: 0.82rem;
+    }
+
+    .about-card h3 {
+        font-size: 1.1rem;
+    }
+
+    .about-card p {
+        font-size: 0.92rem;
+    }
+
+    .about-card li {
+        font-size: 0.9rem;
+    }
+
+    .profile-cta {
+        margin-top: 40px;
+        padding: 34px 22px;
+        border-radius: 22px;
+        box-shadow: 8px 8px 0 #1a1a1a;
+    }
+
+    .cta-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+        margin-bottom: 16px;
+    }
+
+    .cta-title {
+        font-size: 1.3rem;
+    }
+
+    .cta-desc {
+        font-size: 0.92rem;
+        margin-bottom: 24px;
+    }
+
+    .cta-btn {
+        padding: 12px 22px;
+        font-size: 0.88rem;
+    }
+}
