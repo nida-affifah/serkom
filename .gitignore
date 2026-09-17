@@ -1,0 +1,30 @@
+﻿# Dependencies
+**/node_modules/
+
+# Env
+**/.env
+**/.env.local
+
+# Build output
+**/dist/
+**/build/
+
+# Uploads (kecuali .gitkeep)
+toko-rajut-backend/uploads/*
+!toko-rajut-backend/uploads/.gitkeep
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS & IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Backup DB besar
+*.sql
+
+# File info project
+info-project.txt
