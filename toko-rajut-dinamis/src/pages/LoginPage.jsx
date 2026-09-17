@@ -105,14 +105,6 @@ const LoginPage = () => {
                         fontSize: '13px',
                         color: '#0369a1'
                     }}>
-                        <strong>Info Login:</strong>
-                        <ul style={{ margin: '8px 0 0 0', paddingLeft: '20px' }}>
-                            <li>Admin: <code>admin</code> / <code>admin123</code></li>
-                            <li>Pembeli: <code>bagas</code> / <code>pembeli123</code></li>
-                            <li>Perajin: <code>perajin1</code> / <code>perajin123</code></li>
-                            <li>Kasir: <code>kasir1</code> / <code>kasir123</code></li>
-                            <li>Staff Gudang: <code>staff1</code> / <code>staffgudang123</code></li>
-                        </ul>
                     </div>
                 </div>
             </div>
