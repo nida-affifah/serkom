@@ -364,7 +364,7 @@ export const userData = {
     },
 
     externalLinks: {
-        tokoRajut: 'http://localhost:5174/'
+        tokoRajut: 'https://toko.rajutindah.my.id'
     },
 
     footer: {
