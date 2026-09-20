@@ -20,34 +20,76 @@ import toteBag from '../../assets/products/ToteBag.jpeg';
 import bajuPendek from '../../assets/products/BajuPendek.jpeg';
 
 const productImages = {
-    'kausKakiRajut': kausKakiRajut,
-    'mainanRajut': mainanRajut,
-    'selendangRajut': selendangRajut,
-    'tasRajut': tasRajut,
-    'topiRajut': topiRajut,
-    'BajuRajutWanita': bajuRajutWanita,
-    'SarungBantalRajut': sarungBantalRajut,
-    'SweaterRajutCowo': sweaterRajutCowo,
-    'baju rajut wanita': bajuRajutWanita,
-    'sarung bantal rajut': sarungBantalRajut,
-    'sweater rajut pria': sweaterRajutCowo,
-    'sweater rajut cowo': sweaterRajutCowo,
+    'Sweater Rajut Cozy': sweaterCozy,
+    'sweater rajut cozy': sweaterCozy,
     'SweaterCozy': sweaterCozy,
+    'sweaterCozy': sweaterCozy,
+    'Sweater Cozy': sweaterCozy,
     'sweater cozy': sweaterCozy,
+
+    'Sweater Bulu Hangat': sweaterHangat,
+    'sweater bulu hangat': sweaterHangat,
     'SweaterHangat': sweaterHangat,
+    'sweaterHangat': sweaterHangat,
+    'Sweater Hangat': sweaterHangat,
     'sweater hangat': sweaterHangat,
-    'SyalRajut': syalRajut,
+    'sweater bulu': sweaterHangat,
+
+    'Sweater Rajut Pria': sweaterRajutCowo,
+    'sweater rajut pria': sweaterRajutCowo,
+    'SweaterRajutCowo': sweaterRajutCowo,
+    'sweater rajut cowo': sweaterRajutCowo,
+
+    'Baju Rajut Wanita': bajuRajutWanita,
+    'baju rajut wanita': bajuRajutWanita,
+    'BajuRajutWanita': bajuRajutWanita,
+    'baju rajut': bajuRajutWanita,
+
+    'Baju Pendek': bajuPendek,
+    'baju pendek': bajuPendek,
+    'BajuPendek': bajuPendek,
+
+    'Syal Rajut Pastel': syalRajut,
+    'syal rajut pastel': syalRajut,
+    'Syal Rajut': syalRajut,
     'syal rajut': syalRajut,
+    'SyalRajut': syalRajut,
     'Syal': syalRajut,
+    'syal': syalRajut,
+
+    'Topi Rajut Aesthetic': topiRajut,
+    'topi rajut aesthetic': topiRajut,
+    'Topi Rajut': topiRajut,
+    'topi rajut': topiRajut,
+    'topiRajut': topiRajut,
+
+    'Sarung Bantal Rajut': sarungBantalRajut,
+    'sarung bantal rajut': sarungBantalRajut,
+    'SarungBantalRajut': sarungBantalRajut,
+
+    'Tote Bag Rajut': toteBag,
+    'tote bag rajut': toteBag,
+    'Totebag Rajut': toteBag,
+    'totebag rajut': toteBag,
     'ToteBag': toteBag,
     'tote bag': toteBag,
     'Tote Bag': toteBag,
-    'BajuPendek': bajuPendek,
-    'Baju Pendek': bajuPendek,
-    'baju pendek': bajuPendek,
-    'Sweater Bulu Hangat': sweaterHangat,
-    'sweater bulu hangat': sweaterHangat,
-    'sweater bulu': sweaterHangat,
+
+    'Kaus Kaki Rajut': kausKakiRajut,
+    'kaus kaki rajut': kausKakiRajut,
+    'kausKakiRajut': kausKakiRajut,
+
+    'Mainan Rajut': mainanRajut,
+    'mainan rajut': mainanRajut,
+    'mainanRajut': mainanRajut,
+
+    'Selendang Rajut': selendangRajut,
+    'selendang rajut': selendangRajut,
+    'selendangRajut': selendangRajut,
+
+    'Tas Rajut': tasRajut,
+    'tas rajut': tasRajut,
+    'tasRajut': tasRajut,
 };
 
 const getProductImage = (productName) => {

@@ -23,34 +23,87 @@ import bajuPendek from '../assets/products/BajuPendek.jpeg';
 
 const productImages = {
     'Kaus Kaki Rajut': kausKakiRajut,
+    'kausKakiRajut': kausKakiRajut,
+    'kaus kaki rajut': kausKakiRajut,
     'Mainan Rajut': mainanRajut,
+    'mainanRajut': mainanRajut,
+    'mainan rajut': mainanRajut,
     'Selendang Rajut': selendangRajut,
+    'selendangRajut': selendangRajut,
+    'selendang rajut': selendangRajut,
     'Topi Rajut': topiRajut,
+    'topiRajut': topiRajut,
+    'topi rajut': topiRajut,
     'Tas Rajut': tasRajut,
+    'tasRajut': tasRajut,
+    'tas rajut': tasRajut,
     'Baju Rajut Wanita': bajuRajutWanita,
+    'bajuRajutWanita': bajuRajutWanita,
+    'baju rajut wanita': bajuRajutWanita,
     'Sarung Bantal Rajut': sarungBantalRajut,
+    'sarungBantalRajut': sarungBantalRajut,
+    'sarung bantal rajut': sarungBantalRajut,
     'Sweater Rajut Pria': sweaterRajutCowo,
+    'sweaterRajutCowo': sweaterRajutCowo,
+    'sweater rajut pria': sweaterRajutCowo,
+    'sweater rajut cowo': sweaterRajutCowo,
     'Sweater Cozy': sweaterCozy,
+    'sweaterCozy': sweaterCozy,
+    'sweater cozy': sweaterCozy,
+    'Sweater Rajut Cozy': sweaterCozy,
+    'sweater rajut cozy': sweaterCozy,
     'Sweater Hangat': sweaterHangat,
-    'Syal Rajut': syalRajut,
-    'Tote Bag': toteBag,
-    'BajuPendek': bajuPendek,
-    'Baju Pendek': bajuPendek,
-    'baju pendek': bajuPendek,
+    'sweaterHangat': sweaterHangat,
+    'sweater hangat': sweaterHangat,
     'Sweater Bulu Hangat': sweaterHangat,
     'sweater bulu hangat': sweaterHangat,
     'sweater bulu': sweaterHangat,
+    'Syal Rajut': syalRajut,
+    'syalRajut': syalRajut,
+    'syal rajut': syalRajut,
+    'Syal Rajut Pastel': syalRajut,
+    'syal rajut pastel': syalRajut,
+    'Syal': syalRajut,
+    'Tote Bag': toteBag,
+    'toteBag': toteBag,
+    'Tote Bag Rajut': toteBag,
+    'tote bag rajut': toteBag,
+    'Totebag Rajut': toteBag,
+    'totebag rajut': toteBag,
+    'BajuPendek': bajuPendek,
+    'Baju Pendek': bajuPendek,
+    'baju pendek': bajuPendek,
+    'Topi Rajut Aesthetic': topiRajut,
+    'topi rajut aesthetic': topiRajut,
 };
 
 const getProductImage = (productName) => {
     if (!productName) return null;
+
     const lowerName = productName.toLowerCase();
+
+    // 1. Exact match
+    if (productImages[productName]) {
+        return productImages[productName];
+    }
+
+    // 2. Includes match
     for (const [key, image] of Object.entries(productImages)) {
         const lowerKey = key.toLowerCase();
         if (lowerName.includes(lowerKey) || lowerKey.includes(lowerName)) {
             return image;
         }
     }
+
+    // 3. Clean name match (tanpa spasi)
+    const cleanName = lowerName.replace(/\s/g, '');
+    for (const [key, image] of Object.entries(productImages)) {
+        const cleanKey = key.toLowerCase().replace(/\s/g, '');
+        if (cleanName.includes(cleanKey) || cleanKey.includes(cleanName)) {
+            return image;
+        }
+    }
+
     return null;
 };
 
