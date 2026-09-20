@@ -99,7 +99,9 @@
     font-weight: 500;
 }
 
-/* ── GRID SERTIFIKAT ── */
+/* ═══════════════════════════════════════
+   GRID SERTIFIKAT
+   ═══════════════════════════════════════ */
 .cert-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -108,8 +110,7 @@
 
 .cert-card {
     display: flex;
-    gap: 18px;
-    padding: 26px 24px;
+    flex-direction: column;
     background: #fff;
     border: 2.5px solid #1a1a1a;
     border-radius: 20px;
@@ -132,24 +133,59 @@
     box-shadow: 10px 10px 0 #8b5cf6;
 }
 
-.cert-icon {
-    display: inline-flex;
+/* ═══════════════════════════════════════
+   CERT IMAGE (untuk gambar sertifikat)
+   ═══════════════════════════════════════ */
+.cert-image {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: linear-gradient(135deg, #8b5cf6, #ec4899);
+    border-bottom: 2.5px solid #1a1a1a;
+    display: flex;
     align-items: center;
     justify-content: center;
-    width: 56px;
-    height: 56px;
-    border-radius: 16px;
-    background: linear-gradient(135deg, #8b5cf6, #ec4899);
-    color: #fff;
-    font-size: 1.6rem;
-    border: 2.5px solid #1a1a1a;
-    box-shadow: 4px 4px 0 #1a1a1a;
-    flex-shrink: 0;
 }
 
+.cert-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.cert-card:hover .cert-img {
+    transform: scale(1.05);
+}
+
+/* Fallback icon di dalam cert-image */
+.cert-image .cert-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 72px;
+    height: 72px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    color: #8b5cf6;
+    font-size: 2.2rem;
+    border: 2.5px solid #1a1a1a;
+    box-shadow: 4px 4px 0 #1a1a1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ═══════════════════════════════════════
+   CERT BODY (text area)
+   ═══════════════════════════════════════ */
 .cert-body {
     flex: 1;
     min-width: 0;
+    padding: 22px 22px 24px;
 }
 
 .cert-type {
@@ -215,19 +251,21 @@
     }
 
     .cert-card {
-        padding: 22px 20px;
-        gap: 14px;
-        flex-direction: column;
+        padding: 0;
+        gap: 0;
     }
 
-    .cert-icon {
-        width: 48px;
-        height: 48px;
-        font-size: 1.4rem;
-        border-radius: 14px;
+    .cert-body {
+        padding: 18px 18px 20px;
     }
 
     .cert-title {
         font-size: 1rem;
+    }
+
+    .cert-image .cert-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.8rem;
     }
 }

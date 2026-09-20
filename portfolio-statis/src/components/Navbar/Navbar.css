@@ -53,7 +53,7 @@
     width: 48px;
     height: 48px;
     border-radius: 14px;
-    background: linear-gradient(135deg, #8b5cf6, #ec4899);
+    background: #fff;
     border: 2.5px solid #1a1a1a;
     box-shadow: 4px 4px 0 #1a1a1a;
     display: flex;
@@ -62,6 +62,7 @@
     z-index: 2;
     position: relative;
     transition: transform 0.25s ease, box-shadow 0.25s ease;
+    overflow: hidden;
 }
 
 .logo:hover .logo-icon {
@@ -69,6 +70,16 @@
     box-shadow: 6px 6px 0 #1a1a1a;
 }
 
+/* ─── LOGO IMAGE (foto Nida) ─── */
+.logo-icon-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: inherit;
+}
+
+/* Fallback kalau masih ada yang pakai text */
 .logo-icon-text {
     color: #fff;
     font-weight: 900;

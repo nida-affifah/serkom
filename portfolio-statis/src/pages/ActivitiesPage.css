@@ -211,9 +211,13 @@
     box-shadow: 10px 10px 0 #8b5cf6;
 }
 
+/* ═══════════════════════════════════════
+   ACTIVITY IMAGE (yang diperbarui)
+   ═══════════════════════════════════════ */
 .activity-image {
     position: relative;
-    height: 150px;
+    width: 100%;
+    aspect-ratio: 16 / 10;
     background: linear-gradient(135deg, #8b5cf6, #ec4899);
     border-bottom: 2.5px solid #1a1a1a;
     display: flex;
@@ -222,7 +226,24 @@
     overflow: hidden;
 }
 
+.activity-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.activity-card:hover .activity-img {
+    transform: scale(1.05);
+}
+
 .activity-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
     font-size: 3rem;
     color: rgba(255, 255, 255, 0.85);
 }
@@ -241,6 +262,7 @@
     text-transform: uppercase;
     letter-spacing: 0.5px;
     box-shadow: 2px 2px 0 #1a1a1a;
+    z-index: 2;
 }
 
 .activity-body {
@@ -342,7 +364,7 @@
     }
 
     .activity-image {
-        height: 130px;
+        height: auto;
     }
 
     .activity-body {

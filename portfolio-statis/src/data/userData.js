@@ -190,8 +190,8 @@ export const userData = {
             title: 'Proyek',
             items: [
                 { title: 'Proyek Profil Pribadi', type: 'Proyek Web', description: 'Proyek pembuatan website portfolio pribadi sebagai media personal branding dan dokumentasi karya.', tech: ['React', 'Vite', 'CSS'], image: 'portofolioPribadi.png', link: '#' },
-                { title: 'Proyek Business Matching Vokasi PKPLK', type: 'Proyek Kompetisi', description: 'Proyek karya vokasi yang diikutsertakan dalam Business Matching Gelar Karya Vokasi PKPLK tingkat nasional (daring).', tech: ['Presentasi', 'Business Plan'], image: 'publicSpeaking.jpeg', link: '#' },
-                { title: 'Proyek Festika Arek AI Jatim', type: 'Proyek Kompetisi', description: 'Proyek eksperimen AI yang diikutsertakan dalam kompetisi Festika Arek AI tingkat Jawa Timur (daring).', tech: ['Python', 'AI'], image: 'gameLab.jpeg', link: '#' }
+                { title: 'Proyek Business Matching Vokasi PKPLK', type: 'Proyek Kompetisi', description: 'Proyek karya vokasi yang diikutsertakan dalam Business Matching Gelar Karya Vokasi PKPLK tingkat nasional (daring).', tech: ['Presentasi', 'Business Plan'], image: 'lombaKWU.jpeg', link: '#' },
+                { title: 'Proyek Festika Arek AI Jatim', type: 'Proyek Kompetisi', description: 'Proyek eksperimen AI yang diikutsertakan dalam kompetisi Festika Arek AI tingkat Jawa Timur (daring).', tech: ['Python', 'AI'], image: 'lombaArekAI.jpeg', link: '#' }
             ]
         }
     },
@@ -201,7 +201,8 @@ export const userData = {
             year: '2025',
             title: 'Sertifikat Les Public Speaking',
             issuer: 'Ponorogo',
-            type: 'Sertifikasi'
+            type: 'Sertifikasi',
+            image: 'publicSpeaking.jpeg'
         }
     ],
 
@@ -209,33 +210,33 @@ export const userData = {
         learningDocs: {
             title: 'Dokumentasi Kegiatan Belajar',
             items: [
-                { year: '2024 - Sekarang', title: 'Belajar Otodidak di Rumah', type: 'Belajar Mandiri', place: 'Rumah', description: 'Dokumentasi kegiatan belajar mandiri: JavaScript, React JS, dan pengembangan web melalui tutorial online.' },
-                { year: '2024 - Sekarang', title: 'Belajar di Sekolah (RPL)', type: 'Belajar Formal', place: 'SMKN 1 Jenangan Ponorogo', description: 'Dokumentasi kegiatan belajar di jurusan RPL: pemrograman, pengembangan web, dan dasar teknologi informasi.' },
-                { year: '2025', title: 'Les Public Speaking', type: 'Belajar Non-Formal', place: 'Ponorogo', description: 'Dokumentasi kegiatan les public speaking: latihan berbicara di depan umum dan presentasi.' },
-                { year: '2025', title: 'Kunjungan Industri ke Game Lab Indonesia', type: 'Kunjungan Industri', place: 'Jawa Tengah', description: 'Dokumentasi kunjungan industri ke Game Lab Indonesia di Jawa Tengah, mengenal proses produksi game, budaya kerja industri, dan peluang karier di bidang game development.' },
-                { year: '2025', title: 'RPL Connect (2 Kali)', type: 'Acara Sekolah', place: 'SMKN 1 Jenangan Ponorogo', description: 'Dokumentasi keikutsertaan dalam acara RPL Connect sebanyak 2 kali, kegiatan yang mendatangkan alumni RPL yang sudah sukses untuk berbagi pengalaman, ilmu, dan motivasi.' }
+                { year: '2024 - Sekarang', title: 'Belajar Otodidak di Rumah', type: 'Belajar Mandiri', place: 'Rumah', description: 'Dokumentasi kegiatan belajar mandiri: JavaScript, React JS, dan pengembangan web melalui tutorial online.', image: 'belajarRumah.jpeg' },
+                { year: '2024 - Sekarang', title: 'Belajar di Sekolah (RPL)', type: 'Belajar Formal', place: 'SMKN 1 Jenangan Ponorogo', description: 'Dokumentasi kegiatan belajar di jurusan RPL: pemrograman, pengembangan web, dan dasar teknologi informasi.', image: 'belajarSekolah.jpeg' },
+                { year: '2025', title: 'Les Public Speaking', type: 'Belajar Non-Formal', place: 'Ponorogo', description: 'Dokumentasi kegiatan les public speaking: latihan berbicara di depan umum dan presentasi.', image: 'publicSpeaking.jpeg' },
+                { year: '2025', title: 'Kunjungan Industri ke Game Lab Indonesia', type: 'Kunjungan Industri', place: 'Jawa Tengah', description: 'Dokumentasi kunjungan industri ke Game Lab Indonesia di Jawa Tengah, mengenal proses produksi game, budaya kerja industri, dan peluang karier di bidang game development.', image: 'gameLab.jpeg' },
+                { year: '2025', title: 'RPL Connect (2 Kali)', type: 'Acara Sekolah', place: 'SMKN 1 Jenangan Ponorogo', description: 'Dokumentasi keikutsertaan dalam acara RPL Connect sebanyak 2 kali, kegiatan yang mendatangkan alumni RPL yang sudah sukses untuk berbagi pengalaman, ilmu, dan motivasi.', image: 'RPLConnect.jpeg' }
             ]
         },
         workshops: {
             title: 'Workshop',
             items: [
-                { year: '2025', title: 'Workshop Pengembangan Web', type: 'Workshop', place: 'SMKN 1 Jenangan Ponorogo', description: 'Mengikuti workshop pengembangan web: dasar HTML, CSS, JavaScript, dan framework modern.' },
-                { year: '2025', title: 'Workshop Game Development di Game Lab Indonesia', type: 'Workshop', place: 'Jawa Tengah', description: 'Mengikuti sesi workshop dan sharing langsung dari praktisi Game Lab Indonesia di Jawa Tengah tentang dasar-dasar pengembangan game dan industri kreatif digital.' }
+                { year: '2025', title: 'Workshop Pengembangan Web', type: 'Workshop', place: 'SMKN 1 Jenangan Ponorogo', description: 'Mengikuti workshop pengembangan web: dasar HTML, CSS, JavaScript, dan framework modern.', image: 'tokoRajut.png' },
+                { year: '2025', title: 'Workshop Game Development di Game Lab Indonesia', type: 'Workshop', place: 'Jawa Tengah', description: 'Mengikuti sesi workshop dan sharing langsung dari praktisi Game Lab Indonesia di Jawa Tengah tentang dasar-dasar pengembangan game dan industri kreatif digital.', image: 'gameLab.jpeg' }
             ]
         },
         seminars: {
             title: 'Seminar & Sharing',
             items: [
-                { year: '2025', title: 'RPL Connect (2 Kali)', type: 'Sharing Alumni', place: 'SMKN 1 Jenangan Ponorogo', description: 'Mengikuti sesi sharing bersama alumni RPL yang sudah sukses, berbagi pengalaman, ilmu, dan motivasi kepada siswa RPL.' },
-                { year: '2025', title: 'Sesi Sharing Kunjungan Industri Game Lab Indonesia', type: 'Sharing Praktisi', place: 'Jawa Tengah', description: 'Mengikuti sesi sharing dari praktisi Game Lab Indonesia tentang dunia industri game, teknologi, dan peluang karier.' }
+                { year: '2025', title: 'RPL Connect (2 Kali)', type: 'Sharing Alumni', place: 'SMKN 1 Jenangan Ponorogo', description: 'Mengikuti sesi sharing bersama alumni RPL yang sudah sukses, berbagi pengalaman, ilmu, dan motivasi kepada siswa RPL.', image: 'RPLConnect.jpeg' },
+                { year: '2025', title: 'Sesi Sharing Kunjungan Industri Game Lab Indonesia', type: 'Sharing Praktisi', place: 'Jawa Tengah', description: 'Mengikuti sesi sharing dari praktisi Game Lab Indonesia tentang dunia industri game, teknologi, dan peluang karier.', image: 'gameLab.jpeg' }
             ]
         },
         projects: {
             title: 'Proyek',
             items: [
-                { year: '2025', title: 'Lomba Festival Reog Nasional', type: 'Kompetisi', place: 'Ponorogo', description: 'Ikut serta dalam Festival Reog tingkat nasional di Ponorogo sebagai bagian dari dokumentasi proyek seni tari.' },
-                { year: '2025', title: 'Lomba Festika Arek AI Jatim', type: 'Kompetisi', place: 'Daring', description: 'Kompetisi AI tingkat Jawa Timur yang diselenggarakan secara online sebagai dokumentasi proyek AI.' },
-                { year: '2025', title: 'Business Matching Gelar Karya Vokasi PKPLK', type: 'Kompetisi', place: 'Daring', description: 'Ikut serta dalam business matching karya vokasi PKPLK secara online sebagai dokumentasi proyek vokasi.' }
+                { year: '2025', title: 'Lomba Festival Reog Nasional', type: 'Kompetisi', place: 'Ponorogo', description: 'Ikut serta dalam Festival Reog tingkat nasional di Ponorogo sebagai bagian dari dokumentasi proyek seni tari.', image: 'lombaFNRP.jpeg' },
+                { year: '2025', title: 'Lomba Festika Arek AI Jatim', type: 'Kompetisi', place: 'Daring', description: 'Kompetisi AI tingkat Jawa Timur yang diselenggarakan secara online sebagai dokumentasi proyek AI.', image: 'lombaArekAI.jpeg' },
+                { year: '2025', title: 'Business Matching Gelar Karya Vokasi PKPLK', type: 'Kompetisi', place: 'Daring', description: 'Ikut serta dalam business matching karya vokasi PKPLK secara online sebagai dokumentasi proyek vokasi.', image: 'lombaKWU.jpeg' }
             ]
         }
     },

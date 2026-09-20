@@ -6,6 +6,7 @@ import {
     FiMenu, FiX, FiChevronDown, FiAward, FiCamera, FiBook,
     FiTrendingUp, FiCode
 } from 'react-icons/fi';
+import nida from '../../assets/images/nida.jpeg';
 import './Navbar.css';
 
 const Navbar = () => {
@@ -114,7 +115,11 @@ const Navbar = () => {
                 >
                     <div className="logo-icon-wrapper">
                         <div className="logo-icon">
-                            <span className="logo-icon-text">NA</span>
+                            <img
+                                src={nida}
+                                alt="Nida Affifah"
+                                className="logo-icon-img"
+                            />
                         </div>
                         <div className="logo-ring"></div>
                         <div className="logo-ring"></div>
