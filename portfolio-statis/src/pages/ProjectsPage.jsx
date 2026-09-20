@@ -10,10 +10,26 @@ import './ProjectsPage.css';
 
 import simKlinik from '../assets/images/projects/sim-klinik.png';
 import formKtp from '../assets/images/projects/form-ktp.png';
+import belajarRumah from '../assets/images/projects/belajarRumah.jpeg';
+import belajarSekolah from '../assets/images/projects/belajarSekolah.jpeg';
+import gameLab from '../assets/images/projects/gameLab.jpeg';
+import portofolioPribadi from '../assets/images/projects/portofolioPribadi.png';
+import publicSpeaking from '../assets/images/projects/publicSpeaking.jpeg';
+import rplConnect from '../assets/images/projects/RPLConnect.jpeg';
+import tokoElektronik from '../assets/images/projects/tokoElektronik.png';
+import tokoRajut from '../assets/images/projects/tokoRajut.png';
 
 const imageMap = {
     'sim-klinik.png': simKlinik,
-    'form-ktp.png': formKtp
+    'form-ktp.png': formKtp,
+    'belajarRumah.jpeg': belajarRumah,
+    'belajarSekolah.jpeg': belajarSekolah,
+    'gameLab.jpeg': gameLab,
+    'portofolioPribadi.png': portofolioPribadi,
+    'publicSpeaking.jpeg': publicSpeaking,
+    'RPLConnect.jpeg': rplConnect,
+    'tokoElektronik.png': tokoElektronik,
+    'tokoRajut.png': tokoRajut,
 };
 
 const iconMap = {
@@ -25,7 +41,6 @@ const iconMap = {
 };
 
 const resolveImage = (image) => {
-    console.log('IMAGE:', image, '→', imageMap[image]);
     if (!image) return '';
     if (imageMap[image]) return imageMap[image];
     return image;

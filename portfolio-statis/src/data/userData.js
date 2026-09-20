@@ -159,9 +159,9 @@ export const userData = {
         websites: {
             title: 'Website',
             items: [
-                { title: 'Website Toko Rajut Indah', type: 'Web E-commerce', description: 'Toko online produk rajut dengan fitur cart, checkout, admin dashboard, dan manajemen stok.', tech: ['React', 'Express', 'PostgreSQL'], image: 'https://via.placeholder.com/400x250/8b5cf6/ffffff?text=Toko+Rajut', link: '#' },
-                { title: 'Website Portfolio Pribadi', type: 'Web Portfolio', description: 'Website portfolio pribadi dengan 12 halaman dan desain modern, dibangun menggunakan React + Vite.', tech: ['React', 'Vite', 'CSS'], image: 'https://via.placeholder.com/400x250/6366f1/ffffff?text=Portfolio', link: '#' },
-                { title: 'Toko Elektronik', type: 'Web E-commerce', description: 'Platform jual beli produk elektronik dengan fitur katalog, keranjang, dan pembayaran.', tech: ['React', 'Express', 'MongoDB'], image: 'https://via.placeholder.com/400x250/ec4899/ffffff?text=Toko+Elektronik', link: '#' }
+                { title: 'Website Toko Rajut Indah', type: 'Web E-commerce', description: 'Toko online produk rajut dengan fitur cart, checkout, admin dashboard, dan manajemen stok.', tech: ['React', 'Express', 'PostgreSQL'], image: 'tokoRajut.png', link: '#' },
+                { title: 'Website Portfolio Pribadi', type: 'Web Portfolio', description: 'Website portfolio pribadi dengan 12 halaman dan desain modern, dibangun menggunakan React + Vite.', tech: ['React', 'Vite', 'CSS'], image: 'portofolioPribadi.png', link: '#' },
+                { title: 'Toko Elektronik', type: 'Web E-commerce', description: 'Platform jual beli produk elektronik dengan fitur katalog, keranjang, dan pembayaran.', tech: ['React', 'Express', 'MongoDB'], image: 'tokoElektronik.png', link: '#' }
             ]
         },
         applications: {
@@ -174,24 +174,24 @@ export const userData = {
         modules: {
             title: 'Modul',
             items: [
-                { title: 'Modul Belajar JavaScript dari Nol', type: 'Modul Pembelajaran', description: 'Modul ringkas berisi materi dasar JavaScript: variabel, tipe data, kondisi, perulangan, function, hingga tips untuk pemula.', tech: ['Markdown', 'HTML'], image: 'https://via.placeholder.com/400x250/3b82f6/ffffff?text=Modul+JS', link: '#belajar-javascript-dari-nol' },
-                { title: 'Modul Mengenal AI untuk Pemula', type: 'Modul Pembelajaran', description: 'Modul pengenalan Artificial Intelligence: apa itu AI, contoh penerapan, cara kerja, dan langkah belajar AI dari nol.', tech: ['Markdown', 'HTML'], image: 'https://via.placeholder.com/400x250/8b5cf6/ffffff?text=Modul+AI', link: '#mengenal-ai-untuk-pemula' },
-                { title: 'Modul Tips Sukses PKL di Bidang IT', type: 'Modul Pengalaman', description: 'Modul berisi 5 tips sukses menjalani PKL di bidang IT: aktif bertanya, disiplin waktu, catat ilmu, bangun relasi, dan jaga attitude.', tech: ['Markdown', 'HTML'], image: 'https://via.placeholder.com/400x250/f97316/ffffff?text=Modul+PKL', link: '#tips-sukses-pkl-bidang-it' }
+                { title: 'Modul Belajar JavaScript dari Nol', type: 'Modul Pembelajaran', description: 'Modul ringkas berisi materi dasar JavaScript: variabel, tipe data, kondisi, perulangan, function, hingga tips untuk pemula.', tech: ['Markdown', 'HTML'], image: 'belajarRumah.jpeg', link: '#belajar-javascript-dari-nol' },
+                { title: 'Modul Mengenal AI untuk Pemula', type: 'Modul Pembelajaran', description: 'Modul pengenalan Artificial Intelligence: apa itu AI, contoh penerapan, cara kerja, dan langkah belajar AI dari nol.', tech: ['Markdown', 'HTML'], image: 'belajarSekolah.jpeg', link: '#mengenal-ai-untuk-pemula' },
+                { title: 'Modul Tips Sukses PKL di Bidang IT', type: 'Modul Pengalaman', description: 'Modul berisi 5 tips sukses menjalani PKL di bidang IT: aktif bertanya, disiplin waktu, catat ilmu, bangun relasi, dan jaga attitude.', tech: ['Markdown', 'HTML'], image: 'gameLab.jpeg', link: '#tips-sukses-pkl-bidang-it' }
             ]
         },
         learningMedia: {
             title: 'Media Pembelajaran',
             items: [
-                { title: 'Media Presentasi Public Speaking', type: 'Media Ajar', description: 'Materi dan slide presentasi dari les public speaking tentang teknik berbicara di depan umum dan presentasi.', tech: ['HTML', 'CSS', 'Slide'], image: 'https://via.placeholder.com/400x250/14b8a6/ffffff?text=Media+Speaking', link: '#' },
-                { title: 'Media Belajar Berbasis Blog', type: 'Media Ajar', description: 'Kumpulan artikel dan tutorial di blog pribadi sebagai media belajar bersama untuk topik web development dan AI.', tech: ['React', 'Markdown'], image: 'https://via.placeholder.com/400x250/22c55e/ffffff?text=Media+Blog', link: '#' }
+                { title: 'Media Presentasi Public Speaking', type: 'Media Ajar', description: 'Materi dan slide presentasi dari les public speaking tentang teknik berbicara di depan umum dan presentasi.', tech: ['HTML', 'CSS', 'Slide'], image: 'publicSpeaking.jpeg', link: '#' },
+                { title: 'Media Belajar Berbasis Blog', type: 'Media Ajar', description: 'Kumpulan artikel dan tutorial di blog pribadi sebagai media belajar bersama untuk topik web development dan AI.', tech: ['React', 'Markdown'], image: 'RPLConnect.jpeg', link: '#' }
             ]
         },
         projects: {
             title: 'Proyek',
             items: [
-                { title: 'Proyek Profil Pribadi', type: 'Proyek Web', description: 'Proyek pembuatan website portfolio pribadi sebagai media personal branding dan dokumentasi karya.', tech: ['React', 'Vite', 'CSS'], image: 'https://via.placeholder.com/400x250/ef4444/ffffff?text=Proyek+Portfolio', link: '#' },
-                { title: 'Proyek Business Matching Vokasi PKPLK', type: 'Proyek Kompetisi', description: 'Proyek karya vokasi yang diikutsertakan dalam Business Matching Gelar Karya Vokasi PKPLK tingkat nasional (daring).', tech: ['Presentasi', 'Business Plan'], image: 'https://via.placeholder.com/400x250/6366f1/ffffff?text=Proyek+PKPLK', link: '#' },
-                { title: 'Proyek Festika Arek AI Jatim', type: 'Proyek Kompetisi', description: 'Proyek eksperimen AI yang diikutsertakan dalam kompetisi Festika Arek AI tingkat Jawa Timur (daring).', tech: ['Python', 'AI'], image: 'https://via.placeholder.com/400x250/8b5cf6/ffffff?text=Proyek+AI', link: '#' }
+                { title: 'Proyek Profil Pribadi', type: 'Proyek Web', description: 'Proyek pembuatan website portfolio pribadi sebagai media personal branding dan dokumentasi karya.', tech: ['React', 'Vite', 'CSS'], image: 'portofolioPribadi.png', link: '#' },
+                { title: 'Proyek Business Matching Vokasi PKPLK', type: 'Proyek Kompetisi', description: 'Proyek karya vokasi yang diikutsertakan dalam Business Matching Gelar Karya Vokasi PKPLK tingkat nasional (daring).', tech: ['Presentasi', 'Business Plan'], image: 'publicSpeaking.jpeg', link: '#' },
+                { title: 'Proyek Festika Arek AI Jatim', type: 'Proyek Kompetisi', description: 'Proyek eksperimen AI yang diikutsertakan dalam kompetisi Festika Arek AI tingkat Jawa Timur (daring).', tech: ['Python', 'AI'], image: 'gameLab.jpeg', link: '#' }
             ]
         }
     },
