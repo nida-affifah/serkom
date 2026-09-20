@@ -23,6 +23,7 @@ import sweaterCozy from '../assets/products/SweaterCozy.jpeg';
 import sweaterHangat from '../assets/products/SweaterHangat.jpeg';
 import syalRajut from '../assets/products/SyalRajut.jpeg';
 import toteBag from '../assets/products/ToteBag.jpeg';
+import bajuPendek from '../assets/products/BajuPendek.jpeg';
 
 const productImages = {
     'Sarung Bantal Rajut': sarungBantalRajut,
@@ -59,9 +60,9 @@ const productImages = {
     'Tote Bag': toteBag,
     'toteBag': toteBag,
     'ToteBag': toteBag,
-    'Baju Pendek': bajuRajutWanita,
-    'baju pendek': bajuRajutWanita,
-    'baju': bajuRajutWanita,
+    'BajuPendek': bajuPendek,
+    'Baju Pendek': bajuPendek,
+    'baju pendek': bajuPendek,
     'Sweater Bulu Hangat': sweaterHangat,
     'sweater bulu hangat': sweaterHangat,
     'sweater bulu': sweaterHangat

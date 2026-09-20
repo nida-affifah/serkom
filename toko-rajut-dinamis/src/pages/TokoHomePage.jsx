@@ -8,32 +8,38 @@ import './TokoHomePage.css';
 import logoToko from '../assets/images/logoToko.jpeg';
 import nida from '../assets/images/nida.jpeg';
 import kausKakiRajut from '../assets/products/kausKakiRajut.png';
+import mainanRajut from '../assets/products/mainanRajut.png';
 import selendangRajut from '../assets/products/selendangRajut.png';
 import topiRajut from '../assets/products/topiRajut.png';
 import tasRajut from '../assets/products/tasRajut.png';
+import bajuRajutWanita from '../assets/products/BajuRajutWanita.jpeg';
 import sarungBantalRajut from '../assets/products/SarungBantalRajut.jpeg';
+import sweaterRajutCowo from '../assets/products/SweaterRajutCowo.jpeg';
 import sweaterCozy from '../assets/products/SweaterCozy.jpeg';
 import sweaterHangat from '../assets/products/SweaterHangat.jpeg';
 import syalRajut from '../assets/products/SyalRajut.jpeg';
 import toteBag from '../assets/products/ToteBag.jpeg';
+import bajuPendek from '../assets/products/BajuPendek.jpeg';
 
 const productImages = {
     'Kaus Kaki Rajut': kausKakiRajut,
+    'Mainan Rajut': mainanRajut,
     'Selendang Rajut': selendangRajut,
     'Topi Rajut': topiRajut,
     'Tas Rajut': tasRajut,
+    'Baju Rajut Wanita': bajuRajutWanita,
     'Sarung Bantal Rajut': sarungBantalRajut,
-    'sarungBantalRajut': sarungBantalRajut,
+    'Sweater Rajut Pria': sweaterRajutCowo,
     'Sweater Cozy': sweaterCozy,
-    'sweaterCozy': sweaterCozy,
     'Sweater Hangat': sweaterHangat,
-    'sweaterHangat': sweaterHangat,
     'Syal Rajut': syalRajut,
-    'syalRajut': syalRajut,
-    'Syal': syalRajut,
     'Tote Bag': toteBag,
-    'toteBag': toteBag,
-    'ToteBag': toteBag,
+    'BajuPendek': bajuPendek,
+    'Baju Pendek': bajuPendek,
+    'baju pendek': bajuPendek,
+    'Sweater Bulu Hangat': sweaterHangat,
+    'sweater bulu hangat': sweaterHangat,
+    'sweater bulu': sweaterHangat,
 };
 
 const getProductImage = (productName) => {
