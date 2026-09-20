@@ -43,6 +43,7 @@ const Navbar = ({ onCartClick, onSearch }) => {
     const [menuOpen, setMenuOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const [showSuggestions, setShowSuggestions] = useState(false);
+    const [showLogoutModal, setShowLogoutModal] = useState(false);
 
     const [searchData, setSearchData] = useState({
         produk: [],
@@ -158,12 +159,19 @@ const Navbar = ({ onCartClick, onSearch }) => {
         }
     };
 
-    const handleLogout = () => {
-        const yakin = window.confirm('Yakin mau logout dari akun ini?');
-        if (!yakin) return;
+    const openLogoutModal = () => {
+        setShowLogoutModal(true);
+    };
+
+    const closeLogoutModal = () => {
+        setShowLogoutModal(false);
+    };
+
+    const confirmLogout = () => {
+        setShowLogoutModal(false);
+        setMenuOpen(false);
         logout();
         navigate('/');
-        setMenuOpen(false);
     };
 
     const menuPublik = [
@@ -481,9 +489,11 @@ const Navbar = ({ onCartClick, onSearch }) => {
                 </div>
 
                 <button
+                    type="button"
                     className="nav-logout-btn"
-                    onClick={handleLogout}
+                    onClick={openLogoutModal}
                     title="Logout"
+                    aria-label="Logout"
                 >
                     <FiLogOut />
                 </button>
@@ -492,84 +502,116 @@ const Navbar = ({ onCartClick, onSearch }) => {
     };
 
     return (
-        <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
-            <div className="navbar-top">
-                <div className="logo" onClick={() => handleNavigation('/')}>
-                    <div className="logo-icon-wrapper">
-                        <div className="logo-icon">
-                            <img
-                                src={logoToko}
-                                alt="RajutIndah"
-                                className="logo-icon-img"
-                            />
+        <>
+            <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
+                <div className="navbar-top">
+                    <div className="logo" onClick={() => handleNavigation('/')}>
+                        <div className="logo-icon-wrapper">
+                            <div className="logo-icon">
+                                <img
+                                    src={logoToko}
+                                    alt="RajutIndah"
+                                    className="logo-icon-img"
+                                />
+                            </div>
+                            <div className="logo-ring"></div>
+                            <div className="logo-ring"></div>
                         </div>
-                        <div className="logo-ring"></div>
-                        <div className="logo-ring"></div>
+                        <div className="logo-text">
+                            <span className="name">RajutIndah</span>
+                            <span className="subtitle">Toko Online</span>
+                        </div>
                     </div>
-                    <div className="logo-text">
-                        <span className="name">RajutIndah</span>
-                        <span className="subtitle">Toko Online</span>
-                    </div>
+
+                    {!isMobile && renderSearchBar()}
+
+                    {!isMobile && (
+                        <div className="user-actions-wrapper">
+                            {renderUserActions()}
+                        </div>
+                    )}
+
+                    {isMobile && (
+                        <button
+                            className={`menu-toggle ${menuOpen ? 'open' : ''}`}
+                            onClick={() => setMenuOpen(!menuOpen)}
+                            aria-label="Toggle menu"
+                        >
+                            {menuOpen ? <FiX /> : <FiMenu />}
+                        </button>
+                    )}
                 </div>
 
-                {!isMobile && renderSearchBar()}
+                <div className={`navbar-bottom ${menuOpen ? 'open' : ''}`}>
+                    <ul className="nav-menu">
+                        {isMobile && (
+                            <li className="mobile-search">
+                                <form onSubmit={handleSearch} className="search-form-mobile">
+                                    <input
+                                        type="text"
+                                        placeholder={getPlaceholder()}
+                                        value={searchQuery}
+                                        onChange={(e) => setSearchQuery(e.target.value)}
+                                        className="search-input-mobile"
+                                    />
+                                    <button type="submit" className="search-btn-mobile">
+                                        <FiSearch />
+                                    </button>
+                                </form>
+                            </li>
+                        )}
 
-                {!isMobile && (
-                    <div className="user-actions-wrapper">
-                        {renderUserActions()}
-                    </div>
-                )}
-
-                {isMobile && (
-                    <button
-                        className={`menu-toggle ${menuOpen ? 'open' : ''}`}
-                        onClick={() => setMenuOpen(!menuOpen)}
-                        aria-label="Toggle menu"
-                    >
-                        {menuOpen ? <FiX /> : <FiMenu />}
-                    </button>
-                )}
-            </div>
-
-            <div className={`navbar-bottom ${menuOpen ? 'open' : ''}`}>
-                <ul className="nav-menu">
-                    {isMobile && (
-                        <li className="mobile-search">
-                            <form onSubmit={handleSearch} className="search-form-mobile">
-                                <input
-                                    type="text"
-                                    placeholder={getPlaceholder()}
-                                    value={searchQuery}
-                                    onChange={(e) => setSearchQuery(e.target.value)}
-                                    className="search-input-mobile"
-                                />
-                                <button type="submit" className="search-btn-mobile">
-                                    <FiSearch />
+                        {menuItems.map((item, index) => (
+                            <li key={index}>
+                                <button
+                                    className={`nav-link ${isActive(item.path) ? 'active' : ''}`}
+                                    onClick={() => handleNavigation(item.path)}
+                                >
+                                    <item.icon className="nav-icon" />
+                                    {item.label}
                                 </button>
-                            </form>
-                        </li>
-                    )}
+                            </li>
+                        ))}
 
-                    {menuItems.map((item, index) => (
-                        <li key={index}>
+                        {isMobile && (
+                            <li className="user-actions-item">
+                                {renderUserActions()}
+                            </li>
+                        )}
+                    </ul>
+                </div>
+            </nav>
+
+            {showLogoutModal && (
+                <div className="logout-modal-overlay" onClick={closeLogoutModal}>
+                    <div className="logout-modal" onClick={(e) => e.stopPropagation()}>
+                        <div className="logout-modal-icon">
+                            <FiLogOut />
+                        </div>
+                        <h3 className="logout-modal-title">Konfirmasi Logout</h3>
+                        <p className="logout-modal-message">
+                            Yakin mau logout dari akun <strong>{user?.nama_lengkap}</strong>?
+                        </p>
+                        <div className="logout-modal-actions">
                             <button
-                                className={`nav-link ${isActive(item.path) ? 'active' : ''}`}
-                                onClick={() => handleNavigation(item.path)}
+                                type="button"
+                                className="logout-modal-btn cancel"
+                                onClick={closeLogoutModal}
                             >
-                                <item.icon className="nav-icon" />
-                                {item.label}
+                                Batal
                             </button>
-                        </li>
-                    ))}
-
-                    {isMobile && (
-                        <li className="user-actions-item">
-                            {renderUserActions()}
-                        </li>
-                    )}
-                </ul>
-            </div>
-        </nav>
+                            <button
+                                type="button"
+                                className="logout-modal-btn confirm"
+                                onClick={confirmLogout}
+                            >
+                                <FiLogOut /> Ya, Logout
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+        </>
     );
 };
 
