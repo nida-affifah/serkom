@@ -854,3 +854,82 @@
         transition-duration: 0.01ms !important;
     }
 }
+
+/* ═══════════════════════════════════════
+   BANNER PHOTO (FOTO NIDA)
+   ═══════════════════════════════════════ */
+.banner-photo {
+    width: 100%;
+    max-width: 380px;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 32px;
+    border: 3px solid #1a1a1a;
+    box-shadow: 12px 12px 0 #1a1a1a;
+    transform: rotate(-3deg);
+    background: linear-gradient(135deg, #8b5cf6, #ec4899);
+    display: block;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.banner-photo:hover {
+    transform: rotate(-1deg) translate(-3px, -3px);
+    box-shadow: 15px 15px 0 #8b5cf6;
+}
+
+/* ═══════════════════════════════════════
+   BANNER BADGE LOGO (LOGO TOKO)
+   ═══════════════════════════════════════ */
+.banner-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.banner-badge-logo {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #1a1a1a;
+    background: #fff;
+    flex-shrink: 0;
+    display: inline-block;
+}
+
+/* ═══════════════════════════════════════
+   BANNER PHOTO RESPONSIVE
+   ═══════════════════════════════════════ */
+@media (max-width: 992px) {
+    .banner-photo {
+        max-width: 320px;
+        box-shadow: 10px 10px 0 #1a1a1a;
+    }
+}
+
+@media (max-width: 640px) {
+    .banner-photo {
+        max-width: 260px;
+        border-radius: 24px;
+        box-shadow: 8px 8px 0 #1a1a1a;
+        transform: rotate(-2deg);
+    }
+
+    .banner-badge-logo {
+        width: 22px;
+        height: 22px;
+    }
+}
+
+@media (max-width: 400px) {
+    .banner-photo {
+        max-width: 210px;
+        border-radius: 20px;
+        box-shadow: 6px 6px 0 #1a1a1a;
+    }
+
+    .banner-badge-logo {
+        width: 20px;
+        height: 20px;
+    }
+}

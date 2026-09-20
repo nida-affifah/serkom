@@ -76,7 +76,7 @@
     width: 42px;
     height: 42px;
     border-radius: 12px;
-    background: linear-gradient(135deg, #8b5cf6, #ec4899);
+    background: #fff;
     border: 2.5px solid #1a1a1a;
     box-shadow: 3px 3px 0 #1a1a1a;
     display: flex;
@@ -85,11 +85,20 @@
     position: relative;
     z-index: 2;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    overflow: hidden;
 }
 
 .logo:hover .logo-icon {
     transform: translate(-2px, -2px);
     box-shadow: 5px 5px 0 #1a1a1a;
+}
+
+.logo-icon-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: inherit;
 }
 
 .logo-icon-text {
@@ -135,13 +144,14 @@
 }
 
 /* ═══════════════════════════════════════
-   SEARCH BAR (di baris atas, tengah)
+   SEARCH BAR
    ═══════════════════════════════════════ */
 .search-container {
     flex: 1;
     max-width: 520px;
     min-width: 200px;
     margin: 0 auto;
+    position: relative;
 }
 
 .search-form {
@@ -243,7 +253,7 @@
 }
 
 /* ═══════════════════════════════════════
-   NAV MENU (di baris bawah)
+   NAV MENU
    ═══════════════════════════════════════ */
 .nav-menu {
     display: flex;
@@ -372,7 +382,7 @@
 }
 
 /* ═══════════════════════════════════════
-   USER ACTIONS (kanan baris atas)
+   USER ACTIONS
    ═══════════════════════════════════════ */
 .user-actions-item {
     list-style: none;
@@ -644,7 +654,6 @@
    RESPONSIVE — TABLET (≤ 992px) — Mobile Mode
    ═══════════════════════════════════════ */
 @media (max-width: 992px) {
-    /* Baris atas: logo + toggle */
     .navbar-top {
         padding: 10px 16px;
         gap: 12px;
@@ -656,12 +665,10 @@
         margin-left: auto;
     }
 
-    /* Search bar disembunyikan di desktop, muncul di mobile menu */
     .navbar-top .search-container {
         display: none;
     }
 
-    /* Baris bawah jadi menu slide */
     .navbar-bottom {
         position: fixed;
         top: 0;
@@ -825,11 +832,9 @@
     }
 }
 
-/* GLOBAL SEARCH SUGGESTIONS */
-.search-container {
-    position: relative;
-}
-
+/* ═══════════════════════════════════════
+   GLOBAL SEARCH SUGGESTIONS
+   ═══════════════════════════════════════ */
 .search-suggestions {
     position: absolute;
     top: calc(100% + 8px);

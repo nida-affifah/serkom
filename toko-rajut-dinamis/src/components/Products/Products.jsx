@@ -5,7 +5,6 @@ import { useAuth } from '../../context/AuthContext';
 import { produkAPI } from '../../services/api';
 import './Products.css';
 
-// IMPORT GAMBAR PRODUK
 import kausKakiRajut from '../../assets/products/kausKakiRajut.png';
 import mainanRajut from '../../assets/products/mainanRajut.png';
 import selendangRajut from '../../assets/products/selendangRajut.png';
@@ -14,8 +13,11 @@ import topiRajut from '../../assets/products/topiRajut.png';
 import bajuRajutWanita from '../../assets/products/BajuRajutWanita.jpeg';
 import sarungBantalRajut from '../../assets/products/SarungBantalRajut.jpeg';
 import sweaterRajutCowo from '../../assets/products/SweaterRajutCowo.jpeg';
+import sweaterCozy from '../../assets/products/SweaterCozy.jpeg';
+import sweaterHangat from '../../assets/products/SweaterHangat.jpeg';
+import syalRajut from '../../assets/products/SyalRajut.jpeg';
+import toteBag from '../../assets/products/ToteBag.jpeg';
 
-// MAP GAMBAR
 const productImages = {
     'kausKakiRajut': kausKakiRajut,
     'mainanRajut': mainanRajut,
@@ -29,6 +31,16 @@ const productImages = {
     'sarung bantal rajut': sarungBantalRajut,
     'sweater rajut pria': sweaterRajutCowo,
     'sweater rajut cowo': sweaterRajutCowo,
+    'SweaterCozy': sweaterCozy,
+    'sweater cozy': sweaterCozy,
+    'SweaterHangat': sweaterHangat,
+    'sweater hangat': sweaterHangat,
+    'SyalRajut': syalRajut,
+    'syal rajut': syalRajut,
+    'Syal': syalRajut,
+    'ToteBag': toteBag,
+    'tote bag': toteBag,
+    'Tote Bag': toteBag,
 };
 
 const getProductImage = (productName) => {
@@ -80,7 +92,6 @@ const Products = ({ onAddToCart, onBuyNow }) => {
         }
     }, [location.search]);
 
-    // FETCH ALL PRODUCTS
     const fetchProducts = async () => {
         try {
             setLoading(true);
@@ -95,7 +106,6 @@ const Products = ({ onAddToCart, onBuyNow }) => {
         }
     };
 
-    // FETCH BY CATEGORY
     const fetchProductsByCategory = async (category) => {
         try {
             setLoading(true);
@@ -122,7 +132,6 @@ const Products = ({ onAddToCart, onBuyNow }) => {
         }
     };
 
-    // FETCH BY SEARCH
     const fetchProductsBySearch = async (query) => {
         try {
             setLoading(true);

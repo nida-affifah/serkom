@@ -5,14 +5,18 @@ import { FiGift, FiCopy, FiArrowRight } from 'react-icons/fi';
 import { produkAPI, voucherAPI } from '../services/api';
 import './TokoHomePage.css';
 
-// IMPORT GAMBAR PRODUK
+import logoToko from '../assets/images/logoToko.jpeg';
+import nida from '../assets/images/nida.jpeg';
 import kausKakiRajut from '../assets/products/kausKakiRajut.png';
 import selendangRajut from '../assets/products/selendangRajut.png';
 import topiRajut from '../assets/products/topiRajut.png';
 import tasRajut from '../assets/products/tasRajut.png';
 import sarungBantalRajut from '../assets/products/SarungBantalRajut.jpeg';
+import sweaterCozy from '../assets/products/SweaterCozy.jpeg';
+import sweaterHangat from '../assets/products/SweaterHangat.jpeg';
+import syalRajut from '../assets/products/SyalRajut.jpeg';
+import toteBag from '../assets/products/ToteBag.jpeg';
 
-// MAP GAMBAR
 const productImages = {
     'Kaus Kaki Rajut': kausKakiRajut,
     'Selendang Rajut': selendangRajut,
@@ -20,6 +24,16 @@ const productImages = {
     'Tas Rajut': tasRajut,
     'Sarung Bantal Rajut': sarungBantalRajut,
     'sarungBantalRajut': sarungBantalRajut,
+    'Sweater Cozy': sweaterCozy,
+    'sweaterCozy': sweaterCozy,
+    'Sweater Hangat': sweaterHangat,
+    'sweaterHangat': sweaterHangat,
+    'Syal Rajut': syalRajut,
+    'syalRajut': syalRajut,
+    'Syal': syalRajut,
+    'Tote Bag': toteBag,
+    'toteBag': toteBag,
+    'ToteBag': toteBag,
 };
 
 const getProductImage = (productName) => {
@@ -115,12 +129,18 @@ const TokoHomePage = () => {
 
     return (
         <div className="toko-home-page">
-            {/* BANNER */}
             <section className="toko-banner">
                 <div className="container">
                     <div className="banner-content">
                         <div className="banner-text">
-                            <span className="banner-badge">RajutIndah</span>
+                            <span className="banner-badge">
+                                <img 
+                                    src={logoToko} 
+                                    alt="Logo RajutIndah" 
+                                    className="banner-badge-logo"
+                                />
+                                RajutIndah
+                            </span>
                             <h1 className="banner-title">
                                 Produk Rajutan <br />
                                 <span>Berkualitas</span>
@@ -137,15 +157,16 @@ const TokoHomePage = () => {
                             </button>
                         </div>
                         <div className="banner-image">
-                            <div className="banner-placeholder">
-                                <i className="fas fa-tshirt"></i>
-                            </div>
+                            <img 
+                                src={nida} 
+                                alt="Nida - RajutIndah" 
+                                className="banner-photo"
+                            />
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* VOUCHER SECTION */}
             {vouchers.length > 0 && (
                 <section className="voucher-section">
                     <div className="container">
@@ -211,7 +232,6 @@ const TokoHomePage = () => {
                 </section>
             )}
 
-            {/* PRODUK UNGGULAN */}
             <section className="featured-products">
                 <div className="container">
                     <div className="section-header">

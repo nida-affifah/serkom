@@ -19,6 +19,10 @@ import topiRajut from '../assets/products/topiRajut.png';
 import bajuRajutWanita from '../assets/products/BajuRajutWanita.jpeg';
 import sarungBantalRajut from '../assets/products/SarungBantalRajut.jpeg';
 import sweaterRajutCowo from '../assets/products/SweaterRajutCowo.jpeg';
+import sweaterCozy from '../assets/products/SweaterCozy.jpeg';
+import sweaterHangat from '../assets/products/SweaterHangat.jpeg';
+import syalRajut from '../assets/products/SyalRajut.jpeg';
+import toteBag from '../assets/products/ToteBag.jpeg';
 
 const productImages = {
     'Sarung Bantal Rajut': sarungBantalRajut,
@@ -44,7 +48,17 @@ const productImages = {
     'sarung bantal rajut': sarungBantalRajut,
     'Sweater Rajut Pria': sweaterRajutCowo,
     'sweaterRajutCowo': sweaterRajutCowo,
-    'sweater rajut pria': sweaterRajutCowo
+    'sweater rajut pria': sweaterRajutCowo,
+    'Sweater Cozy': sweaterCozy,
+    'sweaterCozy': sweaterCozy,
+    'Sweater Hangat': sweaterHangat,
+    'sweaterHangat': sweaterHangat,
+    'Syal Rajut': syalRajut,
+    'syalRajut': syalRajut,
+    'Syal': syalRajut,
+    'Tote Bag': toteBag,
+    'toteBag': toteBag,
+    'ToteBag': toteBag
 };
 
 const getProductImage = (productName) => {
@@ -113,7 +127,6 @@ const ProductDetail = () => {
         if (quantity > 1) setQuantity(prev => prev - 1);
     };
 
-    // TAMBAH KE KERANJANG — langsung pakai backend
     const handleAddToCart = async () => {
         if (!isAuthenticated) {
             if (window.confirm('Anda harus login terlebih dahulu. Login sekarang?')) {
@@ -140,7 +153,6 @@ const ProductDetail = () => {
         }
     };
 
-    // BELI SEKARANG — tambah ke keranjang, lalu ke halaman keranjang
     const handleBuyNow = async () => {
         if (!isAuthenticated) {
             if (window.confirm('Anda harus login terlebih dahulu. Login sekarang?')) {

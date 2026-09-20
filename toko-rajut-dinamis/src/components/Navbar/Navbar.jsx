@@ -16,9 +16,9 @@ import {
     supplierAPI,
     authAPI
 } from '../../services/api';
+import logoToko from '../../assets/images/logoToko.jpeg';
 import './Navbar.css';
 
-// Icon map untuk saran
 const ICON_MAP = {
     home: FiHome,
     grid: FiGrid,
@@ -44,7 +44,6 @@ const Navbar = ({ onCartClick, onSearch }) => {
     const [searchQuery, setSearchQuery] = useState('');
     const [showSuggestions, setShowSuggestions] = useState(false);
 
-    // Data untuk global search
     const [searchData, setSearchData] = useState({
         produk: [],
         kategori: [],
@@ -62,9 +61,6 @@ const Navbar = ({ onCartClick, onSearch }) => {
 
     const role = user?.role;
 
-    // ═══════════════════════════════════════
-    // EFFECTS
-    // ═══════════════════════════════════════
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 50);
         const handleResize = () => setIsMobile(window.innerWidth <= 992);
@@ -83,7 +79,6 @@ const Navbar = ({ onCartClick, onSearch }) => {
         setSearchQuery('');
     }, [location.pathname]);
 
-    // Klik di luar → tutup saran
     useEffect(() => {
         const handleClickOutside = (e) => {
             if (searchRef.current && !searchRef.current.contains(e.target)) {
@@ -94,9 +89,6 @@ const Navbar = ({ onCartClick, onSearch }) => {
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
-    // Fetch data untuk global search
-    // Produk & Kategori: SELALU fetch (publik, termasuk pembeli belum login)
-    // Pesanan/User/Supplier: hanya jika sudah login & sesuai role
     useEffect(() => {
         const fetchAll = async () => {
             const fetchSafe = async (promise) => {
@@ -115,28 +107,23 @@ const Navbar = ({ onCartClick, onSearch }) => {
                 supplier: []
             };
 
-            // ─── Produk & Kategori: publik (semua orang, termasuk belum login) ───
             const resProduk = await fetchSafe(produkAPI.getAll());
             newData.produk = resProduk?.data?.data || [];
 
             const resKategori = await fetchSafe(kategoriAPI.getAll());
             newData.kategori = resKategori?.data?.data || [];
 
-            // ─── Data sensitif: hanya jika sudah login ───
             if (isAuthenticated) {
-                // Pesanan: admin + kasir
                 if (role === 'admin' || role === 'kasir') {
                     const resPesanan = await fetchSafe(pesananAPI.getAll());
                     newData.pesanan = resPesanan?.data?.data || [];
                 }
 
-                // User: admin
                 if (role === 'admin') {
                     const resUser = await fetchSafe(authAPI.getAllUsers());
                     newData.user = resUser?.data?.data || [];
                 }
 
-                // Supplier: admin + staff_gudang
                 if (role === 'admin' || role === 'staff_gudang') {
                     const resSupplier = await fetchSafe(supplierAPI.getAll());
                     newData.supplier = resSupplier?.data?.data || [];
@@ -149,9 +136,6 @@ const Navbar = ({ onCartClick, onSearch }) => {
         fetchAll();
     }, [isAuthenticated, role]);
 
-    // ═══════════════════════════════════════
-    // HANDLERS
-    // ═══════════════════════════════════════
     const handleNavigation = (path) => {
         navigate(path);
         setMenuOpen(false);
@@ -168,8 +152,6 @@ const Navbar = ({ onCartClick, onSearch }) => {
         if (suggestions.length > 0) {
             handleNavigation(suggestions[0].path);
         } else {
-            // Jika tidak ada suggestion, arahkan ke halaman produk dengan query
-            // Berlaku untuk semua role (terutama pembeli yang belum login)
             navigate(`/products?search=${encodeURIComponent(searchQuery.trim())}`);
             setShowSuggestions(false);
             setSearchQuery('');
@@ -184,9 +166,6 @@ const Navbar = ({ onCartClick, onSearch }) => {
         setMenuOpen(false);
     };
 
-    // ═══════════════════════════════════════
-    // MENU PER ROLE
-    // ═══════════════════════════════════════
     const menuPublik = [
         { path: '/', label: 'Beranda', icon: FiHome, iconKey: 'home' },
         { path: '/products', label: 'Produk', icon: FiGrid, iconKey: 'grid' },
@@ -259,16 +238,12 @@ const Navbar = ({ onCartClick, onSearch }) => {
     const menuItems = getMenu();
     const isActive = (path) => location.pathname === path;
 
-    // ═══════════════════════════════════════
-    // GLOBAL SEARCH — gabungkan menu + data
-    // ═══════════════════════════════════════
     const getSuggestions = () => {
         if (!searchQuery.trim()) return [];
 
         const q = searchQuery.toLowerCase().trim();
         const hasil = [];
 
-        // ─── MENU ───
         menuItems.forEach(item => {
             if (item.label.toLowerCase().includes(q)) {
                 hasil.push({
@@ -281,7 +256,6 @@ const Navbar = ({ onCartClick, onSearch }) => {
             }
         });
 
-        // ─── PRODUK ───
         searchData.produk.forEach(p => {
             if (
                 p.nama_produk?.toLowerCase().includes(q) ||
@@ -301,7 +275,6 @@ const Navbar = ({ onCartClick, onSearch }) => {
             }
         });
 
-        // ─── KATEGORI ───
         searchData.kategori.forEach(k => {
             if (k.nama_kategori?.toLowerCase().includes(q)) {
                 const path = role === 'admin'
@@ -318,7 +291,6 @@ const Navbar = ({ onCartClick, onSearch }) => {
             }
         });
 
-        // ─── PESANAN ───
         searchData.pesanan.forEach(p => {
             if (
                 p.kode_pesanan?.toLowerCase().includes(q) ||
@@ -334,7 +306,6 @@ const Navbar = ({ onCartClick, onSearch }) => {
             }
         });
 
-        // ─── USER ───
         searchData.user.forEach(u => {
             if (
                 u.nama_lengkap?.toLowerCase().includes(q) ||
@@ -351,7 +322,6 @@ const Navbar = ({ onCartClick, onSearch }) => {
             }
         });
 
-        // ─── SUPPLIER ───
         searchData.supplier.forEach(s => {
             if (
                 s.nama_supplier?.toLowerCase().includes(q) ||
@@ -372,14 +342,12 @@ const Navbar = ({ onCartClick, onSearch }) => {
 
     const suggestions = getSuggestions();
 
-    // Group by kategori
     const grouped = suggestions.reduce((acc, item) => {
         if (!acc[item.kategori]) acc[item.kategori] = [];
         acc[item.kategori].push(item);
         return acc;
     }, {});
 
-    // Placeholder dinamis per role
     const getPlaceholder = () => {
         if (!isAuthenticated) return 'Cari menu, produk, kategori...';
 
@@ -399,9 +367,6 @@ const Navbar = ({ onCartClick, onSearch }) => {
         }
     };
 
-    // ═══════════════════════════════════════
-    // SEARCH BAR
-    // ═══════════════════════════════════════
     const renderSearchBar = () => (
         <div className="search-container" ref={searchRef}>
             <form onSubmit={handleSearch} className="search-form">
@@ -463,9 +428,6 @@ const Navbar = ({ onCartClick, onSearch }) => {
         </div>
     );
 
-    // ═══════════════════════════════════════
-    // USER ACTIONS
-    // ═══════════════════════════════════════
     const renderUserActions = () => {
         if (!isAuthenticated) {
             return (
@@ -531,12 +493,15 @@ const Navbar = ({ onCartClick, onSearch }) => {
 
     return (
         <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
-            {/* ═══ BARIS 1: LOGO + SEARCH + USER ACTIONS ═══ */}
             <div className="navbar-top">
                 <div className="logo" onClick={() => handleNavigation('/')}>
                     <div className="logo-icon-wrapper">
                         <div className="logo-icon">
-                            <span className="logo-icon-text">R</span>
+                            <img
+                                src={logoToko}
+                                alt="RajutIndah"
+                                className="logo-icon-img"
+                            />
                         </div>
                         <div className="logo-ring"></div>
                         <div className="logo-ring"></div>
@@ -566,7 +531,6 @@ const Navbar = ({ onCartClick, onSearch }) => {
                 )}
             </div>
 
-            {/* ═══ BARIS 2: MENU UTAMA ═══ */}
             <div className={`navbar-bottom ${menuOpen ? 'open' : ''}`}>
                 <ul className="nav-menu">
                     {isMobile && (
