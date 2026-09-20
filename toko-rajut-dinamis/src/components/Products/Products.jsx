@@ -41,6 +41,12 @@ const productImages = {
     'ToteBag': toteBag,
     'tote bag': toteBag,
     'Tote Bag': toteBag,
+    'Baju Pendek': bajuRajutWanita,
+    'baju pendek': bajuRajutWanita,
+    'baju': bajuRajutWanita,
+    'Sweater Bulu Hangat': sweaterHangat,
+    'sweater bulu hangat': sweaterHangat,
+    'sweater bulu': sweaterHangat,
 };
 
 const getProductImage = (productName) => {
