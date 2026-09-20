@@ -18,8 +18,14 @@ import sweaterHangat from '../../assets/products/SweaterHangat.jpeg';
 import syalRajut from '../../assets/products/SyalRajut.jpeg';
 import toteBag from '../../assets/products/ToteBag.jpeg';
 import bajuPendek from '../../assets/products/BajuPendek.jpeg';
+import bonekaRajut from '../../assets/products/BonekaRajut.jpeg';
 
 const productImages = {
+    'Boneka Rajut': bonekaRajut,
+    'boneka rajut': bonekaRajut,
+    'BonekaRajut': bonekaRajut,
+    'boneka': bonekaRajut,
+
     'Sweater Rajut Cozy': sweaterCozy,
     'sweater rajut cozy': sweaterCozy,
     'SweaterCozy': sweaterCozy,

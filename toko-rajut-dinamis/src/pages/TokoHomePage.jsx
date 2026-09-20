@@ -20,61 +20,84 @@ import sweaterHangat from '../assets/products/SweaterHangat.jpeg';
 import syalRajut from '../assets/products/SyalRajut.jpeg';
 import toteBag from '../assets/products/ToteBag.jpeg';
 import bajuPendek from '../assets/products/BajuPendek.jpeg';
+import bonekaRajut from '../assets/products/BonekaRajut.jpeg';
 
 const productImages = {
-    'Kaus Kaki Rajut': kausKakiRajut,
-    'kausKakiRajut': kausKakiRajut,
-    'kaus kaki rajut': kausKakiRajut,
-    'Mainan Rajut': mainanRajut,
-    'mainanRajut': mainanRajut,
-    'mainan rajut': mainanRajut,
-    'Selendang Rajut': selendangRajut,
-    'selendangRajut': selendangRajut,
-    'selendang rajut': selendangRajut,
-    'Topi Rajut': topiRajut,
-    'topiRajut': topiRajut,
-    'topi rajut': topiRajut,
-    'Tas Rajut': tasRajut,
-    'tasRajut': tasRajut,
-    'tas rajut': tasRajut,
-    'Baju Rajut Wanita': bajuRajutWanita,
-    'bajuRajutWanita': bajuRajutWanita,
-    'baju rajut wanita': bajuRajutWanita,
-    'Sarung Bantal Rajut': sarungBantalRajut,
-    'sarungBantalRajut': sarungBantalRajut,
-    'sarung bantal rajut': sarungBantalRajut,
-    'Sweater Rajut Pria': sweaterRajutCowo,
-    'sweaterRajutCowo': sweaterRajutCowo,
-    'sweater rajut pria': sweaterRajutCowo,
-    'sweater rajut cowo': sweaterRajutCowo,
-    'Sweater Cozy': sweaterCozy,
-    'sweaterCozy': sweaterCozy,
-    'sweater cozy': sweaterCozy,
+    'Boneka Rajut': bonekaRajut,
+    'boneka rajut': bonekaRajut,
+    'BonekaRajut': bonekaRajut,
+    'boneka': bonekaRajut,
+
     'Sweater Rajut Cozy': sweaterCozy,
     'sweater rajut cozy': sweaterCozy,
-    'Sweater Hangat': sweaterHangat,
-    'sweaterHangat': sweaterHangat,
-    'sweater hangat': sweaterHangat,
+    'SweaterCozy': sweaterCozy,
+    'sweaterCozy': sweaterCozy,
+    'Sweater Cozy': sweaterCozy,
+    'sweater cozy': sweaterCozy,
+
     'Sweater Bulu Hangat': sweaterHangat,
     'sweater bulu hangat': sweaterHangat,
+    'SweaterHangat': sweaterHangat,
+    'sweaterHangat': sweaterHangat,
+    'Sweater Hangat': sweaterHangat,
+    'sweater hangat': sweaterHangat,
     'sweater bulu': sweaterHangat,
-    'Syal Rajut': syalRajut,
-    'syalRajut': syalRajut,
-    'syal rajut': syalRajut,
+
+    'Sweater Rajut Pria': sweaterRajutCowo,
+    'sweater rajut pria': sweaterRajutCowo,
+    'SweaterRajutCowo': sweaterRajutCowo,
+    'sweater rajut cowo': sweaterRajutCowo,
+
+    'Baju Rajut Wanita': bajuRajutWanita,
+    'baju rajut wanita': bajuRajutWanita,
+    'BajuRajutWanita': bajuRajutWanita,
+    'baju rajut': bajuRajutWanita,
+
+    'Baju Pendek': bajuPendek,
+    'baju pendek': bajuPendek,
+    'BajuPendek': bajuPendek,
+
     'Syal Rajut Pastel': syalRajut,
     'syal rajut pastel': syalRajut,
+    'Syal Rajut': syalRajut,
+    'syal rajut': syalRajut,
+    'SyalRajut': syalRajut,
     'Syal': syalRajut,
-    'Tote Bag': toteBag,
-    'toteBag': toteBag,
+    'syal': syalRajut,
+
+    'Topi Rajut Aesthetic': topiRajut,
+    'topi rajut aesthetic': topiRajut,
+    'Topi Rajut': topiRajut,
+    'topi rajut': topiRajut,
+    'topiRajut': topiRajut,
+
+    'Sarung Bantal Rajut': sarungBantalRajut,
+    'sarung bantal rajut': sarungBantalRajut,
+    'SarungBantalRajut': sarungBantalRajut,
+
     'Tote Bag Rajut': toteBag,
     'tote bag rajut': toteBag,
     'Totebag Rajut': toteBag,
     'totebag rajut': toteBag,
-    'BajuPendek': bajuPendek,
-    'Baju Pendek': bajuPendek,
-    'baju pendek': bajuPendek,
-    'Topi Rajut Aesthetic': topiRajut,
-    'topi rajut aesthetic': topiRajut,
+    'ToteBag': toteBag,
+    'tote bag': toteBag,
+    'Tote Bag': toteBag,
+
+    'Kaus Kaki Rajut': kausKakiRajut,
+    'kaus kaki rajut': kausKakiRajut,
+    'kausKakiRajut': kausKakiRajut,
+
+    'Mainan Rajut': mainanRajut,
+    'mainan rajut': mainanRajut,
+    'mainanRajut': mainanRajut,
+
+    'Selendang Rajut': selendangRajut,
+    'selendang rajut': selendangRajut,
+    'selendangRajut': selendangRajut,
+
+    'Tas Rajut': tasRajut,
+    'tas rajut': tasRajut,
+    'tasRajut': tasRajut,
 };
 
 const getProductImage = (productName) => {
@@ -82,12 +105,10 @@ const getProductImage = (productName) => {
 
     const lowerName = productName.toLowerCase();
 
-    // 1. Exact match
     if (productImages[productName]) {
         return productImages[productName];
     }
 
-    // 2. Includes match
     for (const [key, image] of Object.entries(productImages)) {
         const lowerKey = key.toLowerCase();
         if (lowerName.includes(lowerKey) || lowerKey.includes(lowerName)) {
@@ -95,7 +116,6 @@ const getProductImage = (productName) => {
         }
     }
 
-    // 3. Clean name match (tanpa spasi)
     const cleanName = lowerName.replace(/\s/g, '');
     for (const [key, image] of Object.entries(productImages)) {
         const cleanKey = key.toLowerCase().replace(/\s/g, '');
