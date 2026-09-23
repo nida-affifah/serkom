@@ -11,7 +11,6 @@ import portofolioPribadi from '../assets/images/projects/portofolioPribadi.png';
 import publicSpeaking from '../assets/images/projects/publicSpeaking.jpeg';
 import rplConnect from '../assets/images/projects/RPLConnect.jpeg';
 import tokoElektronik from '../assets/images/projects/tokoElektronik.png';
-import tokoRajut from '../assets/images/projects/tokoRajut.png';
 import lombaArekAI from '../assets/images/projects/lombaArekAI.jpeg';
 import lombaFNRP from '../assets/images/projects/lombaFNRP.jpeg';
 import lombaKWU from '../assets/images/projects/lombaKWU.jpeg';
@@ -24,7 +23,6 @@ const imageMap = {
     'publicSpeaking.jpeg': publicSpeaking,
     'RPLConnect.jpeg': rplConnect,
     'tokoElektronik.png': tokoElektronik,
-    'tokoRajut.png': tokoRajut,
     'lombaArekAI.jpeg': lombaArekAI,
     'lombaFNRP.jpeg': lombaFNRP,
     'lombaKWU.jpeg': lombaKWU,

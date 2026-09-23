@@ -3,40 +3,32 @@ import React, { useState } from 'react';
 import {
     FiFolder, FiExternalLink, FiLayers,
     FiCode, FiStar, FiGlobe, FiSmartphone,
-    FiBook, FiMonitor, FiTarget
+    FiTarget
 } from 'react-icons/fi';
 import { userData } from '../data/userData';
 import './ProjectsPage.css';
 
 import simKlinik from '../assets/images/projects/sim-klinik.png';
 import formKtp from '../assets/images/projects/form-ktp.png';
-import belajarRumah from '../assets/images/projects/belajarRumah.jpeg';
-import belajarSekolah from '../assets/images/projects/belajarSekolah.jpeg';
-import gameLab from '../assets/images/projects/gameLab.jpeg';
 import portofolioPribadi from '../assets/images/projects/portofolioPribadi.png';
-import publicSpeaking from '../assets/images/projects/publicSpeaking.jpeg';
-import rplConnect from '../assets/images/projects/RPLConnect.jpeg';
 import tokoElektronik from '../assets/images/projects/tokoElektronik.png';
 import tokoRajut from '../assets/images/projects/tokoRajut.png';
+import lombaKWU from '../assets/images/projects/lombaKWU.jpeg';
+import lombaArekAI from '../assets/images/projects/lombaArekAI.jpeg';
 
 const imageMap = {
     'sim-klinik.png': simKlinik,
     'form-ktp.png': formKtp,
-    'belajarRumah.jpeg': belajarRumah,
-    'belajarSekolah.jpeg': belajarSekolah,
-    'gameLab.jpeg': gameLab,
     'portofolioPribadi.png': portofolioPribadi,
-    'publicSpeaking.jpeg': publicSpeaking,
-    'RPLConnect.jpeg': rplConnect,
     'tokoElektronik.png': tokoElektronik,
     'tokoRajut.png': tokoRajut,
+    'lombaKWU.jpeg': lombaKWU,
+    'lombaArekAI.jpeg': lombaArekAI,
 };
 
 const iconMap = {
     websites: FiGlobe,
     applications: FiSmartphone,
-    modules: FiBook,
-    learningMedia: FiMonitor,
     projects: FiTarget
 };
 
@@ -138,14 +130,16 @@ const ProjectsPage = () => {
                                         </div>
 
                                         <div className="project-footer">
-                                            <a
-                                                href={project.link}
-                                                className="project-link"
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                            >
-                                                <FiExternalLink /> Lihat Proyek
-                                            </a>
+                                            {project.link ? (
+                                                <a
+                                                    href={project.link}
+                                                    className="project-link"
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                >
+                                                    <FiExternalLink /> Lihat Proyek
+                                                </a>
+                                            ) : null}
                                         </div>
                                     </div>
                                 </article>

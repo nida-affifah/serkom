@@ -159,39 +159,24 @@ export const userData = {
         websites: {
             title: 'Website',
             items: [
-                { title: 'Website Toko Rajut Indah', type: 'Web E-commerce', description: 'Toko online produk rajut dengan fitur cart, checkout, admin dashboard, dan manajemen stok.', tech: ['React', 'Express', 'PostgreSQL'], image: 'tokoRajut.png', link: '#' },
-                { title: 'Website Portfolio Pribadi', type: 'Web Portfolio', description: 'Website portfolio pribadi dengan 12 halaman dan desain modern, dibangun menggunakan React + Vite.', tech: ['React', 'Vite', 'CSS'], image: 'portofolioPribadi.png', link: '#' },
-                { title: 'Toko Elektronik', type: 'Web E-commerce', description: 'Platform jual beli produk elektronik dengan fitur katalog, keranjang, dan pembayaran.', tech: ['React', 'Express', 'MongoDB'], image: 'tokoElektronik.png', link: '#' }
+                { title: 'Website Toko Rajut Indah', type: 'Web E-commerce', description: 'Toko online produk rajut dengan fitur cart, checkout, admin dashboard, dan manajemen stok.', tech: ['React', 'Express', 'PostgreSQL'], image: 'tokoRajut.png', link: '' },
+                { title: 'Website Portfolio Pribadi', type: 'Web Portfolio', description: 'Website portfolio pribadi dengan 12 halaman dan desain modern, dibangun menggunakan React + Vite.', tech: ['React', 'Vite', 'CSS'], image: 'portofolioPribadi.png', link: '' },
+                { title: 'Toko Elektronik', type: 'Web E-commerce', description: 'Platform jual beli produk elektronik dengan fitur katalog, keranjang, dan pembayaran.', tech: ['React', 'Express', 'MongoDB'], image: 'tokoElektronik.png', link: '' }
             ]
         },
         applications: {
             title: 'Aplikasi',
             items: [
-                { title: 'SIM Klinik', type: 'Sistem Informasi', description: 'Sistem Informasi Manajemen Klinik untuk pendaftaran pasien, rekam medis, dan jadwal dokter.', tech: ['React', 'Node.js', 'MySQL'], image: 'sim-klinik.png', link: '#' },
-                { title: 'Form KTP Digital', type: 'Aplikasi Web', description: 'Aplikasi formulir pendaftaran KTP online dengan validasi data dan preview kartu.', tech: ['HTML', 'CSS', 'JavaScript'], image: 'form-ktp.png', link: '#' }
-            ]
-        },
-        modules: {
-            title: 'Modul',
-            items: [
-                { title: 'Modul Belajar JavaScript dari Nol', type: 'Modul Pembelajaran', description: 'Modul ringkas berisi materi dasar JavaScript: variabel, tipe data, kondisi, perulangan, function, hingga tips untuk pemula.', tech: ['Markdown', 'HTML'], image: 'belajarRumah.jpeg', link: '#belajar-javascript-dari-nol' },
-                { title: 'Modul Mengenal AI untuk Pemula', type: 'Modul Pembelajaran', description: 'Modul pengenalan Artificial Intelligence: apa itu AI, contoh penerapan, cara kerja, dan langkah belajar AI dari nol.', tech: ['Markdown', 'HTML'], image: 'belajarSekolah.jpeg', link: '#mengenal-ai-untuk-pemula' },
-                { title: 'Modul Tips Sukses PKL di Bidang IT', type: 'Modul Pengalaman', description: 'Modul berisi 5 tips sukses menjalani PKL di bidang IT: aktif bertanya, disiplin waktu, catat ilmu, bangun relasi, dan jaga attitude.', tech: ['Markdown', 'HTML'], image: 'gameLab.jpeg', link: '#tips-sukses-pkl-bidang-it' }
-            ]
-        },
-        learningMedia: {
-            title: 'Media Pembelajaran',
-            items: [
-                { title: 'Media Presentasi Public Speaking', type: 'Media Ajar', description: 'Materi dan slide presentasi dari les public speaking tentang teknik berbicara di depan umum dan presentasi.', tech: ['HTML', 'CSS', 'Slide'], image: 'publicSpeaking.jpeg', link: '#' },
-                { title: 'Media Belajar Berbasis Blog', type: 'Media Ajar', description: 'Kumpulan artikel dan tutorial di blog pribadi sebagai media belajar bersama untuk topik web development dan AI.', tech: ['React', 'Markdown'], image: 'RPLConnect.jpeg', link: '#' }
+                { title: 'SIM Klinik', type: 'Sistem Informasi', description: 'Sistem Informasi Manajemen Klinik untuk pendaftaran pasien, rekam medis, dan jadwal dokter.', tech: ['React', 'Node.js', 'MySQL'], image: 'sim-klinik.png', link: '' },
+                { title: 'Form KTP Digital', type: 'Aplikasi Web', description: 'Aplikasi formulir pendaftaran KTP online dengan validasi data dan preview kartu.', tech: ['HTML', 'CSS', 'JavaScript'], image: 'form-ktp.png', link: '' }
             ]
         },
         projects: {
             title: 'Proyek',
             items: [
-                { title: 'Proyek Profil Pribadi', type: 'Proyek Web', description: 'Proyek pembuatan website portfolio pribadi sebagai media personal branding dan dokumentasi karya.', tech: ['React', 'Vite', 'CSS'], image: 'portofolioPribadi.png', link: '#' },
-                { title: 'Proyek Business Matching Vokasi PKPLK', type: 'Proyek Kompetisi', description: 'Proyek karya vokasi yang diikutsertakan dalam Business Matching Gelar Karya Vokasi PKPLK tingkat nasional (daring).', tech: ['Presentasi', 'Business Plan'], image: 'lombaKWU.jpeg', link: '#' },
-                { title: 'Proyek Festika Arek AI Jatim', type: 'Proyek Kompetisi', description: 'Proyek eksperimen AI yang diikutsertakan dalam kompetisi Festika Arek AI tingkat Jawa Timur (daring).', tech: ['Python', 'AI'], image: 'lombaArekAI.jpeg', link: '#' }
+                { title: 'Proyek Profil Pribadi', type: 'Proyek Web', description: 'Proyek pembuatan website portfolio pribadi sebagai media personal branding dan dokumentasi karya.', tech: ['React', 'Vite', 'CSS'], image: 'portofolioPribadi.png', link: '' },
+                { title: 'Proyek Business Matching Vokasi PKPLK', type: 'Proyek Kompetisi', description: 'Proyek karya vokasi yang diikutsertakan dalam Business Matching Gelar Karya Vokasi PKPLK tingkat nasional (daring).', tech: ['Presentasi', 'Business Plan'], image: 'lombaKWU.jpeg', link: '' },
+                { title: 'Proyek Festika Arek AI Jatim', type: 'Proyek Kompetisi', description: 'Proyek eksperimen AI yang diikutsertakan dalam kompetisi Festika Arek AI tingkat Jawa Timur (daring).', tech: ['Python', 'AI'], image: 'lombaArekAI.jpeg', link: 'https://www.youtube.com/watch?v=sFMAmReBaLw&t=74s' }
             ]
         }
     },
@@ -220,7 +205,6 @@ export const userData = {
         workshops: {
             title: 'Workshop',
             items: [
-                { year: '2025', title: 'Workshop Pengembangan Web', type: 'Workshop', place: 'SMKN 1 Jenangan Ponorogo', description: 'Mengikuti workshop pengembangan web: dasar HTML, CSS, JavaScript, dan framework modern.', image: 'tokoRajut.png' },
                 { year: '2025', title: 'Workshop Game Development di Game Lab Indonesia', type: 'Workshop', place: 'Jawa Tengah', description: 'Mengikuti sesi workshop dan sharing langsung dari praktisi Game Lab Indonesia di Jawa Tengah tentang dasar-dasar pengembangan game dan industri kreatif digital.', image: 'gameLab.jpeg' }
             ]
         },
