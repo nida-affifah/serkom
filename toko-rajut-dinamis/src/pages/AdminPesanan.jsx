@@ -3,10 +3,17 @@ import React, { useEffect, useState } from 'react';
 import {
     FiRefreshCw, FiEye, FiX, FiPackage,
     FiCheckCircle, FiTruck, FiClock, FiXCircle,
-    FiDollarSign, FiMapPin, FiCreditCard
+    FiDollarSign, FiMapPin, FiCreditCard, FiPrinter
 } from 'react-icons/fi';
 import { pesananAPI, pembayaranAPI, pengirimanAPI, masterAPI } from '../services/api';
 import './AdminPesanan.css';
+
+// ─────────────────────────────────────────
+// KONFIG TOKO (ubah sesuai toko Anda)
+// ─────────────────────────────────────────
+const NAMA_TOKO = 'RAJUTINDAH';
+const ALAMAT_TOKO = 'Jl. Rajut Indah No. 1, Indonesia';
+const HP_TOKO = '0812-3456-7890';
 
 const STATUS_OPTIONS = [
     { value: 'pending', label: 'Pending', icon: FiClock, color: 'pending' },
@@ -28,7 +35,6 @@ const AdminPesanan = () => {
     const [metodeBayar, setMetodeBayar] = useState([]);
     const [submitting, setSubmitting] = useState(false);
 
-    // Form pengiriman
     const [formKirim, setFormKirim] = useState({
         kurir_id: '',
         no_resi: '',
@@ -90,7 +96,6 @@ const AdminPesanan = () => {
             const res = await pesananAPI.getById(p.id);
             setPesananDetail(res.data.data);
 
-            // Ambil pembayaran
             try {
                 const resBayar = await pembayaranAPI.getByPesanan(p.id);
                 setPembayaran(resBayar.data.data);
@@ -98,7 +103,6 @@ const AdminPesanan = () => {
                 setPembayaran(null);
             }
 
-            // Ambil pengiriman
             try {
                 const resKirim = await pengirimanAPI.getByPesanan(p.id);
                 setPengiriman(resKirim.data.data);
@@ -143,7 +147,6 @@ const AdminPesanan = () => {
             setSubmitting(true);
             await pembayaranAPI.verifikasi(pembayaran.id, { status });
             alert('Pembayaran diverifikasi');
-            // Refresh detail
             const res = await pembayaranAPI.getByPesanan(pesananDetail.id);
             setPembayaran(res.data.data);
             await fetchPesanan();
@@ -171,7 +174,6 @@ const AdminPesanan = () => {
                 alamat_kirim: formKirim.alamat_kirim
             });
             alert('Pesanan dikirim');
-            // Refresh
             const res = await pengirimanAPI.getByPesanan(pesananDetail.id);
             setPengiriman(res.data.data);
             await fetchPesanan();
@@ -191,7 +193,6 @@ const AdminPesanan = () => {
             setSubmitting(true);
             await pengirimanAPI.tandaiSampai(pengiriman.id);
             alert('Pesanan selesai');
-            // Refresh
             const res = await pengirimanAPI.getByPesanan(pesananDetail.id);
             setPengiriman(res.data.data);
             await fetchPesanan();
@@ -202,6 +203,160 @@ const AdminPesanan = () => {
         } finally {
             setSubmitting(false);
         }
+    };
+
+    // ─────────────────────────────────────────
+    // CETAK STRUK (inline, tanpa file baru)
+    // ─────────────────────────────────────────
+    const handleCetakStruk = () => {
+        if (!pesananDetail) return;
+
+        const p = pesananDetail;
+        const byr = pembayaran;
+        const kir = pengiriman;
+
+        const subtotal = p.subtotal
+            ?? (p.detail || []).reduce((s, d) => s + (d.subtotal || 0), 0);
+        const ongkir = p.ongkir ?? kir?.ongkir ?? 0;
+        const diskon = p.diskon ?? 0;
+        const total = p.total ?? (subtotal + ongkir - diskon);
+
+        const itemsHtml = (p.detail || []).map(d => `
+            <tr>
+                <td>${d.nama_produk}</td>
+                <td class="center">${d.jumlah}</td>
+                <td class="right">${formatPrice(d.subtotal)}</td>
+            </tr>
+        `).join('');
+
+        const html = `
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="UTF-8" />
+                <title>Struk ${p.kode_pesanan}</title>
+                <style>
+                    @page { size: 80mm auto; margin: 4mm; }
+                    * { box-sizing: border-box; }
+                    body {
+                        font-family: 'Courier New', monospace;
+                        font-size: 11px;
+                        color: #000;
+                        width: 72mm;
+                        margin: 0 auto;
+                        padding: 4px 0;
+                    }
+                    h1 { font-size: 15px; text-align: center; margin: 0 0 2px; letter-spacing: 1px; }
+                    .center { text-align: center; }
+                    .right { text-align: right; }
+                    .small { font-size: 10px; }
+                    .muted { color: #444; }
+                    hr { border: none; border-top: 1px dashed #000; margin: 6px 0; }
+                    table { width: 100%; border-collapse: collapse; }
+                    th, td { padding: 2px 0; font-size: 11px; vertical-align: top; }
+                    th { text-align: left; border-bottom: 1px solid #000; font-size: 10px; }
+                    th.center, td.center { text-align: center; }
+                    th.right, td.right { text-align: right; }
+                    .row { display: flex; justify-content: space-between; gap: 6px; padding: 1px 0; }
+                    .row .label { flex-shrink: 0; }
+                    .row .value { text-align: right; word-break: break-word; }
+                    .grand { font-size: 13px; font-weight: bold; border-top: 1px solid #000; margin-top: 4px; padding-top: 4px; }
+                    .badge {
+                        display: inline-block;
+                        padding: 2px 8px;
+                        border: 1px solid #000;
+                        border-radius: 100px;
+                        font-size: 9px;
+                        font-weight: bold;
+                        letter-spacing: 1px;
+                    }
+                    .barcode {
+                        text-align: center;
+                        font-size: 14px;
+                        letter-spacing: 2px;
+                        font-weight: bold;
+                        margin: 6px 0 2px;
+                    }
+                    .thanks { text-align: center; margin: 6px 0 2px; font-weight: bold; }
+                </style>
+            </head>
+            <body>
+                <h1>${NAMA_TOKO}</h1>
+                <div class="center small muted">${ALAMAT_TOKO}</div>
+                <div class="center small muted">Telp/WA: ${HP_TOKO}</div>
+
+                <hr/>
+
+                <div class="row"><span class="label">Kode</span><span class="value"><b>${p.kode_pesanan}</b></span></div>
+                <div class="row"><span class="label">Tanggal</span><span class="value">${formatTanggal(p.tanggal)}</span></div>
+                <div class="row"><span class="label">Pembeli</span><span class="value">${p.nama_pembeli || '-'}</span></div>
+                ${p.email_pembeli ? `<div class="row"><span class="label">Email</span><span class="value">${p.email_pembeli}</span></div>` : ''}
+
+                <hr/>
+
+                <div class="row"><span class="label">Kurir</span><span class="value">${kir?.nama_kurir || p.kurir || '-'}</span></div>
+                <div class="row"><span class="label">No. Resi</span><span class="value">${kir?.no_resi || p.no_resi || '-'}</span></div>
+                <div class="row"><span class="label">Status Kirim</span><span class="value">${kir?.status || '-'}</span></div>
+
+                <hr/>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Produk</th>
+                            <th class="center">Qty</th>
+                            <th class="right">Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${itemsHtml}
+                    </tbody>
+                </table>
+
+                <hr/>
+
+                <div class="row"><span class="label">Subtotal</span><span class="value">${formatPrice(subtotal)}</span></div>
+                <div class="row"><span class="label">Ongkir</span><span class="value">${formatPrice(ongkir)}</span></div>
+                ${diskon > 0 ? `<div class="row"><span class="label">Diskon</span><span class="value">- ${formatPrice(diskon)}</span></div>` : ''}
+                <div class="row grand"><span class="label">TOTAL</span><span class="value">${formatPrice(total)}</span></div>
+
+                <hr/>
+
+                <div class="row"><span class="label">Bayar</span><span class="value">${byr?.nama_metode || '-'}</span></div>
+                <div class="row"><span class="label">Status Bayar</span><span class="value">${byr?.status || 'belum bayar'}</span></div>
+
+                ${p.catatan ? `
+                    <hr/>
+                    <div class="small muted">Catatan / Alamat:</div>
+                    <div class="small">${String(p.catatan).replace(/\n/g, '<br/>')}</div>
+                ` : ''}
+
+                <div class="center" style="margin-top:6px;">
+                    <span class="badge">${(p.status || '').toUpperCase()}</span>
+                </div>
+
+                <div class="barcode">*${p.kode_pesanan}*</div>
+                <div class="thanks">Terima kasih! 🧶</div>
+                <div class="center small muted">Simpan struk ini sebagai bukti transaksi</div>
+
+                <script>
+                    window.onload = function () {
+                        setTimeout(function () { window.print(); }, 200);
+                    };
+                    window.onafterprint = function () { window.close(); };
+                </script>
+            </body>
+            </html>
+        `;
+
+        const win = window.open('', '_blank', 'width=380,height=600');
+        if (!win) {
+            alert('Popup diblokir browser. Izinkan popup untuk mencetak struk.');
+            return;
+        }
+        win.document.open();
+        win.document.write(html);
+        win.document.close();
     };
 
     const pesananFiltered = filter === 'semua'
@@ -500,8 +655,7 @@ const AdminPesanan = () => {
                                             </div>
                                             <button
                                                 type="submit"
-                                                className="admin-btn-primary"
-                                                disabled={submitting}
+                                                className="admin-btn-print" disabled={submitting}
                                             >
                                                 <FiTruck /> Kirim Barang
                                             </button>
@@ -510,6 +664,22 @@ const AdminPesanan = () => {
                                         <p className="admin-empty">Pesanan belum siap dikirim. Status harus "diproses" dulu.</p>
                                     )
                                 )}
+                            </div>
+
+                            {/* CETAK STRUK */}
+                            <div className="detail-section">
+                                <h3><FiPrinter /> Cetak Struk</h3>
+                                <p style={{ marginBottom: 12, fontSize: '0.85rem', color: '#6b7280' }}>
+                                    Cetak struk untuk diselipkan ke paket atau arsip toko.
+                                </p>
+                                <div className="detail-actions">
+                                    <button
+                                        type="button"
+                                        className="admin-btn-print" onClick={handleCetakStruk}
+                                    >
+                                        <FiPrinter /> Cetak Struk
+                                    </button>
+                                </div>
                             </div>
 
                             {/* UPDATE STATUS MANUAL */}

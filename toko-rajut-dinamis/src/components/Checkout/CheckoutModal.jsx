@@ -1,16 +1,20 @@
 // src/components/Checkout/CheckoutModal.jsx
 import React, { useState, useEffect } from 'react';
+import { FiPrinter, FiCheckCircle, FiX } from 'react-icons/fi';
 import { pesananAPI, alamatAPI, masterAPI, voucherAPI } from '../../services/api';
 import { useCart } from '../../context/CartContext';
 import './CheckoutModal.css';
+
+const NAMA_TOKO = 'RAJUTINDAH';
+const ALAMAT_TOKO = 'Jl. Rajut Indah No. 1, Indonesia';
+const HP_TOKO = '0812-3456-7890';
 
 const CheckoutModal = ({ onClose, onSuccess }) => {
     const { cart, cartTotal, fetchCart } = useCart();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [step, setStep] = useState(1);
 
-    // Master data dari backend
+    // Master data
     const [alamatList, setAlamatList] = useState([]);
     const [metodeList, setMetodeList] = useState([]);
     const [kurirList, setKurirList] = useState([]);
@@ -23,7 +27,7 @@ const CheckoutModal = ({ onClose, onSuccess }) => {
     const [voucherKode, setVoucherKode] = useState('');
     const [voucherInfo, setVoucherInfo] = useState(null);
 
-    // Alamat baru
+    // Form alamat baru
     const [showFormAlamat, setShowFormAlamat] = useState(false);
     const [formAlamat, setFormAlamat] = useState({
         label: 'Rumah',
@@ -37,7 +41,10 @@ const CheckoutModal = ({ onClose, onSuccess }) => {
         is_default: false
     });
 
-    // Load master data + alamat
+    // Struk / receipt
+    const [showReceipt, setShowReceipt] = useState(false);
+    const [pesananSukses, setPesananSukses] = useState(null);
+
     useEffect(() => {
         loadMaster();
         loadAlamat();
@@ -76,18 +83,25 @@ const CheckoutModal = ({ onClose, onSuccess }) => {
             style: 'currency',
             currency: 'IDR',
             minimumFractionDigits: 0
-        }).format(price);
+        }).format(price || 0);
     };
 
-    // Hitung ongkir
+    const formatTanggal = (tgl) => {
+        if (!tgl) return '-';
+        return new Date(tgl).toLocaleString('id-ID', {
+            day: '2-digit', month: 'short', year: 'numeric',
+            hour: '2-digit', minute: '2-digit'
+        });
+    };
+
     const kurirTerpilih = kurirList.find(k => k.id === kurirId);
     const ongkir = kurirTerpilih ? kurirTerpilih.ongkir_per_kg : 0;
+    const metodeTerpilih = metodeList.find(m => m.id === metodeId);
+    const alamatTerpilih = alamatList.find(a => a.id === alamatId);
 
-    // Hitung diskon
     const diskon = voucherInfo ? voucherInfo.diskon : 0;
     const totalAkhir = cartTotal + ongkir - diskon;
 
-    // Simpan alamat baru
     const handleSimpanAlamat = async (e) => {
         e.preventDefault();
         try {
@@ -105,7 +119,6 @@ const CheckoutModal = ({ onClose, onSuccess }) => {
         }
     };
 
-    // Cek voucher
     const handleCekVoucher = async () => {
         if (!voucherKode.trim()) return;
         try {
@@ -121,20 +134,10 @@ const CheckoutModal = ({ onClose, onSuccess }) => {
         }
     };
 
-    // Submit checkout
     const handleCheckout = async () => {
-        if (!alamatId) {
-            setError('Pilih alamat pengiriman dulu');
-            return;
-        }
-        if (!metodeId) {
-            setError('Pilih metode pembayaran');
-            return;
-        }
-        if (!kurirId) {
-            setError('Pilih kurir pengiriman');
-            return;
-        }
+        if (!alamatId) { setError('Pilih alamat pengiriman dulu'); return; }
+        if (!metodeId) { setError('Pilih metode pembayaran'); return; }
+        if (!kurirId) { setError('Pilih kurir pengiriman'); return; }
 
         try {
             setLoading(true);
@@ -148,10 +151,34 @@ const CheckoutModal = ({ onClose, onSuccess }) => {
                 voucher_kode: voucherInfo ? voucherInfo.voucher.kode : null
             });
 
+            // Simpan data untuk struk (gabung cart + info)
+            const dataPesanan = res.data.data;
+            const strukData = {
+                ...dataPesanan,
+                nama_penerima: alamat.nama_penerima,
+                no_hp: alamat.no_hp,
+                alamat_lengkap: alamat.alamat_lengkap,
+                kota: alamat.kota,
+                provinsi: alamat.provinsi,
+                kode_pos: alamat.kode_pos,
+                metode_bayar: metodeTerpilih?.nama_metode || '-',
+                kurir: kurirTerpilih?.nama_kurir || '-',
+                ongkir: ongkir,
+                diskon: diskon,
+                voucher_kode: voucherInfo?.voucher?.kode || null,
+                subtotal: cartTotal,
+                total_akhir: totalAkhir,
+                items: cart.map(item => ({
+                    nama_produk: item.nama_produk,
+                    jumlah: item.jumlah,
+                    harga_satuan: item.harga_satuan || (item.subtotal / item.jumlah),
+                    subtotal: item.subtotal
+                }))
+            };
+
             await fetchCart();
-            alert('Pesanan berhasil dibuat! Kode: ' + res.data.data.kode_pesanan);
-            if (onSuccess) onSuccess(res.data.data);
-            onClose();
+            setPesananSukses(strukData);
+            setShowReceipt(true);
         } catch (err) {
             setError(err.message);
         } finally {
@@ -159,12 +186,164 @@ const CheckoutModal = ({ onClose, onSuccess }) => {
         }
     };
 
+    const handleCetakStruk = () => {
+        window.print();
+    };
+
+    const handleSelesai = () => {
+        if (onSuccess) onSuccess(pesananSukses);
+        setShowReceipt(false);
+        onClose();
+    };
+
+    // ─────────────────────────────────────────
+    // RENDER: MODAL STRUK
+    // ─────────────────────────────────────────
+    if (showReceipt && pesananSukses) {
+        return (
+            <div className="checkout-overlay" onClick={handleSelesai}>
+                <div
+                    className="checkout-modal receipt-modal"
+                    onClick={(e) => e.stopPropagation()}
+                >
+                    <div className="receipt-wrapper">
+                        <div className="receipt-success-badge">
+                            <FiCheckCircle /> Pesanan Berhasil Dibuat!
+                        </div>
+
+                        <div className="receipt-content" id="struk-cetak">
+                            {/* HEADER TOKO */}
+                            <div className="receipt-header">
+                                <h2>{NAMA_TOKO}</h2>
+                                <p>{ALAMAT_TOKO}</p>
+                                <p>Telp/WA: {HP_TOKO}</p>
+                            </div>
+
+                            {/* INFO PESANAN */}
+                            <div className="receipt-info">
+                                <div className="receipt-row">
+                                    <span>Kode Pesanan</span>
+                                    <strong>{pesananSukses.kode_pesanan}</strong>
+                                </div>
+                                <div className="receipt-row">
+                                    <span>Tanggal</span>
+                                    <strong>{formatTanggal(pesananSukses.tanggal || new Date())}</strong>
+                                </div>
+                                <div className="receipt-row">
+                                    <span>Penerima</span>
+                                    <strong>{pesananSukses.nama_penerima}</strong>
+                                </div>
+                                <div className="receipt-row">
+                                    <span>No. HP</span>
+                                    <strong>{pesananSukses.no_hp}</strong>
+                                </div>
+                                <div className="receipt-row">
+                                    <span>Alamat</span>
+                                    <strong className="right">
+                                        {pesananSukses.alamat_lengkap}, {pesananSukses.kota}, {pesananSukses.provinsi} {pesananSukses.kode_pos}
+                                    </strong>
+                                </div>
+                            </div>
+
+                            {/* ITEM */}
+                            <div className="receipt-items">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Produk</th>
+                                            <th className="center">Qty</th>
+                                            <th className="right">Subtotal</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {pesananSukses.items.map((it, i) => (
+                                            <tr key={i}>
+                                                <td>{it.nama_produk}</td>
+                                                <td className="center">{it.jumlah}</td>
+                                                <td className="right">{formatPrice(it.subtotal)}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            {/* TOTAL */}
+                            <div className="receipt-total">
+                                <div className="receipt-row">
+                                    <span>Subtotal</span>
+                                    <span>{formatPrice(pesananSukses.subtotal)}</span>
+                                </div>
+                                <div className="receipt-row">
+                                    <span>Ongkir ({pesananSukses.kurir})</span>
+                                    <span>{formatPrice(pesananSukses.ongkir)}</span>
+                                </div>
+                                {pesananSukses.diskon > 0 && (
+                                    <div className="receipt-row">
+                                        <span>Diskon {pesananSukses.voucher_kode && `(${pesananSukses.voucher_kode})`}</span>
+                                        <span>- {formatPrice(pesananSukses.diskon)}</span>
+                                    </div>
+                                )}
+                                <div className="receipt-row grand">
+                                    <span>TOTAL</span>
+                                    <strong>{formatPrice(pesananSukses.total_akhir)}</strong>
+                                </div>
+                            </div>
+
+                            {/* INFO PEMBAYARAN */}
+                            <div className="receipt-payment-info">
+                                <h4>Informasi Pembayaran</h4>
+                                <ul>
+                                    <li>Metode: <strong>{pesananSukses.metode_bayar}</strong></li>
+                                    <li>Status: <strong>Menunggu Pembayaran</strong></li>
+                                    <li>Silakan lakukan pembayaran &amp; unggah bukti transfer</li>
+                                </ul>
+                            </div>
+
+                            {/* FOOTER */}
+                            <div className="receipt-footer">
+                                <div className="status-badge">SUKSES</div>
+                                <div className="barcode">
+                                    *{pesananSukses.kode_pesanan}*
+                                </div>
+                                <p className="thanks">Terima kasih sudah berbelanja! 🧶</p>
+                                <p className="small">Simpan struk ini sebagai bukti pembelian</p>
+                                <p className="small">{NAMA_TOKO} — Rajutan handmade berkualitas</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="receipt-actions">
+                        <button
+                            type="button"
+                            className="btn-print"
+                            onClick={handleCetakStruk}
+                        >
+                            <FiPrinter /> Cetak Struk
+                        </button>
+                        <button
+                            type="button"
+                            className="btn-finish"
+                            onClick={handleSelesai}
+                        >
+                            Selesai
+                        </button>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    // ─────────────────────────────────────────
+    // RENDER: MODAL CHECKOUT
+    // ─────────────────────────────────────────
     return (
         <div className="checkout-overlay" onClick={onClose}>
             <div className="checkout-modal" onClick={(e) => e.stopPropagation()}>
                 <div className="checkout-header">
                     <h2>Checkout</h2>
-                    <button className="checkout-close" onClick={onClose}>✕</button>
+                    <button className="checkout-close" onClick={onClose}>
+                        <FiX />
+                    </button>
                 </div>
 
                 <div className="checkout-body">
@@ -226,10 +405,10 @@ const CheckoutModal = ({ onClose, onSuccess }) => {
                             </form>
                         )}
                     </div>
+
                     {/* METODE BAYAR + KURIR */}
                     <div className="checkout-section">
-                        <h3>2. Metode Pembayaran & Kurir</h3>
-
+                        <h3>2. Metode Pembayaran &amp; Kurir</h3>
                         <div className="form-group">
                             <label>Metode Pembayaran</label>
                             <select
@@ -242,7 +421,6 @@ const CheckoutModal = ({ onClose, onSuccess }) => {
                                 ))}
                             </select>
                         </div>
-
                         <div className="form-group">
                             <label>Kurir</label>
                             <select
@@ -269,11 +447,7 @@ const CheckoutModal = ({ onClose, onSuccess }) => {
                                 value={voucherKode}
                                 onChange={e => setVoucherKode(e.target.value.toUpperCase())}
                             />
-                            <button
-                                type="button"
-                                className="voucher-btn"
-                                onClick={handleCekVoucher}
-                            >
+                            <button type="button" className="voucher-btn" onClick={handleCekVoucher}>
                                 Cek
                             </button>
                         </div>

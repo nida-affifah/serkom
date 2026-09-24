@@ -485,3 +485,121 @@
         padding: 8px;
     }
 }
+
+/* ═══════════════════════════════════════
+   EXPORT GROUP (Excel + PDF)
+   ═══════════════════════════════════════ */
+.laporan-export-group {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+/* Override warna default .laporan-export-btn */
+.laporan-export-btn.excel {
+    background: #10b981;
+    color: #fff;
+}
+
+.laporan-export-btn.excel:hover {
+    background: #059669;
+    color: #fff;
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0 #1a1a1a;
+}
+
+.laporan-export-btn.pdf {
+    background: #ef4444;
+    color: #fff;
+}
+
+.laporan-export-btn.pdf:hover {
+    background: #dc2626;
+    color: #fff;
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0 #1a1a1a;
+}
+
+.laporan-export-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 #1a1a1a;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+    .laporan-export-group {
+        width: 100%;
+    }
+    .laporan-export-group .laporan-export-btn {
+        flex: 1;
+        justify-content: center;
+    }
+}
+
+/* ═══════════════════════════════════════
+   FILTER PERIODE GLOBAL (halaman Laporan)
+   ═══════════════════════════════════════ */
+.laporan-periode-global {
+    display: flex;
+    gap: 16px;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    background: #fff;
+    border: 2.5px solid #1a1a1a;
+    border-radius: 16px;
+    padding: 16px 20px;
+    margin-bottom: 20px;
+    box-shadow: 5px 5px 0 #1a1a1a;
+}
+
+.laporan-periode-global .periode-input {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.laporan-periode-global .periode-input label {
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: #4b5563;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.laporan-periode-global .periode-input input {
+    padding: 10px 14px;
+    border: 2px solid #1a1a1a;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 0.92rem;
+    font-weight: 600;
+    outline: none;
+}
+
+.laporan-periode-global .periode-input input:focus {
+    box-shadow: 3px 3px 0 #8b5cf6;
+}
+
+.laporan-periode-info {
+    font-size: 0.82rem;
+    color: #4b5563;
+    font-weight: 600;
+    margin-left: auto;
+    align-self: center;
+}
+
+.laporan-periode-info strong {
+    color: #8b5cf6;
+}
+
+@media (max-width: 640px) {
+    .laporan-periode-global {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .laporan-periode-info {
+        margin-left: 0;
+        text-align: center;
+    }
+}

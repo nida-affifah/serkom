@@ -506,3 +506,223 @@ body.admin-active {
 .admin-subtitle {
     text-align: left !important;
 }
+
+/* ═══════════════════════════════════════
+   FILTER PERIODE (Dashboard Baru)
+   ═══════════════════════════════════════ */
+.dashboard-filter {
+    background: #fff;
+    border: 2.5px solid #1a1a1a;
+    border-radius: 16px;
+    padding: 16px 20px;
+    margin-bottom: 20px;
+    box-shadow: 5px 5px 0 #1a1a1a;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.dashboard-filter-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 900;
+    font-size: 0.9rem;
+    color: #1a1a1a;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.dashboard-filter-label svg {
+    color: #8b5cf6;
+}
+
+.dashboard-filter-presets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.dashboard-filter-btn {
+    padding: 8px 16px;
+    background: #fff;
+    border: 2px solid #1a1a1a;
+    border-radius: 100px;
+    font-family: inherit;
+    font-weight: 800;
+    font-size: 0.8rem;
+    cursor: pointer;
+    box-shadow: 2px 2px 0 #1a1a1a;
+    transition: all 0.15s ease;
+    color: #1a1a1a;
+}
+
+.dashboard-filter-btn:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0 #1a1a1a;
+}
+
+.dashboard-filter-btn.active {
+    background: linear-gradient(120deg, #8b5cf6, #ec4899);
+    color: #fff;
+}
+
+.dashboard-filter-dates {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.dashboard-filter-dates label {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: #4b5563;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.dashboard-filter-dates input {
+    padding: 8px 12px;
+    border: 2px solid #1a1a1a;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 0.88rem;
+    font-weight: 600;
+    outline: none;
+}
+
+.dashboard-filter-dates input:focus {
+    box-shadow: 3px 3px 0 #8b5cf6;
+}
+
+.dashboard-periode-info {
+    background: #faf5ff;
+    border: 2px dashed #e9d5ff;
+    border-radius: 12px;
+    padding: 12px 18px;
+    margin-bottom: 20px;
+    font-size: 0.88rem;
+    color: #4b5563;
+    font-weight: 600;
+}
+
+.dashboard-periode-info strong {
+    color: #8b5cf6;
+}
+
+/* ═══════════════════════════════════════
+   LAYOUT DASHBOARD BARU
+   ═══════════════════════════════════════ */
+.dashboard-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+.dashboard-chart-box {
+    width: 100%;
+    padding: 8px 0;
+}
+
+.dashboard-stok-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 8px 0;
+}
+
+.dashboard-stok-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.dashboard-stok-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.85rem;
+}
+
+.dashboard-stok-nama {
+    font-weight: 700;
+    color: #1a1a1a;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.dashboard-stok-num {
+    font-weight: 800;
+    color: #6b7280;
+    flex-shrink: 0;
+}
+
+.dashboard-stok-track {
+    width: 100%;
+    height: 12px;
+    background: #f3f4f6;
+    border: 2px solid #1a1a1a;
+    border-radius: 100px;
+    overflow: hidden;
+}
+
+.dashboard-stok-fill {
+    height: 100%;
+    border-radius: 100px;
+    transition: width 0.5s ease;
+}
+
+/* Recharts override */
+.recharts-wrapper {
+    font-family: inherit !important;
+}
+
+.recharts-tooltip-wrapper {
+    outline: none !important;
+}
+
+/* ═══════════════════════════════════════
+   RESPONSIVE DASHBOARD BARU
+   ═══════════════════════════════════════ */
+@media (max-width: 992px) {
+    .dashboard-grid-2 {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .dashboard-filter {
+        padding: 14px 16px;
+    }
+
+    .dashboard-filter-btn {
+        padding: 6px 12px;
+        font-size: 0.72rem;
+    }
+
+    .dashboard-filter-dates {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .dashboard-filter-dates label {
+        width: 100%;
+    }
+
+    .dashboard-filter-dates input {
+        width: 100%;
+    }
+
+    .dashboard-periode-info {
+        font-size: 0.8rem;
+        padding: 10px 14px;
+    }
+}

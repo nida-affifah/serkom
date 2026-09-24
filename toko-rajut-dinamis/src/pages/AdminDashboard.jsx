@@ -1,85 +1,96 @@
 // src/pages/AdminDashboard.jsx
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
     FiPackage, FiShoppingCart, FiDollarSign, FiUsers,
-    FiAlertTriangle, FiTrendingUp, FiClock, FiRefreshCw
+    FiAlertTriangle, FiTrendingUp, FiClock, FiRefreshCw, FiCalendar
 } from 'react-icons/fi';
+import {
+    ResponsiveContainer, BarChart, Bar, LineChart, Line,
+    PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid,
+    Tooltip
+} from 'recharts';
 import { useAuth } from '../context/AuthContext';
-import { laporanAPI, pesananAPI } from '../services/api';
+import { laporanAPI, produkAPI } from '../services/api';
 import './AdminDashboard.css';
+
+const WARNA_DONUT = ['#8b5cf6', '#ec4899', '#10b981', '#f59e0b', '#3b82f6', '#ef4444', '#14b8a6', '#a855f7'];
 
 const AdminDashboard = () => {
     const { user } = useAuth();
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
-    const [ringkasan, setRingkasan] = useState(null);
-    const [harian, setHarian] = useState([]);
+    const [produkAll, setProdukAll] = useState([]);
     const [terlaris, setTerlaris] = useState([]);
-    const [stokKritis, setStokKritis] = useState([]);
-    const [pesananTerbaru, setPesananTerbaru] = useState([]);
+    const [perKategori, setPerKategori] = useState([]);
+    const [laporanPeriode, setLaporanPeriode] = useState(null);
 
-    // ═══════════════════════════════════════
-    // KONFIGURASI PER ROLE
-    // ═══════════════════════════════════════
+    const today = new Date().toISOString().split('T')[0];
+    const firstOfMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString().split('T')[0];
+    const [filterDari, setFilterDari] = useState(firstOfMonth);
+    const [filterSampai, setFilterSampai] = useState(today);
+    const [preset, setPreset] = useState('bulan-ini');
+
     const roleConfig = {
-        admin: {
-            badge: 'Admin Dashboard',
-            subtitle: 'Ringkasan lengkap aktivitas toko RajutIndah'
-        },
-        staff_gudang: {
-            badge: 'Staff Gudang Dashboard',
-            subtitle: 'Ringkasan stok & gudang toko RajutIndah'
-        },
-        kasir: {
-            badge: 'Kasir Dashboard',
-            subtitle: 'Ringkasan transaksi & pembayaran toko RajutIndah'
-        },
-        perajin: {
-            badge: 'Perajin Dashboard',
-            subtitle: 'Ringkasan produk & laporan toko RajutIndah'
-        }
+        admin: { badge: 'Admin Dashboard', subtitle: 'Statistik & grafik aktivitas toko RajutIndah' },
+        staff_gudang: { badge: 'Staff Gudang Dashboard', subtitle: 'Statistik stok & gudang RajutIndah' },
+        kasir: { badge: 'Kasir Dashboard', subtitle: 'Statistik transaksi & pembayaran RajutIndah' },
+        perajin: { badge: 'Perajin Dashboard', subtitle: 'Statistik produk & laporan RajutIndah' }
     };
-
     const config = roleConfig[user?.role] || roleConfig.admin;
 
+    useEffect(() => { fetchAll(); }, []);
+
     useEffect(() => {
-        fetchAll();
-    }, []);
+        const now = new Date();
+        const todayStr = now.toISOString().split('T')[0];
+        let dari = todayStr, sampai = todayStr;
+
+        if (preset === 'hari-ini') { dari = todayStr; sampai = todayStr; }
+        else if (preset === '7-hari') {
+            const d = new Date(now); d.setDate(d.getDate() - 6);
+            dari = d.toISOString().split('T')[0]; sampai = todayStr;
+        } else if (preset === '30-hari') {
+            const d = new Date(now); d.setDate(d.getDate() - 29);
+            dari = d.toISOString().split('T')[0]; sampai = todayStr;
+        } else if (preset === 'bulan-ini') {
+            dari = new Date(now.getFullYear(), now.getMonth(), 1).toISOString().split('T')[0];
+            sampai = todayStr;
+        } else if (preset === 'bulan-lalu') {
+            const first = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+            const last = new Date(now.getFullYear(), now.getMonth(), 0);
+            dari = first.toISOString().split('T')[0];
+            sampai = last.toISOString().split('T')[0];
+        } else if (preset === 'tahun-ini') {
+            dari = new Date(now.getFullYear(), 0, 1).toISOString().split('T')[0];
+            sampai = todayStr;
+        } else return;
+
+        setFilterDari(dari);
+        setFilterSampai(sampai);
+    }, [preset]);
+
+    useEffect(() => {
+        if (!loading) fetchPeriode();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [filterDari, filterSampai]);
 
     const fetchAll = async () => {
         setLoading(true);
-
-        // Cek role user
-        const role = user?.role;
-        const bolehAksesPesanan = role === 'admin' || role === 'kasir';
-
-        // Helper: fetch yang aman
-        const fetchSafe = async (promise) => {
-            try {
-                return await promise;
-            } catch (err) {
-                return null;
-            }
-        };
+        const fetchSafe = async (p) => { try { return await p; } catch { return null; } };
 
         try {
-            const promises = [
-                fetchSafe(laporanAPI.ringkasan()),
-                fetchSafe(laporanAPI.harian()),
-                fetchSafe(laporanAPI.produkTerlaris(5)),
-                fetchSafe(laporanAPI.stokMenipis()),
-                // Hanya fetch pesanan kalau role boleh
-                bolehAksesPesanan ? fetchSafe(pesananAPI.getAll()) : Promise.resolve(null)
-            ];
+            const [resTerlaris, resKategori, resPeriode, resProduk] = await Promise.all([
+                fetchSafe(laporanAPI.produkTerlaris(5, filterDari, filterSampai)),
+                fetchSafe(laporanAPI.perKategori(filterDari, filterSampai)),
+                fetchSafe(laporanAPI.periode(filterDari, filterSampai)),
+                fetchSafe(produkAPI.getAll())
+            ]);
 
-            const [resRingkasan, resHarian, resTerlaris, resStok, resPesanan] = await Promise.all(promises);
-
-            if (resRingkasan) setRingkasan(resRingkasan.data.data);
-            if (resHarian) setHarian(resHarian.data.data || []);
             if (resTerlaris) setTerlaris(resTerlaris.data.data || []);
-            if (resStok) setStokKritis(resStok.data.data || []);
-            if (resPesanan) setPesananTerbaru((resPesanan.data.data || []).slice(0, 5));
+            if (resKategori) setPerKategori(resKategori.data.data || []);
+            if (resPeriode) setLaporanPeriode(resPeriode.data.data);
+            if (resProduk) setProdukAll(resProduk.data.data || []);
         } catch (err) {
             console.error('Error fetch dashboard:', err);
         } finally {
@@ -87,28 +98,143 @@ const AdminDashboard = () => {
         }
     };
 
-    const formatPrice = (price) => {
-        return new Intl.NumberFormat('id-ID', {
-            style: 'currency',
-            currency: 'IDR',
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 0
-        }).format(price || 0);
+    const fetchPeriode = async () => {
+        try {
+            const [resPeriode, resKategori, resTerlaris] = await Promise.all([
+                laporanAPI.periode(filterDari, filterSampai),
+                laporanAPI.perKategori(filterDari, filterSampai),
+                laporanAPI.produkTerlaris(5, filterDari, filterSampai)
+            ]);
+            setLaporanPeriode(resPeriode.data.data);
+            setPerKategori(resKategori.data.data || []);
+            setTerlaris(resTerlaris.data.data || []);
+        } catch (err) {
+            console.error('Gagal fetch periode:', err);
+        }
+    };
+
+    const formatPrice = (price) => new Intl.NumberFormat('id-ID', {
+        style: 'currency', currency: 'IDR', minimumFractionDigits: 0, maximumFractionDigits: 0
+    }).format(price || 0);
+
+    const formatPriceShort = (val) => {
+        const n = Number(val) || 0;
+        if (n >= 1_000_000) return `Rp ${(n / 1_000_000).toFixed(1)}jt`;
+        if (n >= 1_000) return `Rp ${(n / 1_000).toFixed(0)}rb`;
+        return `Rp ${n}`;
     };
 
     const formatTanggal = (tgl) => {
         if (!tgl) return '-';
-        return new Date(tgl).toLocaleDateString('id-ID', {
-            day: '2-digit',
-            month: 'short',
-            year: 'numeric'
-        });
+        return new Date(tgl).toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' });
     };
 
-    // Cari nilai max di harian untuk scaling grafik
-    const maxHarian = harian.length > 0
-        ? Math.max(...harian.map(h => Number(h.total_penjualan) || 0))
-        : 0;
+    const formatTanggalSingkat = (tgl) => {
+        if (!tgl) return '-';
+        const d = new Date(tgl);
+        return `${d.getDate()}/${d.getMonth() + 1}`;
+    };
+
+    const formatBulanLabel = (yyyyMM) => {
+        if (!yyyyMM) return '-';
+        const [tahun, bln] = yyyyMM.split('-');
+        const namaBulan = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+        return `${namaBulan[parseInt(bln) - 1]} ${tahun}`;
+    };
+
+    // ═══════════════════════════════════════
+    // RINGKASAN PERIODE
+    // ═══════════════════════════════════════
+    const ringkasanPeriode = useMemo(() => {
+        const detail = laporanPeriode?.detail || [];
+        const totalPesanan = detail.length;
+        const totalPendapatan = detail.reduce((s, p) => s + (Number(p.total) || 0), 0);
+        const pending = detail.filter(p => p.status === 'pending').length;
+        const diproses = detail.filter(p => p.status === 'diproses').length;
+        const dikirim = detail.filter(p => p.status === 'dikirim').length;
+        const selesai = detail.filter(p => p.status === 'selesai').length;
+        const pembeliUnik = new Set(detail.map(p => p.nama_pembeli).filter(Boolean));
+        return {
+            total_pesanan: totalPesanan,
+            total_pendapatan: totalPendapatan,
+            pesanan_pending: pending,
+            pesanan_diproses: diproses,
+            pesanan_dikirim: dikirim,
+            pesanan_selesai: selesai,
+            total_pembeli: pembeliUnik.size
+        };
+    }, [laporanPeriode]);
+
+    // ═══════════════════════════════════════
+    // STOK KRITIS BERDASARKAN PERIODE
+    // Ambil dari produk terlaris periode ini yang stoknya <= minimal
+    // ═══════════════════════════════════════
+    const stokKritisPeriode = useMemo(() => {
+        if (!produkAll.length) return [];
+        if (!terlaris.length) return [];
+        const idTerlaris = new Set(terlaris.map(t => t.id));
+        return produkAll.filter(p =>
+            idTerlaris.has(p.id) &&
+            Number(p.stok) <= Number(p.stok_minimal) &&
+            p.status === 'aktif'
+        );
+    }, [produkAll, terlaris]);
+
+    // ═══════════════════════════════════════
+    // DATA UNTUK GRAFIK
+    // ═══════════════════════════════════════
+
+    // Bar harian - dari detail
+    const dataHarian = useMemo(() => {
+        const detail = laporanPeriode?.detail || [];
+        const map = {};
+        detail.forEach(p => {
+            const tgl = String(p.tanggal).split(' ')[0];
+            if (!map[tgl]) map[tgl] = { tanggal: tgl, total: 0, jumlah: 0 };
+            map[tgl].total += Number(p.total) || 0;
+            map[tgl].jumlah += 1;
+        });
+        return Object.values(map).sort((a, b) => a.tanggal.localeCompare(b.tanggal))
+            .map(d => ({ ...d, label: formatTanggalSingkat(d.tanggal), fullLabel: formatTanggal(d.tanggal) }));
+    }, [laporanPeriode]);
+
+    // Line bulanan - dari detail periode (dikelompokkan per bulan)
+    const dataBulanan = useMemo(() => {
+        const detail = laporanPeriode?.detail || [];
+        const map = {};
+        detail.forEach(p => {
+            const bulan = String(p.tanggal).slice(0, 7); // YYYY-MM
+            if (!map[bulan]) map[bulan] = { bulan, total: 0, jumlah: 0 };
+            map[bulan].total += Number(p.total) || 0;
+            map[bulan].jumlah += 1;
+        });
+        return Object.values(map).sort((a, b) => a.bulan.localeCompare(b.bulan))
+            .map(d => ({ ...d, label: formatBulanLabel(d.bulan) }));
+    }, [laporanPeriode]);
+
+    const dataStatus = useMemo(() => {
+        const r = ringkasanPeriode;
+        return [
+            { name: 'Pending', value: r.pesanan_pending || 0 },
+            { name: 'Diproses', value: r.pesanan_diproses || 0 },
+            { name: 'Dikirim', value: r.pesanan_dikirim || 0 },
+            { name: 'Selesai', value: r.pesanan_selesai || 0 }
+        ].filter(d => d.value > 0);
+    }, [ringkasanPeriode]);
+
+    const dataKategori = useMemo(() => perKategori.map(k => ({
+        name: k.nama_kategori || '-', value: Number(k.total_pendapatan) || 0
+    })).filter(d => d.value > 0), [perKategori]);
+
+    const dataTerlaris = useMemo(() => terlaris.map(p => ({
+        name: p.nama_produk, value: Number(p.total_terjual) || 0, pendapatan: Number(p.total_pendapatan) || 0
+    })), [terlaris]);
+
+    const dataKategoriTerjual = useMemo(() => perKategori.map(k => ({
+        name: k.nama_kategori || '-',
+        value: Number(k.total_item_terjual) || 0,
+        pendapatan: Number(k.total_pendapatan) || 0
+    })).filter(d => d.value > 0), [perKategori]);
 
     if (loading) {
         return (
@@ -127,9 +253,7 @@ const AdminDashboard = () => {
                     <div className="admin-badge">{config.badge}</div>
                     <div className="admin-header-row">
                         <div>
-                            <h1 className="admin-title">
-                                Selamat Datang, {user?.nama_lengkap || 'User'}
-                            </h1>
+                            <h1 className="admin-title">Selamat Datang, {user?.nama_lengkap || 'User'}</h1>
                             <p className="admin-subtitle">{config.subtitle}</p>
                         </div>
                         <button className="admin-refresh" onClick={fetchAll}>
@@ -138,233 +262,226 @@ const AdminDashboard = () => {
                     </div>
                 </div>
 
-                {/* 5 KARTU RINGKASAN */}
-                <div className="admin-stats-grid">
-                    <div className="admin-stat-card">
-                        <div className="admin-stat-icon purple">
-                            <FiShoppingCart />
-                        </div>
-                        <h3 className="admin-stat-label">Total Pesanan</h3>
-                        <p className="admin-stat-value">
-                            {ringkasan?.total_pesanan || 0}
-                        </p>
+                {/* FILTER */}
+                <div className="dashboard-filter">
+                    <div className="dashboard-filter-label"><FiCalendar /> Filter Periode:</div>
+                    <div className="dashboard-filter-presets">
+                        {[
+                            { val: 'hari-ini', label: 'Hari Ini' },
+                            { val: '7-hari', label: '7 Hari' },
+                            { val: '30-hari', label: '30 Hari' },
+                            { val: 'bulan-ini', label: 'Bulan Ini' },
+                            { val: 'bulan-lalu', label: 'Bulan Lalu' },
+                            { val: 'tahun-ini', label: 'Tahun Ini' }
+                        ].map(p => (
+                            <button key={p.val} className={`dashboard-filter-btn ${preset === p.val ? 'active' : ''}`} onClick={() => setPreset(p.val)}>
+                                {p.label}
+                            </button>
+                        ))}
                     </div>
-
-                    <div className="admin-stat-card">
-                        <div className="admin-stat-icon green">
-                            <FiDollarSign />
-                        </div>
-                        <h3 className="admin-stat-label">Total Pendapatan</h3>
-                        <p className="admin-stat-value">
-                            {formatPrice(ringkasan?.total_pendapatan)}
-                        </p>
-                    </div>
-
-                    <div className="admin-stat-card">
-                        <div className="admin-stat-icon pink">
-                            <FiClock />
-                        </div>
-                        <h3 className="admin-stat-label">Pesanan Pending</h3>
-                        <p className="admin-stat-value">
-                            {ringkasan?.pesanan_pending || 0}
-                        </p>
-                    </div>
-
-                    <div className="admin-stat-card">
-                        <div className="admin-stat-icon orange">
-                            <FiAlertTriangle />
-                        </div>
-                        <h3 className="admin-stat-label">Stok Kritis</h3>
-                        <p className="admin-stat-value">
-                            {ringkasan?.produk_stok_kritis || 0}
-                        </p>
-                    </div>
-
-                    <div className="admin-stat-card">
-                        <div className="admin-stat-icon blue">
-                            <FiUsers />
-                        </div>
-                        <h3 className="admin-stat-label">Total Pembeli</h3>
-                        <p className="admin-stat-value">
-                            {ringkasan?.total_pembeli || 0}
-                        </p>
+                    <div className="dashboard-filter-dates">
+                        <label>Dari
+                            <input type="date" value={filterDari} onChange={(e) => { setFilterDari(e.target.value); setPreset(''); }} />
+                        </label>
+                        <label>Sampai
+                            <input type="date" value={filterSampai} onChange={(e) => { setFilterSampai(e.target.value); setPreset(''); }} />
+                        </label>
                     </div>
                 </div>
 
-                {/* STATUS PESANAN */}
-                <div className="admin-row">
+                {laporanPeriode?.ringkasan && (
+                    <div className="dashboard-periode-info">
+                        Menampilkan data <strong>{formatTanggal(filterDari)}</strong> s/d <strong>{formatTanggal(filterSampai)}</strong>
+                        {' '}— <strong>{ringkasanPeriode.total_pesanan}</strong> pesanan,
+                        {' '}total <strong>{formatPrice(ringkasanPeriode.total_pendapatan)}</strong>
+                    </div>
+                )}
+
+                {/* 5 KARTU */}
+                <div className="admin-stats-grid">
+                    <div className="admin-stat-card">
+                        <div className="admin-stat-icon purple"><FiShoppingCart /></div>
+                        <h3 className="admin-stat-label">Total Pesanan</h3>
+                        <p className="admin-stat-value">{ringkasanPeriode.total_pesanan}</p>
+                    </div>
+                    <div className="admin-stat-card">
+                        <div className="admin-stat-icon green"><FiDollarSign /></div>
+                        <h3 className="admin-stat-label">Total Pendapatan</h3>
+                        <p className="admin-stat-value">{formatPrice(ringkasanPeriode.total_pendapatan)}</p>
+                    </div>
+                    <div className="admin-stat-card">
+                        <div className="admin-stat-icon pink"><FiClock /></div>
+                        <h3 className="admin-stat-label">Pesanan Pending</h3>
+                        <p className="admin-stat-value">{ringkasanPeriode.pesanan_pending}</p>
+                    </div>
+                    <div className="admin-stat-card">
+                        <div className="admin-stat-icon orange"><FiAlertTriangle /></div>
+                        <h3 className="admin-stat-label">Stok Kritis</h3>
+                        <p className="admin-stat-value">{stokKritisPeriode.length}</p>
+                        <span style={{ fontSize: '0.62rem', color: '#9ca3af', display: 'block', marginTop: 2 }}>
+                            (produk terjual periode ini)
+                        </span>
+                    </div>
+                    <div className="admin-stat-card">
+                        <div className="admin-stat-icon blue"><FiUsers /></div>
+                        <h3 className="admin-stat-label">Total Pembeli</h3>
+                        <p className="admin-stat-value">{ringkasanPeriode.total_pembeli}</p>
+                    </div>
+                </div>
+
+                {/* 2 DONUT */}
+                <div className="dashboard-grid-2">
                     <div className="admin-card">
                         <div className="admin-card-header">
                             <h2><FiTrendingUp /> Status Pesanan</h2>
+                            <span style={{ fontSize: '0.72rem', color: '#9ca3af', fontWeight: 700 }}>
+                                (periode terpilih)
+                            </span>
                         </div>
-                        <div className="admin-status-grid">
-                            <div className="status-item">
-                                <span className="status-label">Pending</span>
-                                <span className="status-value status-pending">
-                                    {ringkasan?.pesanan_pending || 0}
-                                </span>
-                            </div>
-                            <div className="status-item">
-                                <span className="status-label">Diproses</span>
-                                <span className="status-value status-diproses">
-                                    {ringkasan?.pesanan_diproses || 0}
-                                </span>
-                            </div>
-                            <div className="status-item">
-                                <span className="status-label">Dikirim</span>
-                                <span className="status-value status-dikirim">
-                                    {ringkasan?.pesanan_dikirim || 0}
-                                </span>
-                            </div>
-                            <div className="status-item">
-                                <span className="status-label">Selesai</span>
-                                <span className="status-value status-selesai">
-                                    {ringkasan?.pesanan_selesai || 0}
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {/* GRAFIK PENJUALAN HARIAN */}
-                <div className="admin-card">
-                    <div className="admin-card-header">
-                        <h2><FiTrendingUp /> Penjualan 7 Hari Terakhir</h2>
-                    </div>
-                    {harian.length === 0 ? (
-                        <p className="admin-empty">Belum ada data penjualan.</p>
-                    ) : (
-                        <div className="admin-chart">
-                            {harian.map((h, idx) => {
-                                const tinggi = maxHarian > 0
-                                    ? (Number(h.total_penjualan) / maxHarian) * 100
-                                    : 0;
-                                return (
-                                    <div key={idx} className="chart-bar-wrapper">
-                                        <div className="chart-bar-value">
-                                            {formatPrice(h.total_penjualan)}
-                                        </div>
-                                        <div className="chart-bar-container">
-                                            <div
-                                                className="chart-bar"
-                                                style={{ height: `${tinggi}%` }}
-                                            ></div>
-                                        </div>
-                                        <div className="chart-bar-label">
-                                            {formatTanggal(h.tanggal)}
-                                        </div>
-                                        <div className="chart-bar-count">
-                                            {h.jumlah_pesanan} pesanan
-                                        </div>
-                                    </div>
-                                );
-                            })}
-                        </div>
-                    )}
-                </div>
-
-                {/* 2 KOLOM: PRODUK TERLARIS + STOK MENIPIS */}
-                <div className="admin-row-2">
-                    {/* Produk Terlaris */}
-                    <div className="admin-card">
-                        <div className="admin-card-header">
-                            <h2><FiPackage /> Produk Terlaris</h2>
-                        </div>
-                        {terlaris.length === 0 ? (
+                        {dataStatus.length === 0 ? (
                             <p className="admin-empty">Belum ada data.</p>
                         ) : (
-                            <table className="admin-table">
-                                <thead>
-                                    <tr>
-                                        <th>Produk</th>
-                                        <th>Terjual</th>
-                                        <th>Pendapatan</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {terlaris.map(p => (
-                                        <tr key={p.id}>
-                                            <td>{p.nama_produk}</td>
-                                            <td><strong>{p.total_terjual}</strong></td>
-                                            <td>{formatPrice(p.total_pendapatan)}</td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                            <div className="dashboard-chart-box">
+                                <ResponsiveContainer width="100%" height={260}>
+                                    <PieChart>
+                                        <Pie data={dataStatus} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={55} outerRadius={90} paddingAngle={2}
+                                            label={({ name, value }) => `${name}: ${value}`}>
+                                            {dataStatus.map((_, i) => <Cell key={i} fill={WARNA_DONUT[i % WARNA_DONUT.length]} />)}
+                                        </Pie>
+                                        <Tooltip formatter={(v, n) => [`${v} pesanan`, n]} contentStyle={{ border: '2px solid #1a1a1a', borderRadius: 10, fontWeight: 700 }} />
+                                    </PieChart>
+                                </ResponsiveContainer>
+                            </div>
                         )}
                     </div>
 
-                    {/* Stok Menipis */}
                     <div className="admin-card">
                         <div className="admin-card-header">
-                            <h2><FiAlertTriangle /> Stok Menipis</h2>
+                            <h2><FiPackage /> Pendapatan per Kategori</h2>
+                            <span style={{ fontSize: '0.72rem', color: '#9ca3af', fontWeight: 700 }}>
+                                (periode terpilih)
+                            </span>
                         </div>
-                        {stokKritis.length === 0 ? (
-                            <p className="admin-empty">Semua stok aman.</p>
+                        {dataKategori.length === 0 ? (
+                            <p className="admin-empty">Belum ada data.</p>
                         ) : (
-                            <table className="admin-table">
-                                <thead>
-                                    <tr>
-                                        <th>Produk</th>
-                                        <th>Stok</th>
-                                        <th>Min</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {stokKritis.map(p => (
-                                        <tr key={p.id}>
-                                            <td>{p.nama_produk}</td>
-                                            <td><strong style={{ color: '#ef4444' }}>{p.stok}</strong></td>
-                                            <td>{p.stok_minimal}</td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                            <div className="dashboard-chart-box">
+                                <ResponsiveContainer width="100%" height={260}>
+                                    <PieChart>
+                                        <Pie data={dataKategori} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={55} outerRadius={90} paddingAngle={2}
+                                            label={({ name }) => name}>
+                                            {dataKategori.map((_, i) => <Cell key={i} fill={WARNA_DONUT[i % WARNA_DONUT.length]} />)}
+                                        </Pie>
+                                        <Tooltip formatter={(v) => formatPrice(v)} contentStyle={{ border: '2px solid #1a1a1a', borderRadius: 10, fontWeight: 700 }} />
+                                    </PieChart>
+                                </ResponsiveContainer>
+                            </div>
                         )}
                     </div>
                 </div>
 
-                {/* PESANAN TERBARU */}
+                {/* BAR HARIAN */}
                 <div className="admin-card">
                     <div className="admin-card-header">
-                        <h2><FiShoppingCart /> Pesanan Terbaru</h2>
-                        <button
-                            className="admin-link-btn"
-                            onClick={() => navigate('/admin/pesanan')}
-                        >
-                            Lihat Semua →
-                        </button>
+                        <h2><FiTrendingUp /> Penjualan Harian ({formatTanggal(filterDari)} – {formatTanggal(filterSampai)})</h2>
                     </div>
-                    {pesananTerbaru.length === 0 ? (
-                        <p className="admin-empty">Belum ada pesanan.</p>
+                    {dataHarian.length === 0 ? (
+                        <p className="admin-empty">Tidak ada penjualan di periode ini.</p>
                     ) : (
-                        <table className="admin-table">
-                            <thead>
-                                <tr>
-                                    <th>Kode</th>
-                                    <th>Pembeli</th>
-                                    <th>Total</th>
-                                    <th>Status</th>
-                                    <th>Tanggal</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {pesananTerbaru.map(p => (
-                                    <tr key={p.id}>
-                                        <td><strong>{p.kode_pesanan}</strong></td>
-                                        <td>{p.nama_pembeli || '-'}</td>
-                                        <td>{formatPrice(p.total)}</td>
-                                        <td>
-                                            <span className={`badge badge-${p.status}`}>
-                                                {p.status}
-                                            </span>
-                                        </td>
-                                        <td>{formatTanggal(p.tanggal)}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                        <div className="dashboard-chart-box">
+                            <ResponsiveContainer width="100%" height={300}>
+                                <BarChart data={dataHarian} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+                                    <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                                    <XAxis dataKey="label" tick={{ fontSize: 11, fontWeight: 700 }} />
+                                    <YAxis tickFormatter={formatPriceShort} tick={{ fontSize: 11 }} />
+                                    <Tooltip formatter={(v) => [formatPrice(v), 'Penjualan']}
+                                        labelFormatter={(l, p) => p?.[0]?.payload?.fullLabel || l}
+                                        contentStyle={{ border: '2px solid #1a1a1a', borderRadius: 10, fontWeight: 700 }} />
+                                    <Bar dataKey="total" fill="#8b5cf6" radius={[8, 8, 0, 0]} />
+                                </BarChart>
+                            </ResponsiveContainer>
+                        </div>
                     )}
+                </div>
+
+                {/* LINE BULANAN - dari periode */}
+                <div className="admin-card">
+                    <div className="admin-card-header">
+                        <h2><FiTrendingUp /> Tren Penjualan Bulanan</h2>
+                        <span style={{ fontSize: '0.72rem', color: '#9ca3af', fontWeight: 700 }}>
+                            (dari periode terpilih)
+                        </span>
+                    </div>
+                    {dataBulanan.length === 0 ? (
+                        <p className="admin-empty">Belum ada data pada periode ini.</p>
+                    ) : (
+                        <div className="dashboard-chart-box">
+                            <ResponsiveContainer width="100%" height={300}>
+                                <LineChart data={dataBulanan} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+                                    <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                                    <XAxis dataKey="label" tick={{ fontSize: 11, fontWeight: 700 }} />
+                                    <YAxis tickFormatter={formatPriceShort} tick={{ fontSize: 11 }} />
+                                    <Tooltip formatter={(v) => [formatPrice(v), 'Penjualan']}
+                                        contentStyle={{ border: '2px solid #1a1a1a', borderRadius: 10, fontWeight: 700 }} />
+                                    <Line type="monotone" dataKey="total" stroke="#ec4899" strokeWidth={3}
+                                        dot={{ r: 5, fill: '#8b5cf6', stroke: '#1a1a1a', strokeWidth: 2 }} activeDot={{ r: 8 }} />
+                                </LineChart>
+                            </ResponsiveContainer>
+                        </div>
+                    )}
+                </div>
+
+                {/* PRODUK TERLARIS + KATEGORI TERJUAL */}
+                <div className="dashboard-grid-2">
+                    <div className="admin-card">
+                        <div className="admin-card-header">
+                            <h2><FiPackage /> Produk Terlaris (Top 5)</h2>
+                            <span style={{ fontSize: '0.72rem', color: '#9ca3af', fontWeight: 700 }}>
+                                (periode terpilih)
+                            </span>
+                        </div>
+                        {dataTerlaris.length === 0 ? (
+                            <p className="admin-empty">Belum ada data pada periode ini.</p>
+                        ) : (
+                            <div className="dashboard-chart-box">
+                                <ResponsiveContainer width="100%" height={Math.max(220, dataTerlaris.length * 50)}>
+                                    <BarChart data={dataTerlaris} layout="vertical" margin={{ top: 10, right: 20, left: 10, bottom: 0 }}>
+                                        <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                                        <XAxis type="number" tick={{ fontSize: 11 }} />
+                                        <YAxis type="category" dataKey="name" width={120} tick={{ fontSize: 11, fontWeight: 700 }} />
+                                        <Tooltip formatter={(v, n, p) => [`${v} unit - ${formatPrice(p.payload.pendapatan)}`, 'Terjual']}
+                                            contentStyle={{ border: '2px solid #1a1a1a', borderRadius: 10, fontWeight: 700 }} />
+                                        <Bar dataKey="value" fill="#10b981" radius={[0, 8, 8, 0]} />
+                                    </BarChart>
+                                </ResponsiveContainer>
+                            </div>
+                        )}
+                    </div>
+
+                    <div className="admin-card">
+                        <div className="admin-card-header">
+                            <h2><FiPackage /> Kategori Terjual</h2>
+                            <span style={{ fontSize: '0.72rem', color: '#9ca3af', fontWeight: 700 }}>
+                                (periode terpilih)
+                            </span>
+                        </div>
+                        {dataKategoriTerjual.length === 0 ? (
+                            <p className="admin-empty">Belum ada data pada periode ini.</p>
+                        ) : (
+                            <div className="dashboard-chart-box">
+                                <ResponsiveContainer width="100%" height={Math.max(220, dataKategoriTerjual.length * 50)}>
+                                    <BarChart data={dataKategoriTerjual} layout="vertical" margin={{ top: 10, right: 20, left: 10, bottom: 0 }}>
+                                        <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                                        <XAxis type="number" tick={{ fontSize: 11 }} />
+                                        <YAxis type="category" dataKey="name" width={120} tick={{ fontSize: 11, fontWeight: 700 }} />
+                                        <Tooltip formatter={(v, n, p) => [`${v} item - ${formatPrice(p.payload.pendapatan)}`, 'Terjual']}
+                                            contentStyle={{ border: '2px solid #1a1a1a', borderRadius: 10, fontWeight: 700 }} />
+                                        <Bar dataKey="value" fill="#f59e0b" radius={[0, 8, 8, 0]} />
+                                    </BarChart>
+                                </ResponsiveContainer>
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>

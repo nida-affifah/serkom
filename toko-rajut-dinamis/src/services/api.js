@@ -216,10 +216,13 @@ export const laporanAPI = {
     ringkasan: () => api.get('/laporan/ringkasan'),
     harian: () => api.get('/laporan/harian'),
     bulanan: () => api.get('/laporan/bulanan'),
-    produkTerlaris: (limit) => api.get('/laporan/produk-terlaris', { params: { limit } }),
-    perKategori: () => api.get('/laporan/per-kategori'),
+    produkTerlaris: (limit, dari, sampai) =>
+        api.get('/laporan/produk-terlaris', { params: { limit, dari, sampai } }),
+    perKategori: (dari, sampai) =>
+        api.get('/laporan/per-kategori', { params: { dari, sampai } }),
     stokMenipis: () => api.get('/laporan/stok-menipis'),
-    periode: (dari, sampai) => api.get('/laporan/periode', { params: { dari, sampai } }),
+    periode: (dari, sampai) =>
+        api.get('/laporan/periode', { params: { dari, sampai } }),
 };
 
 // ============================================
