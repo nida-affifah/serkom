@@ -143,6 +143,29 @@ const AdminDashboard = () => {
     };
 
     // ═══════════════════════════════════════
+    //              LABEL PERIODE
+    // ═══════════════════════════════════════
+    const periodeLabel = useMemo(() => {
+        if (!filterDari || !filterSampai) return '';
+        if (filterDari === filterSampai) {
+            return formatTanggal(filterDari);
+        }
+        return `${formatTanggal(filterDari)} – ${formatTanggal(filterSampai)}`;
+    }, [filterDari, filterSampai]);
+
+    // Label preset untuk badge di kartu statistik
+    const periodePresetLabel = useMemo(() => {
+        return {
+            'hari-ini': 'Hari Ini',
+            '7-hari': '7 Hari Terakhir',
+            '30-hari': '30 Hari Terakhir',
+            'bulan-ini': 'Bulan Ini',
+            'bulan-lalu': 'Bulan Lalu',
+            'tahun-ini': 'Tahun Ini'
+        }[preset] || 'Periode Kustom';
+    }, [preset]);
+
+    // ═══════════════════════════════════════
     // RINGKASAN PERIODE
     // ═══════════════════════════════════════
     const ringkasanPeriode = useMemo(() => {
@@ -167,7 +190,6 @@ const AdminDashboard = () => {
 
     // ═══════════════════════════════════════
     // STOK KRITIS BERDASARKAN PERIODE
-    // Ambil dari produk terlaris periode ini yang stoknya <= minimal
     // ═══════════════════════════════════════
     const stokKritisPeriode = useMemo(() => {
         if (!produkAll.length) return [];
@@ -183,8 +205,6 @@ const AdminDashboard = () => {
     // ═══════════════════════════════════════
     // DATA UNTUK GRAFIK
     // ═══════════════════════════════════════
-
-    // Bar harian - dari detail
     const dataHarian = useMemo(() => {
         const detail = laporanPeriode?.detail || [];
         const map = {};
@@ -198,12 +218,11 @@ const AdminDashboard = () => {
             .map(d => ({ ...d, label: formatTanggalSingkat(d.tanggal), fullLabel: formatTanggal(d.tanggal) }));
     }, [laporanPeriode]);
 
-    // Line bulanan - dari detail periode (dikelompokkan per bulan)
     const dataBulanan = useMemo(() => {
         const detail = laporanPeriode?.detail || [];
         const map = {};
         detail.forEach(p => {
-            const bulan = String(p.tanggal).slice(0, 7); // YYYY-MM
+            const bulan = String(p.tanggal).slice(0, 7);
             if (!map[bulan]) map[bulan] = { bulan, total: 0, jumlah: 0 };
             map[bulan].total += Number(p.total) || 0;
             map[bulan].jumlah += 1;
@@ -245,6 +264,27 @@ const AdminDashboard = () => {
             </div>
         );
     }
+
+    // ═══════════════════════════════════════
+    //          KOMPONEN BADGE PERIODE
+    // ═══════════════════════════════════════
+
+    const PeriodeBadge = () => (
+        <span className="periode-badge" title={`${periodePresetLabel} • ${periodeLabel}`}>
+            <FiCalendar size={11} />
+            {periodeLabel}
+        </span>
+    );
+
+    const PeriodeBadgeStack = () => (
+        <span className="periode-badge-stack" title={`${periodePresetLabel} • ${periodeLabel}`}>
+            <span className="periode-badge-preset">{periodePresetLabel}</span>
+            <span className="periode-badge-range">
+                <FiCalendar size={10} />
+                {periodeLabel}
+            </span>
+        </span>
+    );
 
     return (
         <div className="admin-page">
@@ -303,29 +343,32 @@ const AdminDashboard = () => {
                         <div className="admin-stat-icon purple"><FiShoppingCart /></div>
                         <h3 className="admin-stat-label">Total Pesanan</h3>
                         <p className="admin-stat-value">{ringkasanPeriode.total_pesanan}</p>
+                        <PeriodeBadgeStack />
                     </div>
                     <div className="admin-stat-card">
                         <div className="admin-stat-icon green"><FiDollarSign /></div>
                         <h3 className="admin-stat-label">Total Pendapatan</h3>
                         <p className="admin-stat-value">{formatPrice(ringkasanPeriode.total_pendapatan)}</p>
+                        <PeriodeBadgeStack />
                     </div>
                     <div className="admin-stat-card">
                         <div className="admin-stat-icon pink"><FiClock /></div>
                         <h3 className="admin-stat-label">Pesanan Pending</h3>
                         <p className="admin-stat-value">{ringkasanPeriode.pesanan_pending}</p>
+                        <PeriodeBadgeStack />
                     </div>
                     <div className="admin-stat-card">
                         <div className="admin-stat-icon orange"><FiAlertTriangle /></div>
                         <h3 className="admin-stat-label">Stok Kritis</h3>
                         <p className="admin-stat-value">{stokKritisPeriode.length}</p>
-                        <span style={{ fontSize: '0.62rem', color: '#9ca3af', display: 'block', marginTop: 2 }}>
-                            (produk terjual periode ini)
-                        </span>
+                        <span className="admin-stat-note">(produk terjual periode ini)</span>
+                        <PeriodeBadgeStack />
                     </div>
                     <div className="admin-stat-card">
                         <div className="admin-stat-icon blue"><FiUsers /></div>
                         <h3 className="admin-stat-label">Total Pembeli</h3>
                         <p className="admin-stat-value">{ringkasanPeriode.total_pembeli}</p>
+                        <PeriodeBadgeStack />
                     </div>
                 </div>
 
@@ -334,9 +377,7 @@ const AdminDashboard = () => {
                     <div className="admin-card">
                         <div className="admin-card-header">
                             <h2><FiTrendingUp /> Status Pesanan</h2>
-                            <span style={{ fontSize: '0.72rem', color: '#9ca3af', fontWeight: 700 }}>
-                                (periode terpilih)
-                            </span>
+                            <PeriodeBadge />
                         </div>
                         {dataStatus.length === 0 ? (
                             <p className="admin-empty">Belum ada data.</p>
@@ -358,9 +399,7 @@ const AdminDashboard = () => {
                     <div className="admin-card">
                         <div className="admin-card-header">
                             <h2><FiPackage /> Pendapatan per Kategori</h2>
-                            <span style={{ fontSize: '0.72rem', color: '#9ca3af', fontWeight: 700 }}>
-                                (periode terpilih)
-                            </span>
+                            <PeriodeBadge />
                         </div>
                         {dataKategori.length === 0 ? (
                             <p className="admin-empty">Belum ada data.</p>
@@ -383,7 +422,8 @@ const AdminDashboard = () => {
                 {/* BAR HARIAN */}
                 <div className="admin-card">
                     <div className="admin-card-header">
-                        <h2><FiTrendingUp /> Penjualan Harian ({formatTanggal(filterDari)} – {formatTanggal(filterSampai)})</h2>
+                        <h2><FiTrendingUp /> Penjualan Harian</h2>
+                        <PeriodeBadge />
                     </div>
                     {dataHarian.length === 0 ? (
                         <p className="admin-empty">Tidak ada penjualan di periode ini.</p>
@@ -404,13 +444,11 @@ const AdminDashboard = () => {
                     )}
                 </div>
 
-                {/* LINE BULANAN - dari periode */}
+                {/* LINE BULANAN */}
                 <div className="admin-card">
                     <div className="admin-card-header">
                         <h2><FiTrendingUp /> Tren Penjualan Bulanan</h2>
-                        <span style={{ fontSize: '0.72rem', color: '#9ca3af', fontWeight: 700 }}>
-                            (dari periode terpilih)
-                        </span>
+                        <PeriodeBadge />
                     </div>
                     {dataBulanan.length === 0 ? (
                         <p className="admin-empty">Belum ada data pada periode ini.</p>
@@ -436,9 +474,7 @@ const AdminDashboard = () => {
                     <div className="admin-card">
                         <div className="admin-card-header">
                             <h2><FiPackage /> Produk Terlaris (Top 5)</h2>
-                            <span style={{ fontSize: '0.72rem', color: '#9ca3af', fontWeight: 700 }}>
-                                (periode terpilih)
-                            </span>
+                            <PeriodeBadge />
                         </div>
                         {dataTerlaris.length === 0 ? (
                             <p className="admin-empty">Belum ada data pada periode ini.</p>
@@ -461,9 +497,7 @@ const AdminDashboard = () => {
                     <div className="admin-card">
                         <div className="admin-card-header">
                             <h2><FiPackage /> Kategori Terjual</h2>
-                            <span style={{ fontSize: '0.72rem', color: '#9ca3af', fontWeight: 700 }}>
-                                (periode terpilih)
-                            </span>
+                            <PeriodeBadge />
                         </div>
                         {dataKategoriTerjual.length === 0 ? (
                             <p className="admin-empty">Belum ada data pada periode ini.</p>

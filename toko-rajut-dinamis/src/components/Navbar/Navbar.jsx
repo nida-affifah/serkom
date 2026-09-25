@@ -184,26 +184,26 @@ const Navbar = ({ onCartClick, onSearch }) => {
     const menuAdmin = [
         { path: '/', label: 'Beranda', icon: FiHome, iconKey: 'home' },
         { path: '/admin/dashboard', label: 'Dashboard', icon: FiBarChart2, iconKey: 'chart' },
+        { path: '/admin/supplier', label: 'Supplier', icon: FiTruck, iconKey: 'truck' },
+        { path: '/admin/pembelian', label: 'Pembelian', icon: FiPackage, iconKey: 'package' },
         { path: '/admin/bahan', label: 'Bahan', icon: FiPackage, iconKey: 'package' },
         { path: '/admin/products', label: 'Produk', icon: FiGrid, iconKey: 'grid' },
         { path: '/admin/kategori', label: 'Kategori', icon: FiTag, iconKey: 'tag' },
         { path: '/admin/pesanan', label: 'Pesanan', icon: FiShoppingCart, iconKey: 'cart' },
         { path: '/admin/retur', label: 'Retur', icon: FiAlertCircle, iconKey: 'alert' },
-        { path: '/admin/supplier', label: 'Supplier', icon: FiTruck, iconKey: 'truck' },
-        { path: '/admin/pembelian', label: 'Pembelian', icon: FiPackage, iconKey: 'package' },
         { path: '/admin/voucher', label: 'Voucher', icon: FiTag, iconKey: 'tag' },
+        { path: '/admin/laporan', label: 'Laporan', icon: FiTrendingUp, iconKey: 'trending' },
         { path: '/admin/pegawai', label: 'Pegawai', icon: FiUser, iconKey: 'user' },
-        { path: '/admin/users', label: 'Kelola User', icon: FiUser, iconKey: 'user' },
-        { path: '/admin/laporan', label: 'Laporan', icon: FiTrendingUp, iconKey: 'trending' }
+        { path: '/admin/users', label: 'Kelola User', icon: FiUser, iconKey: 'user' }
     ];
 
     const menuStaff = [
         { path: '/', label: 'Beranda', icon: FiHome, iconKey: 'home' },
         { path: '/admin/dashboard', label: 'Dashboard', icon: FiBarChart2, iconKey: 'chart' },
-        { path: '/admin/bahan', label: 'Bahan', icon: FiPackage, iconKey: 'package' },
-        { path: '/admin/products', label: 'Produk', icon: FiGrid, iconKey: 'grid' },
         { path: '/admin/supplier', label: 'Supplier', icon: FiTruck, iconKey: 'truck' },
         { path: '/admin/pembelian', label: 'Pembelian', icon: FiPackage, iconKey: 'package' },
+        { path: '/admin/bahan', label: 'Bahan', icon: FiPackage, iconKey: 'package' },
+        { path: '/admin/products', label: 'Produk', icon: FiGrid, iconKey: 'grid' },
         { path: '/admin/laporan', label: 'Laporan', icon: FiTrendingUp, iconKey: 'trending' }
     ];
 
@@ -561,17 +561,20 @@ const Navbar = ({ onCartClick, onSearch }) => {
                             </li>
                         )}
 
-                        {menuItems.map((item, index) => (
-                            <li key={index}>
-                                <button
-                                    className={`nav-link ${isActive(item.path) ? 'active' : ''}`}
-                                    onClick={() => handleNavigation(item.path)}
-                                >
-                                    <item.icon className="nav-icon" />
-                                    {item.label}
-                                </button>
-                            </li>
-                        ))}
+                        {menuItems.map((item, index) => {
+                            const Icon = item.icon;
+                            return (
+                                <li key={index}>
+                                    <button
+                                        className={`nav-link ${isActive(item.path) ? 'active' : ''}`}
+                                        onClick={() => handleNavigation(item.path)}
+                                    >
+                                        <Icon className="nav-icon" />
+                                        {item.label}
+                                    </button>
+                                </li>
+                            );
+                        })}
 
                         {isMobile && (
                             <li className="user-actions-item">
