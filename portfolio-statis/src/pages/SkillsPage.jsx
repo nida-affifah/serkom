@@ -1,12 +1,15 @@
 ﻿// src/pages/SkillsPage.jsx
 import React, { useState } from 'react';
+// import icon
 import {
     FiCode, FiCpu, FiGlobe, FiBookOpen, FiMusic,
     FiStar, FiTrendingUp
 } from 'react-icons/fi';
+// ambil data user
 import { userData } from '../data/userData';
 import './SkillsPage.css';
 
+// mapping kategori skill ke icon
 const categoryIcons = {
     Coding: FiCode,
     AI: FiCpu,
@@ -17,15 +20,20 @@ const categoryIcons = {
 };
 
 const SkillsPage = () => {
+    // ambil data skills dari userData
     const { skills } = userData;
+    // state filter aktif, default "Semua"
     const [filter, setFilter] = useState('Semua');
 
+    // ambil semua kategori unik pakai Set, tambah "Semua" di depan
     const categories = ['Semua', ...new Set(skills.map((s) => s.category))];
 
+    // filter skill sesuai tab aktif
     const filteredSkills = filter === 'Semua'
         ? skills
         : skills.filter((s) => s.category === filter);
 
+    // hitung rata-rata level skill
     const averageLevel = Math.round(
         skills.reduce((sum, s) => sum + s.level, 0) / skills.length
     );
@@ -33,6 +41,7 @@ const SkillsPage = () => {
     return (
         <div className="skills-page">
             <div className="container">
+                {/* header halaman */}
                 <div className="page-header">
                     <div className="page-badge">
                         <FiCode className="badge-icon" />
@@ -46,6 +55,7 @@ const SkillsPage = () => {
                     </p>
                 </div>
 
+                {/* tab filter kategori */}
                 <div className="skills-tabs">
                     {categories.map((cat) => {
                         const Icon = categoryIcons[cat] || FiStar;
@@ -62,6 +72,7 @@ const SkillsPage = () => {
                     })}
                 </div>
 
+                {/* panel skill */}
                 <div className="skills-panel">
                     <div className="panel-header">
                         <div className="panel-icon">
@@ -73,6 +84,7 @@ const SkillsPage = () => {
                     </div>
 
                     <div className="skills-grid">
+                        {/* loop skill yang sudah difilter */}
                         {filteredSkills.map((skill, idx) => {
                             const Icon = categoryIcons[skill.category] || FiStar;
                             return (
@@ -89,6 +101,7 @@ const SkillsPage = () => {
                                             {skill.level}%
                                         </div>
                                     </div>
+                                    {/* progress bar, width dinamis */}
                                     <div className="skill-progress">
                                         <div
                                             className="skill-progress-fill"
@@ -101,6 +114,7 @@ const SkillsPage = () => {
                     </div>
                 </div>
 
+                {/* statistik */}
                 <div className="skills-stats">
                     <div className="stat-box">
                         <FiTrendingUp className="stat-box-icon purple" />

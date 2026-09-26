@@ -1,4 +1,6 @@
 /* src/pages/BlogDetailPage.css */
+
+/* halaman detail blog */
 .blog-detail-page {
     position: relative;
     padding: 120px 20px 80px;
@@ -7,6 +9,7 @@
     overflow: hidden;
 }
 
+/* dekorasi lingkaran kanan atas */
 .blog-detail-page::before {
     content: "";
     position: absolute;
@@ -21,6 +24,7 @@
     z-index: 0;
 }
 
+/* dekorasi kotak kiri bawah */
 .blog-detail-page::after {
     content: "";
     position: absolute;
@@ -36,6 +40,7 @@
     z-index: 0;
 }
 
+/* container lebih sempit, biar enak dibaca */
 .blog-detail-page .container {
     position: relative;
     z-index: 1;
@@ -44,6 +49,7 @@
 }
 
 /* ── BACK LINK ── */
+/* tombol kembali ke blog */
 .back-link {
     display: inline-flex;
     align-items: center;
@@ -76,6 +82,7 @@
     border-bottom: 2px dashed #e9d5ff;
 }
 
+/* badge kategori artikel */
 .article-category {
     display: inline-flex;
     align-items: center;
@@ -93,6 +100,7 @@
     margin-bottom: 20px;
 }
 
+/* judul artikel */
 .article-title {
     font-size: 2.5rem;
     font-weight: 900;
@@ -109,6 +117,7 @@
     gap: 16px;
 }
 
+/* label tanggal dan waktu baca */
 .meta-item {
     display: inline-flex;
     align-items: center;
@@ -144,6 +153,7 @@
     color: #374151;
 }
 
+/* sub judul di artikel */
 .article-content h2 {
     font-size: 1.4rem;
     font-weight: 900;
@@ -165,6 +175,7 @@
     margin: 24px 0 10px;
 }
 
+/* list di artikel */
 .article-content ul,
 .article-content ol {
     margin: 18px 0 22px;
@@ -180,6 +191,7 @@
     line-height: 1.7;
 }
 
+/* kotak kecil di kiri list */
 .article-content li::before {
     content: "";
     position: absolute;
@@ -210,6 +222,7 @@
     color: #ec4899;
 }
 
+/* code inline */
 .article-content code {
     padding: 2px 8px;
     background: #faf5ff;
@@ -221,6 +234,7 @@
     color: #1a1a1a;
 }
 
+/* blockquote */
 .article-content blockquote {
     margin: 22px 0;
     padding: 18px 24px;
@@ -259,6 +273,7 @@
     gap: 20px;
 }
 
+/* kartu artikel lainnya */
 .related-card {
     display: flex;
     flex-direction: column;
@@ -313,6 +328,7 @@
 }
 
 /* ── NOT FOUND ── */
+/* tampilan kalau artikel tidak ditemukan */
 .not-found {
     padding: 60px 40px;
     background: #fff;
@@ -335,6 +351,7 @@
     margin-bottom: 24px;
 }
 
+/* tombol umum */
 .btn {
     display: inline-flex;
     align-items: center;
@@ -362,6 +379,7 @@
 }
 
 /* ── RESPONSIVE ── */
+/* tablet */
 @media (max-width: 992px) {
     .blog-detail-page {
         padding: 100px 16px 60px;
@@ -376,6 +394,7 @@
     }
 }
 
+/* hp */
 @media (max-width: 480px) {
     .article-title {
         font-size: 1.6rem;

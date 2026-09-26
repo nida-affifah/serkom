@@ -1,9 +1,13 @@
 ﻿// src/data/userData.js — Pusat data portfolio
+
+// ini file pusat data, semua isi portfolio ada di sini
 export const userData = {
+    // data untuk header
     header: {
         logo: '/src/assets/images/nida.jpeg',
         name: 'Nida Affifah',
         nickname: 'Nida',
+        // menu navigasi
         navMenu: [
             { label: 'Beranda', href: '#hero' },
             { label: 'Tentang', href: '#about' },
@@ -19,22 +23,27 @@ export const userData = {
         ]
     },
 
+    // data untuk hero section
     hero: {
         fullName: 'Nida Affifah',
         profession: 'Web Developer & Siswa RPL',
         tagline: 'Mengubah ide menjadi kode, dan mimpi menjadi karya nyata.',
         photo: '/src/assets/images/nida.jpeg',
+        // tombol kontak
         contactButton: {
             label: 'Hubungi Saya',
             href: '#contact'
         },
+        // tombol sekunder
         secondaryButton: {
             label: 'Lihat Karya',
             href: '#projects'
         }
     },
 
+    // data tentang saya
     about: {
+        // biodata singkat
         shortBio: {
             title: 'Biodata Singkat',
             items: [
@@ -55,9 +64,11 @@ export const userData = {
                 { label: 'Cita-cita', value: 'Menjadi Web Developer Profesional' }
             ]
         },
+        // bidang keahlian
         expertise: {
             title: 'Bidang Keahlian',
             description: 'Beberapa bidang yang saya tekuni dan kuasai, baik di dunia teknologi maupun seni.',
+            // level dipakai buat progress bar
             fields: [
                 { name: 'Web Development', level: 80, description: 'Membangun website modern menggunakan HTML, CSS, JavaScript, dan framework seperti React JS.' },
                 { name: 'Frontend Development', level: 78, description: 'Mendesain antarmuka pengguna yang responsif, interaktif, dan ramah pengguna.' },
@@ -69,10 +80,12 @@ export const userData = {
                 { name: 'Public Speaking', level: 75, description: 'Terlatih berbicara di depan umum melalui les public speaking dan presentasi proyek.' }
             ]
         },
+        // prinsip dan visi
         principles: {
             title: 'Prinsip & Visi Pribadi',
             motto: 'Belajar hari ini, berkarya untuk masa depan.',
             vision: 'Menjadi developer yang tidak hanya menulis kode, tetapi juga menciptakan solusi nyata yang bermanfaat bagi banyak orang. Terus belajar, terus berkarya, dan berbagi ilmu kepada sesama.',
+            // misi
             mission: [
                 'Menguasai teknologi web modern secara mendalam.',
                 'Membangun proyek nyata yang solutif dan bermanfaat.',
@@ -80,6 +93,7 @@ export const userData = {
                 'Menjaga keseimbangan antara teknologi, akademik, dan seni.',
                 'Menjadi pribadi yang disiplin, jujur, dan bertanggung jawab.'
             ],
+            // nilai yang dipegang
             values: [
                 { name: 'Konsistensi', description: 'Belajar dan berkembang setiap hari, sekecil apa pun progresnya.' },
                 { name: 'Integritas', description: 'Jujur dan bertanggung jawab dalam setiap pekerjaan.' },
@@ -90,6 +104,7 @@ export const userData = {
         }
     },
 
+    // info profesional
     professional: {
         position: 'Siswa XII RPL C',
         institution: 'SMKN 1 Jenangan Ponorogo',
@@ -97,6 +112,7 @@ export const userData = {
         focus: ['Web Development', 'JavaScript', 'Matematika', 'Seni Tari']
     },
 
+    // riwayat pendidikan
     education: [
         { year: '2024 - Sekarang', school: 'SMKN 1 Jenangan Ponorogo', major: 'Rekayasa Perangkat Lunak (RPL)', description: 'Fokus pada pengembangan web dan aplikasi modern.' },
         { year: '2021 - 2024', school: 'SMPN 1 Ngebel', major: '-', description: 'Aktif dalam kegiatan akademik dan ekstrakurikuler.' },
@@ -104,7 +120,9 @@ export const userData = {
         { year: '2014 - 2016', school: 'TK PGRI Ngebel', major: '-', description: 'Pendidikan anak usia dini.' }
     ],
 
+    // pengalaman
     experience: {
+        // pengalaman belajar
         learning: {
             title: 'Pengalaman Belajar',
             items: [
@@ -115,6 +133,7 @@ export const userData = {
                 { year: '2024 - Sekarang', title: 'Belajar di Sekolah', place: 'SMKN 1 Jenangan Ponorogo', description: 'Menempuh pendidikan Rekayasa Perangkat Lunak (RPL) dengan fokus pada pemrograman, pengembangan web, dan dasar-dasar teknologi informasi.' }
             ]
         },
+        // pengalaman bekerja
         working: {
             title: 'Pengalaman Bekerja',
             items: [
@@ -122,6 +141,7 @@ export const userData = {
                 { year: '2014 - Sekarang', title: 'Wirausaha / Berdagang', place: 'Ngebel', description: 'Menekuni dunia wirausaha sejak kelas 2 SD hingga sekarang, melatih kemandirian, komunikasi, manajemen keuangan, dan jiwa entrepreneurship.' }
             ]
         },
+        // pengalaman organisasi
         organization: {
             title: 'Pengalaman Organisasi',
             items: [
@@ -129,6 +149,7 @@ export const userData = {
                 { year: '2024 - 2026', title: 'Anggota Ekstrakurikuler Seni Tari', place: 'SMKN 1 Jenangan Ponorogo', description: 'Aktif dalam latihan rutin dan tampil di berbagai acara sekolah serta Festival Reog Nasional.' }
             ]
         },
+        // pengalaman proyek
         projects: {
             title: 'Pengalaman Proyek',
             items: [
@@ -141,6 +162,7 @@ export const userData = {
         }
     },
 
+    // daftar skill, category dipakai buat filter
     skills: [
         { name: 'JavaScript', level: 75, category: 'Coding' },
         { name: 'HTML & CSS', level: 85, category: 'Coding' },
@@ -155,7 +177,9 @@ export const userData = {
         { name: 'Seni Tari', level: 90, category: 'Seni' }
     ],
 
+    // data proyek
     projects: {
+        // kategori website
         websites: {
             title: 'Website',
             items: [
@@ -164,6 +188,7 @@ export const userData = {
                 { title: 'Toko Elektronik', type: 'Web E-commerce', description: 'Platform jual beli produk elektronik dengan fitur katalog, keranjang, dan pembayaran.', tech: ['React', 'Express', 'MongoDB'], image: 'tokoElektronik.png', link: '' }
             ]
         },
+        // kategori aplikasi
         applications: {
             title: 'Aplikasi',
             items: [
@@ -171,6 +196,7 @@ export const userData = {
                 { title: 'Form KTP Digital', type: 'Aplikasi Web', description: 'Aplikasi formulir pendaftaran KTP online dengan validasi data dan preview kartu.', tech: ['HTML', 'CSS', 'JavaScript'], image: 'form-ktp.png', link: '' }
             ]
         },
+        // kategori proyek
         projects: {
             title: 'Proyek',
             items: [
@@ -181,6 +207,7 @@ export const userData = {
         }
     },
 
+    // daftar sertifikat
     certificates: [
         {
             year: '2025',
@@ -191,7 +218,9 @@ export const userData = {
         }
     ],
 
+    // kegiatan
     activities: {
+        // dokumentasi belajar
         learningDocs: {
             title: 'Dokumentasi Kegiatan Belajar',
             items: [
@@ -202,12 +231,14 @@ export const userData = {
                 { year: '2025', title: 'RPL Connect (2 Kali)', type: 'Acara Sekolah', place: 'SMKN 1 Jenangan Ponorogo', description: 'Dokumentasi keikutsertaan dalam acara RPL Connect sebanyak 2 kali, kegiatan yang mendatangkan alumni RPL yang sudah sukses untuk berbagi pengalaman, ilmu, dan motivasi.', image: 'RPLConnect.jpeg' }
             ]
         },
+        // workshop
         workshops: {
             title: 'Workshop',
             items: [
                 { year: '2025', title: 'Workshop Game Development di Game Lab Indonesia', type: 'Workshop', place: 'Jawa Tengah', description: 'Mengikuti sesi workshop dan sharing langsung dari praktisi Game Lab Indonesia di Jawa Tengah tentang dasar-dasar pengembangan game dan industri kreatif digital.', image: 'gameLab.jpeg' }
             ]
         },
+        // seminar
         seminars: {
             title: 'Seminar & Sharing',
             items: [
@@ -215,6 +246,7 @@ export const userData = {
                 { year: '2025', title: 'Sesi Sharing Kunjungan Industri Game Lab Indonesia', type: 'Sharing Praktisi', place: 'Jawa Tengah', description: 'Mengikuti sesi sharing dari praktisi Game Lab Indonesia tentang dunia industri game, teknologi, dan peluang karier.', image: 'gameLab.jpeg' }
             ]
         },
+        // proyek
         projects: {
             title: 'Proyek',
             items: [
@@ -225,16 +257,20 @@ export const userData = {
         }
     },
 
+    // data blog
     blog: {
+        // tulisan
         writings: {
             title: 'Tulisan',
             items: [
                 {
+                    // id dipakai buat route /blog/:id
                     id: 'mengenal-ai-untuk-pemula',
                     date: '2025-06-10',
                     title: 'Mengenal AI untuk Pemula',
                     excerpt: 'Pengenalan dasar tentang Artificial Intelligence dan penerapannya di kehidupan sehari-hari.',
                     category: 'Tulisan',
+                    // content ini string HTML
                     content: `
                         <p>AI (Artificial Intelligence) atau Kecerdasan Buatan adalah teknologi yang sedang naik daun. Yuk kita kenalan!</p>
 
@@ -265,6 +301,7 @@ export const userData = {
                 }
             ]
         },
+        // tutorial
         tutorials: {
             title: 'Tutorial',
             items: [
@@ -302,6 +339,7 @@ export const userData = {
                 }
             ]
         },
+        // pengalaman
         experiences: {
             title: 'Pengalaman',
             items: [
@@ -336,11 +374,13 @@ export const userData = {
         }
     },
 
+    // kontak
     contacts: {
         email: 'nidaffifah5@gmail.com',
         whatsapp: '0857-3339-5626',
         whatsappRaw: '6285733395626',
         address: 'SMKN 1 Jenangan Ponorogo, Jawa Timur',
+        // social media, ada yang kosong
         socialMedia: [
             { platform: 'Instagram', label: '@ndaffh_', url: 'https://instagram.com/ndaffh_' },
             { platform: 'GitHub', label: '', url: '' },
@@ -348,19 +388,23 @@ export const userData = {
         ]
     },
 
+    // link eksternal
     externalLinks: {
         tokoRajut: 'https://toko.rajutindah.my.id'
     },
 
+    // data footer
     footer: {
         name: 'Nida Affifah',
         copyright: '© 2025 Nida Affifah. All rights reserved.',
         tagline: 'Dibuat menggunakan React JS',
+        // social media di footer
         socialMedia: [
             { platform: 'Instagram', url: 'https://instagram.com/ndaffh_' },
             { platform: 'WhatsApp', url: 'https://wa.me/6285733395626' },
             { platform: 'Email', url: '/contact' }
         ],
+        // navigasi cepat
         quickNav: [
             { label: 'Beranda', href: '#hero' },
             { label: 'Tentang', href: '#about' },

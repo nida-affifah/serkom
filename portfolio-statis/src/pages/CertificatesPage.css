@@ -1,4 +1,6 @@
 ﻿/* src/pages/CertificatesPage.css */
+
+/* halaman sertifikat */
 .certificates-page {
     position: relative;
     padding: 120px 20px 80px;
@@ -7,6 +9,7 @@
     overflow: hidden;
 }
 
+/* dekorasi lingkaran kanan atas */
 .certificates-page::before {
     content: "";
     position: absolute;
@@ -21,6 +24,7 @@
     z-index: 0;
 }
 
+/* dekorasi kotak kiri bawah */
 .certificates-page::after {
     content: "";
     position: absolute;
@@ -49,6 +53,7 @@
     margin-bottom: 60px;
 }
 
+/* badge kecil di atas judul */
 .page-badge {
     display: inline-flex;
     align-items: center;
@@ -70,6 +75,7 @@
     font-size: 1rem;
 }
 
+/* judul halaman */
 .page-title {
     font-size: 3.2rem;
     font-weight: 900;
@@ -79,6 +85,7 @@
     margin-bottom: 18px;
 }
 
+/* kata yang di-highlight */
 .page-title .highlight {
     display: inline-block;
     padding: 0 12px;
@@ -99,15 +106,14 @@
     font-weight: 500;
 }
 
-/* ═══════════════════════════════════════
-   GRID SERTIFIKAT
-   ═══════════════════════════════════════ */
+/* ── GRID SERTIFIKAT ── */
 .cert-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 24px;
 }
 
+/* kartu sertifikat */
 .cert-card {
     display: flex;
     flex-direction: column;
@@ -120,6 +126,7 @@
     overflow: hidden;
 }
 
+/* warna selang-seling */
 .cert-card:nth-child(3n+1) {
     background: #faf5ff;
 }
@@ -133,9 +140,7 @@
     box-shadow: 10px 10px 0 #8b5cf6;
 }
 
-/* ═══════════════════════════════════════
-   CERT IMAGE (untuk gambar sertifikat)
-   ═══════════════════════════════════════ */
+/* ── GAMBAR SERTIFIKAT ── */
 .cert-image {
     position: relative;
     width: 100%;
@@ -156,11 +161,12 @@
     transition: transform 0.4s ease;
 }
 
+/* efek zoom gambar saat hover */
 .cert-card:hover .cert-img {
     transform: scale(1.05);
 }
 
-/* Fallback icon di dalam cert-image */
+/* fallback icon di dalam cert-image */
 .cert-image .cert-icon {
     position: absolute;
     top: 50%;
@@ -179,15 +185,14 @@
     justify-content: center;
 }
 
-/* ═══════════════════════════════════════
-   CERT BODY (text area)
-   ═══════════════════════════════════════ */
+/* ── BAGIAN TEXT SERTIFIKAT ── */
 .cert-body {
     flex: 1;
     min-width: 0;
     padding: 22px 22px 24px;
 }
 
+/* badge tipe sertifikat */
 .cert-type {
     display: inline-block;
     padding: 3px 12px;
@@ -212,6 +217,7 @@
     margin-bottom: 12px;
 }
 
+/* info penerbit dan tahun */
 .cert-issuer,
 .cert-year {
     display: flex;
@@ -230,6 +236,7 @@
 }
 
 /* ── RESPONSIVE ── */
+/* tablet */
 @media (max-width: 992px) {
     .certificates-page {
         padding: 100px 16px 60px;
@@ -244,6 +251,7 @@
     }
 }
 
+/* hp */
 @media (max-width: 480px) {
     .page-title {
         font-size: 1.9rem;

@@ -1,15 +1,19 @@
 ﻿// src/pages/EducationPage.jsx
 import React from 'react';
+// import icon
 import { FiBookOpen, FiCalendar, FiAward } from 'react-icons/fi';
+// ambil data user
 import { userData } from '../data/userData';
 import './EducationPage.css';
 
 const EducationPage = () => {
+    // ambil data education dari userData
     const { education } = userData;
 
     return (
         <div className="education-page">
             <div className="container">
+                {/* header halaman */}
                 <div className="page-header">
                     <div className="page-badge">
                         <FiBookOpen className="badge-icon" />
@@ -23,9 +27,12 @@ const EducationPage = () => {
                     </p>
                 </div>
 
+                {/* timeline pendidikan */}
                 <div className="edu-timeline">
+                    {/* loop semua data pendidikan */}
                     {education.map((edu, idx) => (
                         <div key={idx} className="edu-item">
+                            {/* marker timeline */}
                             <div className="edu-marker">
                                 <div className="edu-marker-dot"></div>
                                 <div className="edu-marker-line"></div>
@@ -39,6 +46,7 @@ const EducationPage = () => {
                                         <FiCalendar /> {edu.year}
                                     </span>
                                     <h3 className="edu-school">{edu.school}</h3>
+                                    {/* tampilkan jurusan kalau ada dan bukan "-" */}
                                     {edu.major && edu.major !== '-' && (
                                         <p className="edu-major">
                                             <FiAward /> {edu.major}

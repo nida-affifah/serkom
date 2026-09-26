@@ -1,4 +1,6 @@
 /* src/pages/NotFoundPage.css */
+
+/* halaman 404 */
 .notfound-page {
     position: relative;
     padding: 140px 20px 100px;
@@ -9,6 +11,7 @@
     align-items: center;
 }
 
+/* dekorasi lingkaran kanan atas */
 .notfound-page::before {
     content: "";
     position: absolute;
@@ -23,6 +26,7 @@
     z-index: 0;
 }
 
+/* dekorasi kotak kiri bawah */
 .notfound-page::after {
     content: "";
     position: absolute;
@@ -46,6 +50,7 @@
     width: 100%;
 }
 
+/* kartu 404 */
 .notfound-card {
     padding: 60px 40px;
     background: rgba(255, 255, 255, 0.78);
@@ -57,6 +62,7 @@
     text-align: center;
 }
 
+/* angka 404 */
 .notfound-code {
     display: inline-block;
     padding: 8px 24px;
@@ -97,6 +103,7 @@
     flex-wrap: wrap;
 }
 
+/* tombol umum */
 .btn {
     display: inline-flex;
     align-items: center;
@@ -135,6 +142,7 @@
     box-shadow: 7px 7px 0 #1a1a1a;
 }
 
+/* hp */
 @media (max-width: 480px) {
     .notfound-page {
         padding: 120px 16px 60px;

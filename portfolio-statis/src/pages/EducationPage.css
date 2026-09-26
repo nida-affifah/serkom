@@ -1,4 +1,6 @@
 ﻿/* src/pages/EducationPage.css */
+
+/* halaman pendidikan */
 .education-page {
     position: relative;
     padding: 120px 20px 80px;
@@ -7,6 +9,7 @@
     overflow: hidden;
 }
 
+/* dekorasi lingkaran kanan atas */
 .education-page::before {
     content: "";
     position: absolute;
@@ -21,6 +24,7 @@
     z-index: 0;
 }
 
+/* dekorasi kotak kiri bawah */
 .education-page::after {
     content: "";
     position: absolute;
@@ -36,6 +40,7 @@
     z-index: 0;
 }
 
+/* container lebih sempit, cocok buat timeline */
 .education-page .container {
     position: relative;
     z-index: 1;
@@ -49,6 +54,7 @@
     margin-bottom: 60px;
 }
 
+/* badge kecil di atas judul */
 .page-badge {
     display: inline-flex;
     align-items: center;
@@ -70,6 +76,7 @@
     font-size: 1rem;
 }
 
+/* judul halaman */
 .page-title {
     font-size: 3.2rem;
     font-weight: 900;
@@ -79,6 +86,7 @@
     margin-bottom: 18px;
 }
 
+/* kata yang di-highlight */
 .page-title .highlight {
     display: inline-block;
     padding: 0 12px;
@@ -107,6 +115,7 @@
     gap: 32px;
 }
 
+/* item timeline */
 .edu-item {
     display: grid;
     grid-template-columns: 60px 1fr;
@@ -114,6 +123,7 @@
     position: relative;
 }
 
+/* marker timeline, di kiri */
 .edu-marker {
     position: relative;
     display: flex;
@@ -122,6 +132,7 @@
     padding-top: 28px;
 }
 
+/* titik di marker */
 .edu-marker-dot {
     width: 22px;
     height: 22px;
@@ -133,6 +144,7 @@
     flex-shrink: 0;
 }
 
+/* garis penghubung antar item */
 .edu-marker-line {
     position: absolute;
     top: 50px;
@@ -146,10 +158,12 @@
     z-index: 1;
 }
 
+/* garis di item terakhir disembunyikan */
 .edu-item:last-child .edu-marker-line {
     display: none;
 }
 
+/* konten item */
 .edu-content {
     display: flex;
     gap: 20px;
@@ -161,6 +175,7 @@
     transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
+/* warna selang-seling */
 .edu-item:nth-child(odd) .edu-content {
     background: #faf5ff;
 }
@@ -174,6 +189,7 @@
     box-shadow: 10px 10px 0 #8b5cf6;
 }
 
+/* icon di konten */
 .edu-icon-wrap {
     display: inline-flex;
     align-items: center;
@@ -194,6 +210,7 @@
     min-width: 0;
 }
 
+/* label tahun */
 .edu-year {
     display: inline-flex;
     align-items: center;
@@ -219,6 +236,7 @@
     margin-bottom: 10px;
 }
 
+/* jurusan */
 .edu-major {
     display: inline-flex;
     align-items: center;
@@ -237,6 +255,7 @@
 }
 
 /* ── RESPONSIVE ── */
+/* tablet */
 @media (max-width: 992px) {
     .education-page {
         padding: 100px 16px 60px;
@@ -247,12 +266,14 @@
     }
 }
 
+/* hp */
 @media (max-width: 480px) {
     .page-title {
         font-size: 1.9rem;
         letter-spacing: -1px;
     }
 
+    /* marker lebih kecil */
     .edu-item {
         grid-template-columns: 40px 1fr;
         gap: 16px;
@@ -269,6 +290,7 @@
         bottom: -26px;
     }
 
+    /* konten jadi vertikal */
     .edu-content {
         flex-direction: column;
         padding: 20px 18px;

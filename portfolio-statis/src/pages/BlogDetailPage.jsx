@@ -1,18 +1,25 @@
 // src/pages/BlogDetailPage.jsx
 import React from 'react';
+// useParams buat ambil id dari URL, useNavigate buat pindah halaman
 import { useParams, Link, useNavigate } from 'react-router-dom';
+// import icon
 import { FiArrowLeft, FiCalendar, FiTag, FiClock } from 'react-icons/fi';
+// ambil data user
 import { userData } from '../data/userData';
 import './BlogDetailPage.css';
 
 const BlogDetailPage = () => {
+    // ambil id dari URL, misalnya /blog/mengenal-ai-untuk-pemula
     const { id } = useParams();
     const navigate = useNavigate();
     const { blog } = userData;
 
+    // gabungkan semua artikel dari semua kategori jadi satu array
     const allPosts = Object.values(blog).flatMap((category) => category.items);
+    // cari artikel yang id-nya sama dengan id di URL
     const post = allPosts.find((p) => p.id === id);
 
+    // fungsi buat format tanggal jadi bahasa Indonesia
     const formatDate = (dateStr) => {
         const date = new Date(dateStr);
         return date.toLocaleDateString('id-ID', {
@@ -22,12 +29,16 @@ const BlogDetailPage = () => {
         });
     };
 
+    // fungsi buat hitung estimasi waktu baca
+    // 200 kata dianggap 1 menit
     const estimateReadTime = (content) => {
         if (!content) return 1;
+        // hapus tag HTML dulu, baru hitung jumlah katanya
         const words = content.replace(/<[^>]*>/g, '').split(/\s+/).length;
         return Math.max(1, Math.ceil(words / 200));
     };
 
+    // kalau artikel tidak ditemukan, tampilkan pesan
     if (!post) {
         return (
             <div className="blog-detail-page">
@@ -47,16 +58,20 @@ const BlogDetailPage = () => {
         );
     }
 
+    // ambil 2 artikel lain buat rekomendasi
     const relatedPosts = allPosts.filter((p) => p.id !== id).slice(0, 2);
 
     return (
         <div className="blog-detail-page">
             <div className="container">
+                {/* tombol kembali ke blog */}
                 <Link to="/blog" className="back-link">
                     <FiArrowLeft /> Kembali ke Blog
                 </Link>
 
+                {/* header artikel */}
                 <header className="article-header">
+                    {/* tampilkan kategori kalau ada */}
                     {post.category && (
                         <span className="article-category">
                             <FiTag /> {post.category}
@@ -73,6 +88,8 @@ const BlogDetailPage = () => {
                     </div>
                 </header>
 
+                {/* isi artikel */}
+                {/* pakai dangerouslySetInnerHTML karena content-nya HTML string */}
                 <article
                     className="article-content"
                     dangerouslySetInnerHTML={{
@@ -80,6 +97,7 @@ const BlogDetailPage = () => {
                     }}
                 />
 
+                {/* artikel lainnya */}
                 {relatedPosts.length > 0 && (
                     <section className="related-section">
                         <h2 className="related-title">Artikel Lainnya</h2>

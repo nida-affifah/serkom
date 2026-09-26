@@ -1,20 +1,25 @@
 ﻿// src/pages/ProfilePage.jsx
 import React from 'react';
+// import icon
 import {
     FiBriefcase, FiAward, FiTarget, FiUser,
     FiCode, FiHeart, FiExternalLink, FiShoppingBag
 } from 'react-icons/fi';
+// ambil data user
 import { userData } from '../data/userData';
 import './ProfilePage.css';
 
 const ProfilePage = () => {
+    // ambil data yang dibutuhkan dari userData
     const { professional, bio, about, externalLinks } = userData;
 
+    // link ke toko rajut
     const tokoRajutUrl = externalLinks?.tokoRajut || '#';
 
     return (
         <div className="profile-page">
             <div className="container">
+                {/* header halaman */}
                 <div className="page-header">
                     <div className="page-badge">
                         <FiUser className="badge-icon" />
@@ -28,6 +33,7 @@ const ProfilePage = () => {
                     </p>
                 </div>
 
+                {/* grid info profesional */}
                 <div className="profile-grid">
                     <div className="profile-card">
                         <div className="card-icon-wrap purple">
@@ -54,6 +60,7 @@ const ProfilePage = () => {
                     </div>
                 </div>
 
+                {/* fokus utama */}
                 <div className="profile-focus">
                     <h2 className="section-title">Fokus Utama</h2>
                     <div className="focus-tags">
@@ -63,6 +70,7 @@ const ProfilePage = () => {
                     </div>
                 </div>
 
+                {/* info tentang, keahlian, prinsip */}
                 <div className="profile-about">
                     <div className="about-card">
                         <h3>
@@ -90,6 +98,7 @@ const ProfilePage = () => {
                     </div>
                 </div>
 
+                {/* CTA ke toko rajut */}
                 <div className="profile-cta">
                     <div className="cta-icon">
                         <FiShoppingBag />

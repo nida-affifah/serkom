@@ -1,6 +1,8 @@
 ﻿/* src/pages/HomePage.css */
 
 /* ═══════════ HERO ═══════════ */
+
+/* section hero di paling atas */
 .hero-section {
     position: relative;
     min-height: 100vh;
@@ -11,6 +13,7 @@
     align-items: center;
 }
 
+/* dekorasi background */
 .hero-bg-decoration {
     position: absolute;
     inset: 0;
@@ -18,6 +21,7 @@
     overflow: hidden;
 }
 
+/* blob bulat dengan efek blur */
 .hero-blob {
     position: absolute;
     border-radius: 50%;
@@ -52,6 +56,7 @@
     animation: floatBlob 12s ease-in-out infinite;
 }
 
+/* animasi blob bergerak */
 @keyframes floatBlob {
     0%, 100% { transform: translate(0, 0) scale(1); }
     50% { transform: translate(30px, -30px) scale(1.1); }
@@ -74,11 +79,13 @@
     animation: fadeInUp 0.8s ease;
 }
 
+/* animasi fade in dari bawah */
 @keyframes fadeInUp {
     from { opacity: 0; transform: translateY(30px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
+/* badge sapaan */
 .hero-badge {
     display: inline-flex;
     align-items: center;
@@ -95,6 +102,7 @@
     margin-bottom: 24px;
 }
 
+/* titik hijau di badge */
 .badge-dot {
     width: 8px;
     height: 8px;
@@ -109,6 +117,7 @@
     50% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0.1); }
 }
 
+/* judul hero */
 .hero-title {
     font-size: 3.5rem;
     font-weight: 800;
@@ -118,6 +127,7 @@
     letter-spacing: -1px;
 }
 
+/* nama dengan gradient text */
 .hero-name {
     background: linear-gradient(135deg, #8b5cf6, #ec4899);
     -webkit-background-clip: text;
@@ -132,6 +142,7 @@
     margin-bottom: 20px;
 }
 
+/* tagline */
 .hero-tagline {
     font-size: 1.15rem;
     font-weight: 600;
@@ -156,6 +167,7 @@
     margin-bottom: 40px;
 }
 
+/* tombol umum */
 .btn {
     display: inline-flex;
     align-items: center;
@@ -171,6 +183,7 @@
     font-family: inherit;
 }
 
+/* tombol utama */
 .btn-primary {
     background: linear-gradient(135deg, #8b5cf6, #ec4899);
     color: #fff;
@@ -182,6 +195,7 @@
     box-shadow: 0 12px 32px rgba(139, 92, 246, 0.45);
 }
 
+/* tombol outline */
 .btn-outline {
     background: #fff;
     color: #7c3aed;
@@ -194,6 +208,7 @@
     transform: translateY(-3px);
 }
 
+/* tombol putih */
 .btn-white {
     background: #fff;
     color: #7c3aed;
@@ -217,6 +232,7 @@
     gap: 12px;
 }
 
+/* icon statistik */
 .stat-icon-wrap {
     width: 52px;
     height: 52px;
@@ -257,6 +273,7 @@
     animation: fadeInUp 1s ease 0.2s both;
 }
 
+/* background lingkaran di belakang foto */
 .hero-image-bg {
     position: absolute;
     width: 400px;
@@ -267,6 +284,7 @@
     animation: pulseImage 3s ease infinite;
 }
 
+/* ring berputar di sekitar foto */
 .hero-image-ring {
     position: absolute;
     width: 380px;
@@ -277,16 +295,19 @@
     animation: rotateRing 20s linear infinite;
 }
 
+/* animasi ring muter */
 @keyframes rotateRing {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
 }
 
+/* animasi background memudar */
 @keyframes pulseImage {
     0%, 100% { transform: scale(1); opacity: 0.15; }
     50% { transform: scale(1.05); opacity: 0.25; }
 }
 
+/* foto utama */
 .hero-image {
     position: relative;
     width: 340px;
@@ -298,6 +319,7 @@
     z-index: 2;
 }
 
+/* fallback kalau foto gagal load */
 .hero-image-fallback {
     position: absolute;
     width: 340px;
@@ -347,6 +369,7 @@
     font-size: 1.1rem;
 }
 
+/* animasi badge naik turun */
 @keyframes floatBadge {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-12px); }
@@ -358,6 +381,7 @@
     margin-bottom: 50px;
 }
 
+/* badge kecil di atas judul section */
 .section-badge {
     display: inline-flex;
     align-items: center;
@@ -379,6 +403,7 @@
     letter-spacing: -0.5px;
 }
 
+/* kata yang di-highlight */
 .section-title .highlight {
     background: linear-gradient(135deg, #8b5cf6, #ec4899);
     -webkit-background-clip: text;
@@ -400,6 +425,7 @@
     margin: 0 auto 50px;
 }
 
+/* kartu preview */
 .about-preview-card {
     background: #fff;
     border-radius: 20px;
@@ -485,6 +511,7 @@
     font-size: 0.95rem;
 }
 
+/* bar skill */
 .skill-bar {
     height: 10px;
     background: #f3e8ff;
@@ -492,6 +519,7 @@
     overflow: hidden;
 }
 
+/* isi bar skill */
 .skill-bar-fill {
     height: 100%;
     background: linear-gradient(90deg, #8b5cf6, #ec4899);
@@ -500,6 +528,7 @@
     animation: fillBar 1.5s ease;
 }
 
+/* animasi bar terisi */
 @keyframes fillBar {
     from { width: 0 !important; }
 }
@@ -515,6 +544,7 @@
     margin: 0 auto;
 }
 
+/* kartu toko */
 .shop-card {
     padding: 56px 40px;
     background: linear-gradient(135deg, #8b5cf6, #ec4899);
@@ -527,6 +557,7 @@
     overflow: hidden;
 }
 
+/* dekorasi lingkaran di kanan atas */
 .shop-card::before {
     content: "";
     position: absolute;
@@ -539,6 +570,7 @@
     pointer-events: none;
 }
 
+/* dekorasi lingkaran di kiri bawah */
 .shop-card::after {
     content: "";
     position: absolute;
@@ -589,6 +621,7 @@
     z-index: 1;
 }
 
+/* tombol ke toko */
 .shop-btn {
     display: inline-flex;
     align-items: center;
@@ -629,6 +662,7 @@
     background: #fff;
 }
 
+/* kartu CTA */
 .cta-card {
     max-width: 900px;
     margin: 0 auto;
@@ -642,6 +676,7 @@
     box-shadow: 0 20px 60px rgba(139, 92, 246, 0.35);
 }
 
+/* efek kilau di CTA */
 .cta-card::before {
     content: '';
     position: absolute;
@@ -683,6 +718,7 @@
     z-index: 1;
 }
 
+/* tombol di CTA pakai warna putih */
 .cta-buttons .btn-primary {
     background: #fff;
     color: #7c3aed;
@@ -695,7 +731,9 @@
 }
 
 /* ═══════════ RESPONSIVE ═══════════ */
+/* tablet */
 @media (max-width: 992px) {
+    /* hero jadi 1 kolom */
     .hero-container {
         grid-template-columns: 1fr;
         gap: 40px;
@@ -722,6 +760,7 @@
     .shop-title { font-size: 1.5rem; }
 }
 
+/* hp */
 @media (max-width: 480px) {
     .hero-title { font-size: 2rem; }
     .hero-image, .hero-image-fallback, .hero-image-bg {

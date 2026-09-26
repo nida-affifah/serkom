@@ -1,26 +1,34 @@
 ﻿// src/pages/HomePage.jsx
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+// import icon
 import {
     FiArrowRight, FiMail, FiCode, FiAward,
     FiBriefcase, FiStar, FiUser, FiTrendingUp,
     FiExternalLink, FiShoppingBag
 } from 'react-icons/fi';
+// ambil data user
 import { userData } from '../data/userData';
+// import foto Nida
 import photoNida from '../assets/images/nida.jpeg';
 import './HomePage.css';
 
 const HomePage = () => {
+    // ambil data yang dibutuhkan dari userData
     const { hero, about, skills, projects, certificates, externalLinks } = userData;
 
+    // ambil 4 skill teratas
     const topSkills = skills.slice(0, 4);
+    // hitung total semua proyek dari semua kategori
     const totalProjects = Object.values(projects).reduce(
         (total, category) => total + category.items.length,
         0
     );
 
+    // state buat cek kalau foto gagal load
     const [imgError, setImgError] = useState(false);
 
+    // link ke toko rajut
     const tokoRajutUrl = externalLinks?.tokoRajut || '#';
 
     return (
@@ -28,6 +36,7 @@ const HomePage = () => {
 
             {/* HERO */}
             <section className="hero-section">
+                {/* dekorasi background */}
                 <div className="hero-bg-decoration">
                     <div className="hero-blob hero-blob-1"></div>
                     <div className="hero-blob hero-blob-2"></div>
@@ -36,6 +45,7 @@ const HomePage = () => {
 
                 <div className="container hero-container">
                     <div className="hero-text">
+                        {/* badge sapaan */}
                         <div className="hero-badge">
                             <span className="badge-dot"></span>
                             Halo, Selamat Datang!
@@ -49,6 +59,7 @@ const HomePage = () => {
 
                         <p className="hero-tagline">{hero.tagline}</p>
 
+                        {/* tombol utama */}
                         <div className="hero-buttons">
                             <Link to="/contact" className="btn btn-primary">
                                 <FiMail /> Hubungi Saya
@@ -58,12 +69,14 @@ const HomePage = () => {
                             </Link>
                         </div>
 
+                        {/* statistik */}
                         <div className="hero-stats">
                             <div className="stat-item">
                                 <div className="stat-icon-wrap purple">
                                     <FiCode />
                                 </div>
                                 <div>
+                                    {/* jumlah skill */}
                                     <h3 className="stat-number">{skills.length}+</h3>
                                     <p className="stat-label">Keahlian</p>
                                 </div>
@@ -74,6 +87,7 @@ const HomePage = () => {
                                     <FiBriefcase />
                                 </div>
                                 <div>
+                                    {/* total proyek */}
                                     <h3 className="stat-number">{totalProjects}+</h3>
                                     <p className="stat-label">Karya</p>
                                 </div>
@@ -84,6 +98,7 @@ const HomePage = () => {
                                     <FiAward />
                                 </div>
                                 <div>
+                                    {/* jumlah sertifikat */}
                                     <h3 className="stat-number">{certificates.length}+</h3>
                                     <p className="stat-label">Sertifikat</p>
                                 </div>
@@ -91,9 +106,11 @@ const HomePage = () => {
                         </div>
                     </div>
 
+                    {/* foto hero */}
                     <div className="hero-image-wrapper">
                         <div className="hero-image-bg"></div>
                         <div className="hero-image-ring"></div>
+                        {/* kalau foto gagal load, tampilkan icon */}
                         {imgError ? (
                             <div className="hero-image-fallback">
                                 <FiUser />
@@ -107,6 +124,7 @@ const HomePage = () => {
                             />
                         )}
 
+                        {/* badge melayang */}
                         <div className="floating-badge badge-top">
                             <FiStar className="badge-icon" />
                             <span>Web Developer</span>
@@ -131,6 +149,7 @@ const HomePage = () => {
                         </h2>
                     </div>
 
+                    {/* 3 kartu preview */}
                     <div className="about-preview-grid">
                         <div className="about-preview-card">
                             <div className="about-icon purple">
@@ -177,6 +196,7 @@ const HomePage = () => {
                         </h2>
                     </div>
 
+                    {/* 4 skill teratas */}
                     <div className="skills-preview-grid">
                         {topSkills.map((skill, idx) => (
                             <div key={idx} className="skill-preview-item">
@@ -185,6 +205,7 @@ const HomePage = () => {
                                     <span className="skill-preview-level">{skill.level}%</span>
                                 </div>
                                 <div className="skill-bar">
+                                    {/* progress bar, width dinamis */}
                                     <div
                                         className="skill-bar-fill"
                                         style={{ width: `${skill.level}%` }}
@@ -214,6 +235,7 @@ const HomePage = () => {
                             Website toko rajut online yang saya kembangkan dengan React + Express + PostgreSQL.
                             Temukan berbagai produk rajutan menarik di sana.
                         </p>
+                        {/* link ke toko rajut */}
                         <a
                             href={tokoRajutUrl}
                             target="_blank"

@@ -1,4 +1,6 @@
 ﻿/* src/pages/ExperiencePage.css */
+
+/* halaman pengalaman */
 .experience-page {
     position: relative;
     padding: 120px 20px 80px;
@@ -7,6 +9,7 @@
     overflow: hidden;
 }
 
+/* dekorasi lingkaran kanan atas */
 .experience-page::before {
     content: "";
     position: absolute;
@@ -21,6 +24,7 @@
     z-index: 0;
 }
 
+/* dekorasi kotak kiri bawah */
 .experience-page::after {
     content: "";
     position: absolute;
@@ -49,6 +53,7 @@
     margin-bottom: 60px;
 }
 
+/* badge kecil di atas judul */
 .page-badge {
     display: inline-flex;
     align-items: center;
@@ -70,6 +75,7 @@
     font-size: 1rem;
 }
 
+/* judul halaman */
 .page-title {
     font-size: 3.2rem;
     font-weight: 900;
@@ -79,6 +85,7 @@
     margin-bottom: 18px;
 }
 
+/* kata yang di-highlight */
 .page-title .highlight {
     display: inline-block;
     padding: 0 12px;
@@ -108,6 +115,7 @@
     margin-bottom: 40px;
 }
 
+/* tombol tab */
 .tab-btn {
     display: inline-flex;
     align-items: center;
@@ -131,6 +139,7 @@
     box-shadow: 6px 6px 0 #1a1a1a;
 }
 
+/* tab yang aktif */
 .tab-btn.active {
     background: linear-gradient(120deg, #8b5cf6, #ec4899);
     color: #fff;
@@ -158,6 +167,7 @@
     border-bottom: 2px dashed #e9d5ff;
 }
 
+/* icon panel */
 .panel-icon {
     display: inline-flex;
     align-items: center;
@@ -190,6 +200,7 @@
     margin: 0 auto;
 }
 
+/* item timeline */
 .timeline-item {
     display: grid;
     grid-template-columns: 40px 1fr;
@@ -204,6 +215,7 @@
     align-items: center;
 }
 
+/* titik di timeline */
 .timeline-dot {
     width: 22px;
     height: 22px;
@@ -216,6 +228,7 @@
     margin-top: 28px;
 }
 
+/* garis penghubung */
 .timeline-line {
     position: absolute;
     top: 0;
@@ -226,10 +239,12 @@
     z-index: 1;
 }
 
+/* garis di item terakhir disembunyikan */
 .timeline-item:last-child .timeline-line {
     display: none;
 }
 
+/* konten timeline */
 .timeline-content {
     padding: 24px 26px;
     background: #fff;
@@ -239,6 +254,7 @@
     transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
+/* warna selang-seling */
 .timeline-item:nth-child(odd) .timeline-content {
     background: #faf5ff;
 }
@@ -260,6 +276,7 @@
     margin-bottom: 12px;
 }
 
+/* label tahun */
 .timeline-year {
     display: inline-flex;
     align-items: center;
@@ -302,6 +319,7 @@
 }
 
 /* ── RESPONSIVE ── */
+/* tablet */
 @media (max-width: 992px) {
     .experience-page {
         padding: 100px 16px 60px;
@@ -326,6 +344,7 @@
     }
 }
 
+/* hp */
 @media (max-width: 480px) {
     .page-title {
         font-size: 1.9rem;
@@ -349,6 +368,7 @@
         margin-bottom: 28px;
     }
 
+    /* timeline lebih rapat di hp */
     .timeline-item {
         grid-template-columns: 32px 1fr;
         gap: 14px;

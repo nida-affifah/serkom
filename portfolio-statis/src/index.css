@@ -1,14 +1,18 @@
 ﻿/* src/index.css */
+
+/* reset semua margin padding dan box-sizing */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* scroll halaman jadi halus */
 html {
     scroll-behavior: smooth;
 }
 
+/* font dan warna dasar body */
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI',
                  'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
@@ -19,30 +23,37 @@ body {
     overflow-x: hidden;
 }
 
+/* font untuk tag code */
 code {
     font-family: 'Fira Code', source-code-pro, Menlo, Monaco, Consolas,
                  'Courier New', monospace;
 }
 
+/* reset margin heading */
 h1, h2, h3, h4, h5, h6 {
     margin: 0;
 }
 
+/* reset margin paragraf */
 p {
     margin: 0;
 }
 
+/* gambar responsif */
 img {
     max-width: 100%;
     display: block;
 }
 
+/* tombol pakai font inherit */
 button {
     font-family: inherit;
     cursor: pointer;
 }
 
 /* ─── ANIMASI GLOBAL ─── */
+
+/* animasi fade in dari bawah */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -54,11 +65,13 @@ button {
     }
 }
 
+/* animasi fade in */
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
 }
 
+/* animasi scale in */
 @keyframes scaleIn {
     from {
         opacity: 0;
@@ -70,6 +83,7 @@ button {
     }
 }
 
+/* class utilitas animasi */
 .fade-in-up {
     animation: fadeInUp 0.55s ease;
 }
@@ -83,6 +97,7 @@ button {
 }
 
 /* ─── REDUCED MOTION ─── */
+/* kalau user set preferensi kurangi animasi, matikan animasi */
 @media (prefers-reduced-motion: reduce) {
     *,
     *::before,

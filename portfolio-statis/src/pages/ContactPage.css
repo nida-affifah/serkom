@@ -1,4 +1,6 @@
 /* src/pages/ContactPage.css */
+
+/* halaman kontak */
 .contact-page {
     position: relative;
     padding: 120px 20px 80px;
@@ -7,6 +9,7 @@
     overflow: hidden;
 }
 
+/* dekorasi lingkaran kanan atas */
 .contact-page::before {
     content: "";
     position: absolute;
@@ -21,6 +24,7 @@
     z-index: 0;
 }
 
+/* dekorasi kotak kiri bawah */
 .contact-page::after {
     content: "";
     position: absolute;
@@ -36,6 +40,7 @@
     z-index: 0;
 }
 
+/* dekorasi background tambahan, tapi disembunyikan */
 .contact-bg-decoration {
     display: none;
 }
@@ -53,6 +58,7 @@
     margin-bottom: 60px;
 }
 
+/* badge kecil di atas judul */
 .contact-header-badge {
     display: inline-flex;
     align-items: center;
@@ -75,6 +81,7 @@
     color: #8b5cf6;
 }
 
+/* judul halaman */
 .contact-title {
     font-size: 3.2rem;
     font-weight: 900;
@@ -84,6 +91,7 @@
     margin-bottom: 18px;
 }
 
+/* kata yang di-highlight */
 .contact-title-highlight {
     display: inline-block;
     padding: 0 12px;
@@ -104,6 +112,7 @@
     font-weight: 500;
 }
 
+/* divider di bawah subtitle */
 .contact-divider {
     display: flex;
     align-items: center;
@@ -129,6 +138,7 @@
 }
 
 /* ── CONTENT ── */
+/* layout 2 kolom, info kiri form kanan */
 .contact-content {
     display: grid;
     grid-template-columns: 0.9fr 1.1fr;
@@ -143,6 +153,7 @@
     gap: 16px;
 }
 
+/* kartu info kontak */
 .contact-info-card {
     display: flex;
     align-items: center;
@@ -163,11 +174,13 @@
     background: #faf5ff;
 }
 
+/* efek hover kartu yang bisa diklik */
 .contact-info-card.clickable:hover {
     transform: translate(-3px, -3px);
     box-shadow: 8px 8px 0 #8b5cf6;
 }
 
+/* icon di kartu kontak */
 .contact-info-icon {
     display: inline-flex;
     align-items: center;
@@ -206,6 +219,7 @@
     word-break: break-word;
 }
 
+/* hint kecil "klik untuk..." */
 .click-hint {
     display: inline-flex;
     align-items: center;
@@ -217,6 +231,7 @@
     letter-spacing: 0.3px;
 }
 
+/* teks terima kasih */
 .contact-thanks-text {
     display: flex;
     align-items: center;
@@ -268,6 +283,7 @@
     text-transform: uppercase;
 }
 
+/* input dan textarea */
 .form-group input,
 .form-group textarea {
     padding: 14px 16px;
@@ -288,6 +304,7 @@
     font-weight: 500;
 }
 
+/* efek saat input fokus */
 .form-group input:focus,
 .form-group textarea:focus {
     outline: none;
@@ -295,6 +312,7 @@
     box-shadow: 5px 5px 0 #8b5cf6;
 }
 
+/* tombol submit */
 .contact-submit-btn {
     display: inline-flex;
     align-items: center;
@@ -325,11 +343,13 @@
     box-shadow: 2px 2px 0 #1a1a1a;
 }
 
+/* tombol saat disabled */
 .contact-submit-btn:disabled {
     opacity: 0.7;
     cursor: not-allowed;
 }
 
+/* icon loading berputar */
 .spin-icon {
     animation: spin 1s linear infinite;
 }
@@ -354,11 +374,13 @@
     margin-top: 4px;
 }
 
+/* notif sukses */
 .contact-success {
     background: #ecfdf5;
     color: #065f46;
 }
 
+/* notif error */
 .contact-error {
     background: #fef2f2;
     color: #991b1b;
@@ -370,6 +392,7 @@
 }
 
 /* ── RESPONSIVE ── */
+/* tablet */
 @media (max-width: 992px) {
     .contact-page {
         padding: 100px 16px 60px;
@@ -379,11 +402,13 @@
         font-size: 2.4rem;
     }
 
+    /* layout jadi 1 kolom */
     .contact-content {
         grid-template-columns: 1fr;
         gap: 28px;
     }
 
+    /* form di atas, info di bawah */
     .contact-form-wrapper {
         padding: 32px 24px;
         order: 1;
@@ -394,6 +419,7 @@
     }
 }
 
+/* hp */
 @media (max-width: 480px) {
     .contact-title {
         font-size: 1.9rem;

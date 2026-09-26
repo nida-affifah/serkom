@@ -1,29 +1,38 @@
 ﻿// src/components/Navbar/Navbar.jsx
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+// import icon-icon dari react-icons
 import {
     FiHome, FiUser, FiBriefcase, FiBookOpen, FiFolder, FiMail,
     FiMenu, FiX, FiChevronDown, FiAward, FiCamera, FiBook,
     FiTrendingUp, FiCode
 } from 'react-icons/fi';
+// import foto profil
 import nida from '../../assets/images/nida.jpeg';
 import './Navbar.css';
 
 const Navbar = () => {
+    // state buat cek apakah halaman sudah di-scroll
     const [scrolled, setScrolled] = useState(false);
+    // state buat buka/tutup menu di hp
     const [menuOpen, setMenuOpen] = useState(false);
+    // state buat cek apakah layar hp
     const [isMobile, setIsMobile] = useState(false);
+    // state buat dropdown mana yang terbuka
     const [dropdownOpen, setDropdownOpen] = useState(null);
     const navigate = useNavigate();
     const location = useLocation();
+    // ref buat deteksi klik di luar navbar
     const navRef = useRef(null);
 
+    // efek buat deteksi scroll
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 50);
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    // efek buat deteksi ukuran layar
     useEffect(() => {
         const handleResize = () => {
             const mobile = window.innerWidth <= 992;
@@ -35,11 +44,13 @@ const Navbar = () => {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
+    // efek buat tutup menu tiap ganti halaman
     useEffect(() => {
         setMenuOpen(false);
         setDropdownOpen(null);
     }, [location.pathname]);
 
+    // efek buat tutup dropdown kalau klik di luar atau tekan Escape
     useEffect(() => {
         const handleClickOutside = (e) => {
             if (navRef.current && !navRef.current.contains(e.target)) {
@@ -60,11 +71,13 @@ const Navbar = () => {
         };
     }, []);
 
+    // daftar menu navbar
     const menuItems = [
         { path: '/', label: 'Home', icon: FiHome },
         {
             label: 'Tentang',
             icon: FiUser,
+            // dropdown untuk menu Tentang
             dropdown: [
                 { path: '/about', label: 'Tentang Saya', icon: FiUser },
                 { path: '/profile', label: 'Profil Profesional', icon: FiBriefcase },
@@ -76,6 +89,7 @@ const Navbar = () => {
         {
             label: 'Portofolio',
             icon: FiFolder,
+            // dropdown untuk menu Portofolio
             dropdown: [
                 { path: '/projects', label: 'Karya', icon: FiFolder },
                 { path: '/certificates', label: 'Sertifikat', icon: FiAward },
@@ -86,26 +100,32 @@ const Navbar = () => {
         { path: '/contact', label: 'Kontak', icon: FiMail }
     ];
 
+    // fungsi buat pindah halaman
     const handleNavigation = (path) => {
         navigate(path);
         setMenuOpen(false);
         setDropdownOpen(null);
+        // scroll ke atas
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
+    // fungsi buka/tutup dropdown
     const toggleDropdown = (index, e) => {
         e.preventDefault();
         e.stopPropagation();
         setDropdownOpen(dropdownOpen === index ? null : index);
     };
 
+    // cek menu aktif
     const isActive = (path) => location.pathname === path;
+    // cek dropdown aktif
     const isDropdownActive = (dropdown) =>
         dropdown.some((item) => location.pathname === item.path);
 
     return (
         <nav ref={navRef} className={`navbar ${scrolled ? 'scrolled' : ''}`}>
             <div className="container">
+                {/* logo di kiri */}
                 <div
                     className="logo"
                     onClick={() => handleNavigation('/')}
@@ -130,6 +150,7 @@ const Navbar = () => {
                     </div>
                 </div>
 
+                {/* tombol menu buat hp */}
                 {isMobile && (
                     <button
                         className={`menu-toggle ${menuOpen ? 'open' : ''}`}
@@ -144,6 +165,7 @@ const Navbar = () => {
                     </button>
                 )}
 
+                {/* daftar menu */}
                 <ul className={`nav-menu ${menuOpen ? 'open' : ''}`}>
                     {menuItems.map((item, index) => (
                         <li
@@ -152,6 +174,7 @@ const Navbar = () => {
                         >
                             {item.dropdown ? (
                                 <>
+                                    {/* tombol menu yang punya dropdown */}
                                     <button
                                         type="button"
                                         className={`nav-link ${isDropdownActive(item.dropdown) ? 'active' : ''}`}
@@ -165,6 +188,7 @@ const Navbar = () => {
                                             className={`dropdown-arrow ${dropdownOpen === index ? 'open' : ''}`}
                                         />
                                     </button>
+                                    {/* isi dropdown */}
                                     <ul className={`dropdown-menu ${dropdownOpen === index ? 'show' : ''}`}>
                                         {item.dropdown.map((sub, i) => (
                                             <li key={i}>
@@ -181,6 +205,7 @@ const Navbar = () => {
                                     </ul>
                                 </>
                             ) : (
+                                // menu biasa tanpa dropdown
                                 <button
                                     type="button"
                                     className={`nav-link ${isActive(item.path) ? 'active' : ''}`}

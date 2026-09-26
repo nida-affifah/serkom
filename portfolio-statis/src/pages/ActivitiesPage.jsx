@@ -1,9 +1,12 @@
 ﻿// src/pages/ActivitiesPage.jsx
 import React, { useState } from 'react';
+// import icon dari react-icons
 import { FiCamera, FiCalendar, FiMapPin, FiBookOpen, FiTool, FiMic, FiTarget } from 'react-icons/fi';
+// ambil data user
 import { userData } from '../data/userData';
 import './ActivitiesPage.css';
 
+// import gambar-gambar kegiatan
 import belajarRumah from '../assets/images/projects/belajarRumah.jpeg';
 import belajarSekolah from '../assets/images/projects/belajarSekolah.jpeg';
 import gameLab from '../assets/images/projects/gameLab.jpeg';
@@ -15,6 +18,8 @@ import lombaArekAI from '../assets/images/projects/lombaArekAI.jpeg';
 import lombaFNRP from '../assets/images/projects/lombaFNRP.jpeg';
 import lombaKWU from '../assets/images/projects/lombaKWU.jpeg';
 
+// mapping nama file gambar ke gambar yang sudah diimport
+// ini karena di userData gambar ditulis sebagai string nama file
 const imageMap = {
     'belajarRumah.jpeg': belajarRumah,
     'belajarSekolah.jpeg': belajarSekolah,
@@ -28,6 +33,7 @@ const imageMap = {
     'lombaKWU.jpeg': lombaKWU,
 };
 
+// mapping kategori ke icon
 const iconMap = {
     learningDocs: FiBookOpen,
     workshops: FiTool,
@@ -35,6 +41,7 @@ const iconMap = {
     projects: FiTarget
 };
 
+// fungsi buat ambil gambar yang benar
 const resolveImage = (image) => {
     if (!image) return '';
     if (imageMap[image]) return imageMap[image];
@@ -42,16 +49,22 @@ const resolveImage = (image) => {
 };
 
 const ActivitiesPage = () => {
+    // ambil data activities dari userData
     const { activities } = userData;
+    // ubah object activities jadi array
     const categories = Object.entries(activities);
+    // state tab aktif
     const [activeTab, setActiveTab] = useState(categories[0][0]);
 
+    // data kategori yang aktif
     const activeCategory = activities[activeTab];
+    // icon kategori aktif
     const ActiveIcon = iconMap[activeTab] || FiCamera;
 
     return (
         <div className="activities-page">
             <div className="container">
+                {/* header halaman */}
                 <div className="page-header">
                     <div className="page-badge">
                         <FiCamera className="badge-icon" />
@@ -65,6 +78,7 @@ const ActivitiesPage = () => {
                     </p>
                 </div>
 
+                {/* tab kategori */}
                 <div className="activities-tabs">
                     {categories.map(([key, cat]) => {
                         const Icon = iconMap[key] || FiCamera;
@@ -81,6 +95,7 @@ const ActivitiesPage = () => {
                     })}
                 </div>
 
+                {/* panel isi kegiatan */}
                 <div className="activities-panel">
                     <div className="panel-header">
                         <div className="panel-icon">
@@ -90,12 +105,14 @@ const ActivitiesPage = () => {
                     </div>
 
                     <div className="activities-grid">
+                        {/* loop semua item kegiatan */}
                         {activeCategory.items.map((act, idx) => {
                             const imgSrc = resolveImage(act.image);
 
                             return (
                                 <div key={idx} className="activity-card">
                                     <div className="activity-image">
+                                        {/* tampilkan gambar kalau ada */}
                                         {imgSrc ? (
                                             <img
                                                 src={imgSrc}
@@ -103,18 +120,21 @@ const ActivitiesPage = () => {
                                                 className="activity-img"
                                                 loading="lazy"
                                                 onError={(e) => {
+                                                    // kalau gambar gagal load, sembunyikan dan tampilkan placeholder
                                                     e.target.style.display = 'none';
                                                     const placeholder = e.target.parentElement.querySelector('.activity-placeholder');
                                                     if (placeholder) placeholder.style.display = 'flex';
                                                 }}
                                             />
                                         ) : null}
+                                        {/* placeholder kalau gambar tidak ada */}
                                         <div
                                             className="activity-placeholder"
                                             style={{ display: imgSrc ? 'none' : 'flex' }}
                                         >
                                             <FiCamera />
                                         </div>
+                                        {/* badge tipe kegiatan */}
                                         <span className="activity-type-badge">{act.type}</span>
                                     </div>
                                     <div className="activity-body">

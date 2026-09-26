@@ -9,6 +9,7 @@
     border-top: 3px solid #1a1a1a;
 }
 
+/* garis gradient di atas footer */
 .footer::before {
     content: '';
     position: absolute;
@@ -21,11 +22,13 @@
     animation: gradientShift 4s ease infinite;
 }
 
+/* animasi gradient geser */
 @keyframes gradientShift {
     0%, 100% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
 }
 
+/* lingkaran dekorasi di kanan bawah */
 .footer::after {
     content: "";
     position: absolute;
@@ -46,6 +49,7 @@
     margin: 0 auto;
 }
 
+/* grid 3 kolom untuk brand, nav, kontak */
 .footer-grid {
     display: grid;
     grid-template-columns: 1.5fr 1fr 1.3fr;
@@ -59,6 +63,7 @@
     min-width: 0;
 }
 
+/* logo nama di footer */
 .footer-logo {
     font-size: 1.6rem;
     font-weight: 900;
@@ -86,6 +91,7 @@
     flex-wrap: wrap;
 }
 
+/* tombol icon social media */
 .social-btn {
     display: inline-flex;
     align-items: center;
@@ -101,6 +107,7 @@
     transition: all 0.25s ease;
 }
 
+/* efek hover tombol social */
 .social-btn:hover {
     transform: translateY(-3px);
     border-color: #8b5cf6;
@@ -113,12 +120,14 @@
     transform: translateY(0);
 }
 
+/* warna hover khusus tiap platform */
 .social-btn.wa:hover { background: #25d366; border-color: #25d366; }
 .social-btn.ig:hover { background: linear-gradient(45deg, #f09433, #dc2743, #bc1888); border-color: #dc2743; }
 .social-btn.email:hover { background: #ea4335; border-color: #ea4335; }
 .social-btn.github:hover { background: #333; border-color: #333; }
 .social-btn.linkedin:hover { background: #0077b5; border-color: #0077b5; }
 
+/* judul tiap kolom footer */
 .footer-title {
     font-size: 0.9rem;
     font-weight: 800;
@@ -143,6 +152,7 @@
     gap: 10px;
 }
 
+/* link navigasi di footer */
 .footer-links li a {
     display: inline-block;
     color: #c7d2fe;
@@ -178,6 +188,7 @@
     line-height: 1.5;
 }
 
+/* icon di list kontak */
 .contact-icon {
     color: #a78bfa;
     font-size: 1.05rem;
@@ -199,6 +210,7 @@
     border-bottom-color: #a78bfa;
 }
 
+/* bagian bawah footer */
 .footer-bottom {
     border-top: 1px dashed rgba(255, 255, 255, 0.15);
     padding-top: 24px;
@@ -223,6 +235,7 @@
     gap: 6px;
 }
 
+/* icon hati yang berdetak */
 .heart-icon {
     color: #f472b6;
     animation: heartbeat 1.5s ease infinite;
@@ -234,6 +247,7 @@
 }
 
 /* ─── RESPONSIVE ─── */
+/* tablet */
 @media (max-width: 992px) {
     .footer-grid {
         grid-template-columns: 1fr 1fr;
@@ -245,6 +259,7 @@
     }
 }
 
+/* hp */
 @media (max-width: 600px) {
     .footer {
         padding: 48px 16px 20px;
@@ -264,6 +279,8 @@
         align-items: flex-start;
     }
 }
+
+/* link kontak di footer */
 .footer-contact-link {
     color: #c7d2fe;
     font-weight: 500;

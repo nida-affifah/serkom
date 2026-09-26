@@ -1,4 +1,6 @@
 ﻿/* src/pages/ProfilePage.css */
+
+/* halaman profil */
 .profile-page {
     position: relative;
     padding: 120px 20px 80px;
@@ -7,6 +9,7 @@
     overflow: hidden;
 }
 
+/* dekorasi lingkaran kanan atas */
 .profile-page::before {
     content: "";
     position: absolute;
@@ -21,6 +24,7 @@
     z-index: 0;
 }
 
+/* dekorasi kotak kiri bawah */
 .profile-page::after {
     content: "";
     position: absolute;
@@ -49,6 +53,7 @@
     margin-bottom: 60px;
 }
 
+/* badge kecil di atas judul */
 .page-badge {
     display: inline-flex;
     align-items: center;
@@ -70,6 +75,7 @@
     font-size: 1rem;
 }
 
+/* judul halaman */
 .page-title {
     font-size: 3.2rem;
     font-weight: 900;
@@ -79,6 +85,7 @@
     margin-bottom: 18px;
 }
 
+/* kata yang di-highlight */
 .page-title .highlight {
     display: inline-block;
     padding: 0 12px;
@@ -107,6 +114,7 @@
     margin-bottom: 60px;
 }
 
+/* kartu info */
 .profile-card {
     padding: 32px 24px;
     background: #fff;
@@ -117,6 +125,7 @@
     transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
+/* warna selang-seling */
 .profile-card:nth-child(1) { background: #faf5ff; }
 .profile-card:nth-child(2) { background: #fdf2f8; }
 .profile-card:nth-child(3) { background: #eff6ff; }
@@ -126,6 +135,7 @@
     box-shadow: 10px 10px 0 #8b5cf6;
 }
 
+/* icon di kartu */
 .card-icon-wrap {
     display: inline-flex;
     align-items: center;
@@ -188,6 +198,7 @@
     justify-content: center;
 }
 
+/* tag fokus */
 .focus-tag {
     display: inline-block;
     padding: 10px 22px;
@@ -216,6 +227,7 @@
     gap: 24px;
 }
 
+/* kartu about */
 .about-card {
     padding: 40px 36px;
     background: rgba(255, 255, 255, 0.78);
@@ -230,6 +242,7 @@
     background: #faf5ff;
 }
 
+/* judul di kartu about */
 .about-card h3 {
     font-size: 1.3rem;
     font-weight: 900;
@@ -259,6 +272,7 @@
     margin: 0;
 }
 
+/* list di kartu about */
 .about-card ul {
     margin: 12px 0 0;
     padding-left: 0;
@@ -282,6 +296,7 @@
     transform: translateX(3px);
 }
 
+/* kotak kecil di kiri list */
 .about-card li::before {
     content: "";
     position: absolute;
@@ -315,6 +330,7 @@
     overflow: hidden;
 }
 
+/* dekorasi lingkaran di kanan atas */
 .profile-cta::before {
     content: "";
     position: absolute;
@@ -327,6 +343,7 @@
     pointer-events: none;
 }
 
+/* dekorasi lingkaran di kiri bawah */
 .profile-cta::after {
     content: "";
     position: absolute;
@@ -377,6 +394,7 @@
     z-index: 1;
 }
 
+/* tombol CTA */
 .cta-btn {
     display: inline-flex;
     align-items: center;
@@ -412,6 +430,7 @@
 }
 
 /* ── RESPONSIVE ── */
+/* tablet */
 @media (max-width: 992px) {
     .profile-page {
         padding: 100px 16px 60px;
@@ -421,6 +440,7 @@
         font-size: 2.4rem;
     }
 
+    /* grid jadi 1 kolom */
     .profile-grid {
         grid-template-columns: 1fr;
     }
@@ -440,6 +460,7 @@
     }
 }
 
+/* hp */
 @media (max-width: 480px) {
     .page-title {
         font-size: 1.9rem;
